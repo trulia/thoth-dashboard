@@ -1,0 +1,40 @@
+body {
+  overflow-y: scroll;	
+}
+
+text {
+  font: 12px sans-serif;
+}
+
+svg {
+  display: block;
+}
+
+#selectMenu {
+  margin-top: 30px;
+}
+
+#selectMenu select, #selectMenu input {
+  margin-left: 5px;
+}
+
+#selectMenu p {
+  margin-left: 10px;
+  display: inline;
+}
+
+.graph {
+  width: 49%;
+  display: inline-block;
+  h2 {
+  	text-align: center;
+  }
+}
+
+.hidden{
+	display: none;
+}
+
+.visible{
+	display: block;
+}
