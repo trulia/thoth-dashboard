@@ -12,10 +12,17 @@ var qtimeDistributionDetails =  [{ "fieldName": "range-0-10_i", "description" : 
 
 
 
-// Select options for time ranges
-var fromSelectOptions = [ {"name":"now", "value":"NOW", "default" : false }, {"name":"yesterday", "value":"NOW-1DAY", "default" : true}, {"name":"2 days ago", "value":"NOW-2DAY", "default" : false}, {"name":"1 week ago", "value":"NOW-7DAY", "default" : false} ];
-var toSelectOptions = [ {"name":"now", "value":"NOW", "default" : true }, {"name":"yesterday", "value":"NOW-1DAY", "default" : false}, {"name":"2 days ago", "value":"NOW-2DAY", "default" : false}, {"name":"1 week ago", "value":"NOW-7DAY", "default" : false} ];
+var NOW = {"name":"now", "value":"NOW", "default" : false };
+var YESTERDAY = {"name":"yesterday", "value":"NOW-1DAY", "default" : false};
+var TWO_DAYS_AGO = {"name":"2 days ago", "value":"NOW-2DAY", "default" : false};
+var ONE_WEEK_AGO =  {"name":"1 week ago", "value":"NOW-7DAY", "default" : false};
+var TWO_WEEKS_AGO =  {"name":"2 weeks ago", "value":"NOW-14DAY", "default" : false};
+var THREE_WEEKS_AGO =  {"name":"3 weeks ago", "value":"NOW-21DAY", "default" : false};
+var ONE_MONTH_AGO =  {"name":"1 month ago", "value":"NOW-1MONTH", "default" : false};
 
+// Select options for time ranges
+var fromSelectOptions = [ ONE_MONTH_AGO, THREE_WEEKS_AGO, TWO_WEEKS_AGO, ONE_WEEK_AGO, TWO_DAYS_AGO, YESTERDAY, NOW ];
+var toSelectOptions = [ NOW, YESTERDAY ,TWO_DAYS_AGO, ONE_WEEK_AGO, TWO_WEEKS_AGO, THREE_WEEKS_AGO, ONE_MONTH_AGO ];
 
 var colors = d3.scale.category20();
 keyColor = function(d, i) {return colors(d.key)};
@@ -100,33 +107,33 @@ function prepareGraphs(graphs){
   graphs.forEach(function(graph){
     var chart;
     if (graph.type == 'line'){
-       chart = nv.models.lineWithFocusChart().x(function (d) {
+        chart = nv.models.lineWithFocusChart().x(function (d) {
           return d.x;
-      }).y(function (d) {
-          return d3.round(d.y,2);
-      }).tooltipContent(function(key, y, e, graph) { return  chart.tooltip + '<b>' + d3.round(e,2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
-      .width(800).height(500);
+        }).y(function (d) {
+            return d3.round(d.y,2);
+        }).tooltipContent(function(key, y, e, graph) { return  chart.tooltip + '<b>' + d3.round(e,2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
+        .width(800).height(500).color(keyColor);
 
-      chart.xAxis.
-        axisLabel('Timestamp').
-          tickFormat(function (d) {
-          return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
-      });
-         chart.yAxis
-        .axisLabel(chart.yLabel);
-          
-      var fetchData = window[graph.datumFunction];
-      var data ;
-      if (graph.datumParam instanceof Array) {
-        data = fetchData(graph.datumParam[0],graph.datumParam[1]);
-      } else data = fetchData(graph.datumParam);
+        chart.xAxis.
+          axisLabel('Timestamp').
+            tickFormat(function (d) {
+            return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
+        });
+           chart.yAxis
+          .axisLabel(chart.yLabel);
+            
+        var fetchData = window[graph.datumFunction];
+        var data ;
+        if (graph.datumParam instanceof Array) {
+          data = fetchData(graph.datumParam[0],graph.datumParam[1]);
+        } else data = fetchData(graph.datumParam);
 
-      d3.select('#' + graph.chartId +' svg')
-        .datum(data)
-        .call(chart);
+        d3.select('#' + graph.chartId +' svg')
+          .datum(data)
+          .call(chart);
 
-      nv.utils.windowResize(chart.update);
-      graphs_ready_to_render.push(chart);
+        nv.utils.windowResize(chart.update);
+        graphs_ready_to_render.push(chart);
 
 
   } else if (graph.type == 'stacked-area'){
@@ -248,7 +255,6 @@ function fetchAvgData(toFetch) {
       area: true,
       values: d,
       key: "Avg " + toFetch,
-      color: "#ff7f0e"
     }
   ];
 }
@@ -262,17 +268,8 @@ function fetchIntegralData(toFetch) {
     'success': function(data) { /* process e.g. data.response.docs... */
       try {
         var json = JSON.parse(data);
-        // var entries = getArrayOfElementsFromJsonArray(toFetchDetails, "fieldName");
-        // var mappings = getArrayOfElementsFromJsonArray(toFetchDetails, "description");
-           var values = [];
-
-        for (var i=0; i<json.length;i++){
-        //    entry = entries[j];
-        //    for (var  i=0;i< json.length; i++) 
-           values.push({ "x": fromSolrDateToUTC(json[i].masterTime_dt), "y": json[i]['tot-count_i'] } );
-        //    d.push({"key": mappings[j], "values": values});
-        }
-        // 
+        var values = [];
+        for (var i=0; i<json.length;i++) values.push({ "x": fromSolrDateToUTC(json[i].masterTime_dt), "y": json[i]['tot-count_i'] } );
         d.push({"key": toFetch, "values": values});
       } catch(exception){console.log(exception);}
     },
@@ -302,7 +299,8 @@ for (var j=0; j<fromSelectOptions.length; j++) {
    var opt = document.createElement("option");
    opt.value= fromSelectOptions[j].value;
    opt.innerHTML = fromSelectOptions[j].name; 
-   opt.selected = fromSelectOptions[j].default;
+   if (j == fromSelectOptions.length - 2) opt.selected = true;
+   else opt.selected = false;
    fromSelect.appendChild(opt);
 }
 
@@ -311,7 +309,8 @@ for (var j=0; j<toSelectOptions.length; j++) {
    var opt = document.createElement("option");
    opt.value= toSelectOptions[j].value;
    opt.innerHTML = toSelectOptions[j].name; 
-   opt.selected = toSelectOptions[j].default;
+   if (j == 0) opt.selected = true;
+   else opt.selected = false;
    toSelect.appendChild(opt);
 
 }
