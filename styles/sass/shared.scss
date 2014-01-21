@@ -1,0 +1,131 @@
+
+#controlMenu{
+  float:right ;
+  display: inline-block;
+  margin-top: 10px;
+  p{
+    margin-right: 5px;
+    margin-left: 10px;
+  }
+}
+
+button {
+  display: block;
+  margin-top: 20px;
+}
+
+.graph {
+  width: 49%;
+  display: inline-block;
+  h2 {
+  	text-align: center;
+  }
+}
+
+#timerange {
+  margin-top:  10px;
+  margin-left: 20px;
+  display: inline-block;
+  p {
+  display: inline;
+  margin-right: 5px;
+  }
+}
+
+#inputMenu{
+  display: inline-block;
+  p{
+    display: inline;
+    margin-right: 5px;
+    margin-left: 10px;
+  }
+}
+
+.rev-color{
+  color: white;
+}
+
+header{
+  h1 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+    text-align: center;
+    font-weight: 300;
+    font-style: normal;
+  }
+  background-color: #5eab1f;
+}
+
+#nav{
+  border-bottom:2px solid grey;
+  background-color: #f9f9f9;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+.shadow {
+    -webkit-box-shadow: 2px 2px 4px 1px #fff;
+    box-shadow: 2px 2px 4px 1px #fff;
+}
+
+body{
+  margin: 0;
+  font-family: OpenSans, sans-serif;
+}
+
+button{
+  border: 1px #d7d7d7 solid;
+  background: #f3f3f3;
+  color: #222222;
+  text-shadow: 0 1px 0 white;
+  -webkit-box-shadow: 0 1px 0px #cccccc;
+  -moz-box-shadow: 0 1px 0px #cccccc;
+  box-shadow: 0 1px 0px #cccccc;
+  padding: .5em 1em;
+  margin: 0;
+  display: inline-block;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 14px;
+  font-size: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+
+input[type=text]{
+    border: 5px solid white; 
+    -webkit-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    -moz-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    padding: 8px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 0 10px 0;
+}
+
+#notFoundNav,#notFound{
+  text-align: center;
+  margin-top: 30px;
+
+}
+
+.hidden{
+  display:none;
+}

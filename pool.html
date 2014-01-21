@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
+<!--  From CDN -->
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
 <!-- css -->
 <link href="css/nvd3/nv.d3.css" rel="stylesheet" type="text/css">
-<link href="css/server.css" rel="stylesheet" type="text/css">
+<link href="css/pool.css" rel="stylesheet" type="text/css">
 <link href="css/shared.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker/jquery.datetimepicker.css"/ >
 
 
-<body class='with-3d-shadow with-transitions'>
 
+<body class='with-3d-shadow with-transitions'>
 <header><h1 class="rev-color">Thoth - Dashboard</h1></header>
 <div id="nav">
  
@@ -19,7 +24,7 @@
   </div>
   <div id="controlMenu"> 
     <div id="inputMenu"> 
-         <p>Server</p> <input type="text" id="server" value="search501"> 
+         <p>Pool</p> <input type="text" id="pool" value="dr"> 
          <p>Core</p> <input type="text" id="core" value="active">
          <p>Port</p> <input type="text" id="port" value="8050">
     </div>
@@ -32,9 +37,9 @@
 
 
 <!-- Graphs -->
-<div id="avgQtimeGraph" class="graph " >
+<div id="avgQtimeGraph" class="graph">
   <h2>Average query time</h2>
-  <svg style="height: 500px;"></svg>
+  <svg style="height: 500px;" class="shadow"></svg>
 </div>
 
 <div id="avgQueriesGraph" class="graph ">
@@ -47,34 +52,29 @@
   <svg style="height: 500px;"></svg>
 </div>
 
-<div id="avgQueriesDeckGraph" class="graph ">
+<div id="avgQueriesDeckGraph" class="graph " >
   <h2>Average queries "on deck"</h2> 
   <svg style="height: 500px;"></svg>
 </div>
 
-<div class="graph ">
-  <h2>Distribution of query times</h2>
-  <svg style="height: 500px;" id="queryTimeDistributionGraph"></svg>
-</div>
-
-<div  class="graph " id="exceptionCountGraph">
+<div  class="graph " id="exceptionCountGraph" >
   <h2>Exception count</h2>
   <svg style="height: 500px;"></svg>
 </div>
 
-<div id="integralExceptionGraph" class="graph">
+<div id="integralExceptionGraph" class="graph" >
   <h2>∫ Number of exception </h2>
   <svg style="height: 500px;"></svg>
 </div>
 
-<div class="graph " id="queryHitsGraph">
+<div class="graph " id="queryHitsGraph" >
   <h2>Query hits</h2>
   <svg style="height: 500px;" ></svg>
 </div>
 
-<!--  From CDN -->
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+
 
 <!-- Served internally -->
 <script src="js/d3.v3.js"></script>
@@ -94,7 +94,8 @@
 <script src="js/nvd3/models/stackedAreaChart.js"></script>
 <!-- Custom plus -->
 <script src="js/input.js"></script>
-<script src="js/server.js"></script>
+<script src="js/pool.js"></script>
 <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
+
 
 </body>

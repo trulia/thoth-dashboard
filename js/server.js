@@ -1,28 +1,7 @@
-// Default time ranges
-var start = "NOW-1DAY";
-var end = "NOW";
-// Default server infos
-var server = ""
-var core = ""
-var port = ""
 
 var exceptionCountDetails = [{ "fieldName": "exceptionCount_i", "description" : "Number of exceptions"}, {"fieldName": "tot-count_i", "description" : "Total number of queries"} ];
 var hitsCountDetails = [{ "fieldName": "zeroHits-count_i", "description" : "Queries with 0 hits"}, {"fieldName": "tot-count_i", "description" : "Total number of queries"} ];
 var qtimeDistributionDetails =  [{ "fieldName": "range-0-10_i", "description" : "Between 0 and 10 ms"}, {"fieldName": "range-10-100_i", "description" : "Between 10 and 100 ms"},{"fieldName": "range-100-1000_i", "description": "Between 100 and 1000 ms"}, {"fieldName": "range-1000-OVER_i", "description": "Over 1000 ms"} ];
-
-
-
-var NOW = {"name":"now", "value":"NOW", "default" : false };
-var YESTERDAY = {"name":"yesterday", "value":"NOW-1DAY", "default" : false};
-var TWO_DAYS_AGO = {"name":"2 days ago", "value":"NOW-2DAY", "default" : false};
-var ONE_WEEK_AGO =  {"name":"1 week ago", "value":"NOW-7DAY", "default" : false};
-var TWO_WEEKS_AGO =  {"name":"2 weeks ago", "value":"NOW-14DAY", "default" : false};
-var THREE_WEEKS_AGO =  {"name":"3 weeks ago", "value":"NOW-21DAY", "default" : false};
-var ONE_MONTH_AGO =  {"name":"1 month ago", "value":"NOW-1MONTH", "default" : false};
-
-// Select options for time ranges
-var fromSelectOptions = [ ONE_MONTH_AGO, THREE_WEEKS_AGO, TWO_WEEKS_AGO, ONE_WEEK_AGO, TWO_DAYS_AGO, YESTERDAY, NOW ];
-var toSelectOptions = [ NOW, YESTERDAY ,TWO_DAYS_AGO, ONE_WEEK_AGO, TWO_WEEKS_AGO, THREE_WEEKS_AGO, ONE_MONTH_AGO ];
 
 var colors = d3.scale.category20();
 keyColor = function(d, i) {return colors(d.key)};
@@ -78,6 +57,16 @@ var graphs = [
   'type' : 'line'
 
  },
+  { 
+  'name' : 'Number of exceptions (integral)',
+  'tooltip' : 'Number of exceptions (integral): ',
+  'yLabel' : 'Number of exceptions (integral)',
+  'datumFunction'  : "fetchIntegralData" ,
+  'datumParam'  : "exception" ,
+  'chartId' : 'integralExceptionGraph',
+  'type' : 'line'
+
+ },
  { 
   'name' : 'Query hits',
   'tooltip' : 'Number of queries: ',
@@ -121,7 +110,13 @@ function prepareGraphs(graphs){
         });
            chart.yAxis
           .axisLabel(chart.yLabel);
-            
+         
+                 chart.x2Axis.
+          axisLabel('Timestamp').
+            tickFormat(function (d) {
+            return d3.time.format("%H:%M")(new Date(d));
+        });
+
         var fetchData = window[graph.datumFunction];
         var data ;
         if (graph.datumParam instanceof Array) {
@@ -177,6 +172,7 @@ function getArrayOfElementsFromJsonArray(json, element){
   return array;
 } 
 
+//TODO: refactore fetch functions
 function fetchCountData(toFetch, toFetchDetails) {
   var d = [];
   $.ajax({
@@ -269,7 +265,7 @@ function fetchIntegralData(toFetch) {
       try {
         var json = JSON.parse(data);
         var values = [];
-        for (var i=0; i<json.length;i++) values.push({ "x": fromSolrDateToUTC(json[i].masterTime_dt), "y": json[i]['tot-count_i'] } );
+        for (var i=0; i<json.length;i++) values.push({ "x": fromSolrDateToUTC(json[i].masterTime_dt), "y": json[i].value } );
         d.push({"key": toFetch, "values": values});
       } catch(exception){console.log(exception);}
     },
@@ -280,40 +276,6 @@ function fetchIntegralData(toFetch) {
 
 
 
-function selectValue(){
-  var selectStart = document.getElementById("start");
-  start = selectStart.options[selectStart.selectedIndex].value ;
-  var selectEnd = document.getElementById("end");
-  end = selectEnd.options[selectEnd.selectedIndex].value ;  
-  server = document.getElementById("server").value;
-  core = document.getElementById("core").value;
-  port = document.getElementById("port").value;
-  // Draw the graph
-  prepareGraphs(graphs);
-}
-
-
-
-var fromSelect= document.getElementById('start');
-for (var j=0; j<fromSelectOptions.length; j++) {
-   var opt = document.createElement("option");
-   opt.value= fromSelectOptions[j].value;
-   opt.innerHTML = fromSelectOptions[j].name; 
-   if (j == fromSelectOptions.length - 2) opt.selected = true;
-   else opt.selected = false;
-   fromSelect.appendChild(opt);
-}
-
-var toSelect= document.getElementById('end');
-for (var j=0; j<toSelectOptions.length; j++) {
-   var opt = document.createElement("option");
-   opt.value= toSelectOptions[j].value;
-   opt.innerHTML = toSelectOptions[j].name; 
-   if (j == 0) opt.selected = true;
-   else opt.selected = false;
-   toSelect.appendChild(opt);
-
-}
 
 // transform solr date to UTC
 function fromSolrDateToUTC(date){

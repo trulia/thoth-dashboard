@@ -12,39 +12,3 @@ text {
 svg {
   display: block;
 }
-
-/* line 13, ../sass/server.scss */
-#selectMenu {
-  margin-top: 30px;
-}
-
-/* line 17, ../sass/server.scss */
-#selectMenu select, #selectMenu input {
-  margin-left: 5px;
-}
-
-/* line 21, ../sass/server.scss */
-#selectMenu p {
-  margin-left: 10px;
-  display: inline;
-}
-
-/* line 26, ../sass/server.scss */
-.graph {
-  width: 49%;
-  display: inline-block;
-}
-/* line 29, ../sass/server.scss */
-.graph h2 {
-  text-align: center;
-}
-
-/* line 34, ../sass/server.scss */
-.hidden {
-  display: none;
-}
-
-/* line 38, ../sass/server.scss */
-.visible {
-  display: block;
-}

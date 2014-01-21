@@ -17,3 +17,7 @@ server.listen(3000);
 app.get('/server', function (req, res) {
   res.sendfile(__dirname + '/server.html');
 });
+
+app.get('/pool', function (req, res) {
+  res.sendfile(__dirname + '/pool.html');
+});
