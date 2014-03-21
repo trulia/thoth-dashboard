@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<!-- css -->
+<link href="css/entypo.css" rel="stylesheet" type="text/css">
+<link href="css/server-new.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic,300italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:300,700' rel='stylesheet' type='text/css'>
+<!-- css -->
+<link href="css/server-new.css" rel="stylesheet" type="text/css">
+<!-- css -->
+<link href="css/nvd3/nv.d3.css" rel="stylesheet" type="text/css">
+<!-- <link href="css/shared.css" rel="stylesheet" type="text/css"> -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker/jquery.datetimepicker.css"/ >
+
+</head>
+<body> 
+	<div class="uber-container">
+<nav class="left-menu">
+	<div id="logo">
+	<span class="thoth-logo"></span>
+</div>
+<div class="spacer"></div>
+	<ul>
+		<li class="active"> <span class="entypo monitor left-m-icon"></span><a href="/">SERVERS</a> </li>
+		<li><span class="entypo database left-m-icon"></span> <a href="/pools">POOLS</a> </li>
+		<li> <span class="entypo warning left-m-icon"></span><a href="/exceptions">EXCEPTIONS</a> </li>
+		<li> <span class="entypo line-graph left-m-icon"></span><a href="/slowqueries">SLOW QUERIES</a> </li>
+		<li> <span class="entypo back-in-time left-m-icon"></span><a href="#">REALTIME</a> </li>
+	</ul>
+</nav>
+
+<header>
+	<span class="header-title"> SERVERS </span>
+    from <input type="text" id="datetimepickerStart" class="input-date" value="2014-03-07 10:21:04">
+    to <input type="text" id="datetimepickerEnd" class="input-date" value="2014-03-08 10:21:05">
+	server <input type="text" class="input-server" id="server" value="search501">
+	core <input type="text" class="input-core" id="core" value="active">
+	port <input type="text" class="input-port" id="port" value="8050">
+	<button class="btn-small orange get-data-btn"  onClick="selectValue()">GET DATA</button>
+</header>
+
+
+<div class="content">
+
+<span class="info">
+<h2 id="notFound" style="display:none;">No results found</h2>
+<h3 id="notFoundNav" style="display:none;"> Did you fill out timeframe and server or pool informations?</h3>
+</span>
+
+
+<div class="graph-box" id="avgQtimeGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">AVG Query Time</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+<div class="graph-box" id="avgQueriesGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">AVG Number of Queries</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+
+<div class="graph-box" id="integralQueriesGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">∫ Number of queries</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+<div class="graph-box" id="avgQueriesDeckGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">Average queries "on deck"</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+<div class="graph-box" id="exceptionCountGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">Exception count</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+
+<div class="graph-box" id="integralExceptionGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">∫ Number of exceptions</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+<div class="graph-box" id="queryHitsGraph" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">Query hits</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph"></svg>
+</div>
+
+<div class="graph-box" id="queryTimeDistributionGraphContainer" style="visibility:hidden">
+    <table>
+        <tr>
+            <td class="title">Distribution of query times</td>
+            <td>
+               <button class="view-lightbox"> <span class="entypo eye"></span></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="recap"></td>
+        </tr>              
+    </table>
+    <svg class="svg-graph" id="queryTimeDistributionGraph"></svg>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!--  From CDN -->
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<!-- Served internally -->
+<script src="js/d3.v3.js"></script>
+<!-- Nvd3 -->
+<script src="js/nvd3/nv.d3.js"></script>
+<script src="js/nvd3/tooltip.js"></script>
+<script src="js/nvd3/utils.js"></script>
+<script src="js/nvd3/interactiveLayer.js"></script>
+<!-- Nvd3 models -->
+<script src="js/nvd3/models/legend.js"></script>
+<script src="js/nvd3/models/axis.js"></script>
+<script src="js/nvd3/models/scatter.js"></script>
+<script src="js/nvd3/models/line.js"></script>
+<script src="js/nvd3/models/lineChart.js"></script>
+<script src="js/nvd3/models/lineWithFocusChart.js"></script>
+<script src="js/nvd3/models/stackedArea.js"></script>
+<script src="js/nvd3/models/stackedAreaChart.js"></script>
+<!-- Custom plus -->
+<script src="js/input.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
+<script src="js/server.js"></script>
+
+</body>
+
+

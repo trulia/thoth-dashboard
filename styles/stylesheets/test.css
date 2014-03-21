@@ -1,0 +1,221 @@
+@font-face {
+  font-family: BLANCH_CAPS;
+  src: url(BLANCH_CAPS.ttf);
+}
+
+@font-face {
+  font-family: BLANCH_CONDENSED;
+  src: url(BLANCH_CONDENSED.ttf);
+}
+
+@font-face {
+  font-family: BLANCH_CAPS_INLINE;
+  src: url(BLANCH_CAPS_INLINE.ttf);
+}
+
+@font-face {
+  font-family: BLANCH_CAPS_LIGHT;
+  src: url(BLANCH_CAPS_LIGHT.ttf);
+}
+
+/* line 27, ../sass/test.scss */
+header {
+  height: 96px;
+  width: 100%;
+  background-color: #2FCFC8;
+}
+
+/* line 34, ../sass/test.scss */
+body {
+  margin: 0;
+  background-color: #F9F7F4;
+}
+
+/* line 40, ../sass/test.scss */
+.thoth-logo {
+  width: 125px;
+  height: 116px;
+  background: url(../img/logo-01.png) 0 0 no-repeat;
+  margin-left: 70px;
+  float: left;
+  margin-top: 21px;
+}
+
+/* line 49, ../sass/test.scss */
+.fork-logo {
+  width: 195px;
+  height: 72px;
+  background: url(../img/thoth-fork.png) 0 0 no-repeat;
+  margin-right: 80px;
+  float: right;
+  margin-top: 11px;
+}
+
+/* line 59, ../sass/test.scss */
+.btn-small {
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: #e8942d 0px 4px 0px;
+  -moz-box-shadow: #e8942d 0px 4px 0px;
+  box-shadow: #e8942d 0px 4px 0px;
+  border: 0px;
+}
+
+/* line 70, ../sass/test.scss */
+.orange {
+  background-color: #F6AB3B;
+  color: white;
+}
+
+/* line 75, ../sass/test.scss */
+.get-data-btn {
+  margin-left: 30px;
+}
+
+/* line 80, ../sass/test.scss */
+.menu-nav {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  height: 75px;
+  background-color: #E5E5E5;
+  width: 1120px;
+  margin-left: 240px;
+  margin-top: 76px;
+  position: relative;
+  padding-left: 30px;
+  font-size: 20px;
+}
+
+/* line 92, ../sass/test.scss */
+input[type="text"] {
+  margin-top: 15px;
+  border: 3px solid white;
+  background-color: #E5E5E5;
+  height: 35px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+  font-size: 13px;
+  padding-left: 20px;
+}
+/* line 100, ../sass/test.scss */
+input[type="text"]:focus {
+  outline: none;
+}
+
+/* line 105, ../sass/test.scss */
+.triangle {
+  margin-top: -15px;
+  display: block;
+  float: left;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 15px 15px 15px;
+  border-color: transparent transparent #d8d8d8 transparent;
+}
+
+/* line 116, ../sass/test.scss */
+.input-server {
+  width: 120px;
+}
+
+/* line 119, ../sass/test.scss */
+.input-date {
+  width: 165px;
+}
+
+/* line 122, ../sass/test.scss */
+.input-core {
+  width: 80px;
+}
+
+/* line 125, ../sass/test.scss */
+.input-port {
+  width: 50px;
+}
+
+/* line 129, ../sass/test.scss */
+#servers-label, #pools-label, #exceptions-label, #slow-queries-label, #realtime-label {
+  color: white;
+  position: relative;
+  top: 45px;
+  display: inline-block;
+  font-family: BLANCH_CONDENSED;
+  font-size: 32px;
+  margin-left: 30px;
+}
+
+/* line 139, ../sass/test.scss */
+.selected-label {
+  color: #373d49!important;
+  border-bottom: 5px solid #373d49;
+  padding-bottom: 10px;
+}
+
+/* line 147, ../sass/test.scss */
+#corpus {
+  position: relative;
+  margin-top: 100px;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+/* line 157, ../sass/test.scss */
+.graph-box {
+  background-color: #2A2E35;
+  width: 45%;
+  float: left;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 2%;
+  height: 500px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+/* line 167, ../sass/test.scss */
+.graph-box .title {
+  color: #2FCFC8;
+  font-size: 42px;
+  font-family: verdana;
+  margin-left: 25px;
+  margin-top: 25px;
+  display: inline-block;
+  float: left;
+}
+/* line 177, ../sass/test.scss */
+.graph-box button {
+  float: right;
+  margin-top: 20px;
+  margin-right: 25px;
+}
+
+/* line 185, ../sass/test.scss */
+button {
+  cursor: pointer;
+}
+
+/* line 190, ../sass/test.scss */
+.tick {
+  display: none;
+}
+
+/* line 193, ../sass/test.scss */
+.tick line {
+  display: none;
+}

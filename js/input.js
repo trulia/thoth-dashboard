@@ -20,7 +20,7 @@ var end = "";
 function selectValue(){
   var areAllParamsFilled = true;
 
-
+  clearFillingError();
   start = document.getElementById("datetimepickerStart").value;
   if (start == '') areAllParamsFilled = false;
   start = start.replace(' ','T') +'Z';
@@ -42,6 +42,11 @@ function selectValue(){
   prepareGraphs(graphs);
 }
 
+function clearFillingError(){
+ document.getElementById('notFound').style.display = "none";
+ document.getElementById('notFoundNav').style.display = "none";
+
+}
 
 function handleFillingError(){
  document.getElementById('notFound').style.display = "block";

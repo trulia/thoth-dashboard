@@ -4,8 +4,18 @@ var hitsCountDetails = [{ "fieldName": "zeroHits-count_i", "description" : "Quer
 var qtimeDistributionDetails =  [{ "fieldName": "range-0-10_i", "description" : "Between 0 and 10 ms"}, {"fieldName": "range-10-100_i", "description" : "Between 10 and 100 ms"},{"fieldName": "range-100-1000_i", "description": "Between 100 and 1000 ms"}, {"fieldName": "range-1000-OVER_i", "description": "Over 1000 ms"} ];
 
 var colors = d3.scale.category20();
-keyColor = function(d, i) {return colors(d.key)};
+keyColor = function(d, i) {
+  return colors(d.key)
+};
 
+kcolor = function(color){
+  return color;
+}
+
+function setRecapValue(id, value, unit, round, fontColor){
+  $( "#"+id +" .recap" ).text(value.toFixed(round) + " " + unit);
+  $( "#"+id +" .recap" ).css("color", fontColor);
+}
 
 var graphs = [
 { 
@@ -15,7 +25,10 @@ var graphs = [
   'datumFunction'  : "fetchAvgData" ,
   'datumParam'  : "qtime" ,
   'chartId' : 'avgQtimeGraph',
-  'type' : 'line'
+  'type' : 'line',
+  'color': '#7FD5E3',
+  'unit' : 'sec',
+  'round' : 2
  },
  { 
   'name' : 'Average number of queries',
@@ -24,7 +37,10 @@ var graphs = [
   'datumFunction'  : "fetchAvgData" ,
   'datumParam'  : "nqueries" ,
   'chartId' : 'avgQueriesGraph',
-  'type' : 'line'
+  'type' : 'line',
+  'color': '#77DBA2',
+  'unit' : '',
+  'round' : 0
 
  },
  { 
@@ -34,8 +50,10 @@ var graphs = [
   'datumFunction'  : "fetchAvgData" ,
   'datumParam'  : "queriesOnDeck" ,
   'chartId' : 'avgQueriesDeckGraph',
-  'type' : 'line'
-
+  'type' : 'line',
+  'color': '#F3C684',
+  'unit' : '',
+  'round' : 0
  },
  { 
   'name' : 'Number of queries (integral)',
@@ -44,8 +62,10 @@ var graphs = [
   'datumFunction'  : "fetchIntegralData" ,
   'datumParam'  : "nqueries" ,
   'chartId' : 'integralQueriesGraph',
-  'type' : 'line'
-
+  'type' : 'line',
+  'color': '#7FD5E3',
+  'unit' : '',
+  'round' : 0  
  },
  { 
   'name' : 'Number of queries',
@@ -54,8 +74,10 @@ var graphs = [
   'datumFunction'  : "fetchCountData" ,
   'datumParam'  : ['exception', exceptionCountDetails ] ,
   'chartId' : 'exceptionCountGraph',
-  'type' : 'line'
-
+  'type' : 'line',
+  'color': '#7FD5E3',
+  'unit' : '',
+  'round' : 0  
  },
   { 
   'name' : 'Number of exceptions (integral)',
@@ -64,8 +86,10 @@ var graphs = [
   'datumFunction'  : "fetchIntegralData" ,
   'datumParam'  : "exception" ,
   'chartId' : 'integralExceptionGraph',
-  'type' : 'line'
-
+  'type' : 'line',
+  'color': '#7FD5E3',
+  'unit' : '',
+  'round' : 0
  },
  { 
   'name' : 'Query hits',
@@ -74,8 +98,10 @@ var graphs = [
   'datumFunction'  : "fetchCountData" ,
   'datumParam'  : ['hits', hitsCountDetails ] ,
   'chartId' : 'queryHitsGraph',
-  'type' : 'line'
-
+  'type' : 'line',
+  'color': '#7FD5E3',
+  'unit' : '',
+  'round' : 0
  },
  { 
   'name' : 'Distribution of query times',
@@ -84,8 +110,8 @@ var graphs = [
   'datumFunction'  : "fetchQtime" ,
   'datumParam'  : '' ,
   'chartId' : 'queryTimeDistributionGraph',
-  'type' : 'stacked-area'
-
+  'type' : 'stacked-area',
+  'color': '#7FD5E3'
  }
 ];
 
@@ -100,9 +126,11 @@ function prepareGraphs(graphs){
           return d.x;
         }).y(function (d) {
             return d3.round(d.y,2);
-        }).tooltipContent(function(key, y, e, graph) { return  chart.tooltip + '<b>' + d3.round(e,2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
-        .width(800).height(500).color(keyColor);
+        }).tooltipContent(function(key, y, e) {return  graph.tooltip + '<b>' + d3.round(e,2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
+        .width(800).height(300).color([graph.color]);
 
+        // chart.showXAxis(true);
+        // chart.useInteractiveGuideline(true);
         chart.xAxis.
           axisLabel('Timestamp').
             tickFormat(function (d) {
@@ -127,11 +155,19 @@ function prepareGraphs(graphs){
           .datum(data)
           .call(chart);
 
+        // TO REMOVE
+        setRecapValue(graph.chartId, data[0].values.slice(-1)[0].y, graph.unit, graph.round, graph.color);
+
         nv.utils.windowResize(chart.update);
         graphs_ready_to_render.push(chart);
+        document.getElementById(graph.chartId).style.visibility = "visible";
+
 
 
   } else if (graph.type == 'stacked-area'){
+
+  document.getElementById(graph.chartId+"Container").style.visibility = "visible";
+
        chart = nv.models.stackedAreaChart()
                     .useInteractiveGuideline(true)
                     .x(function(d) { return d[0] })
@@ -161,6 +197,10 @@ function prepareGraphs(graphs){
    }
   });
   nv.addGraph(graphs_ready_to_render);
+  
+  // console.dir(document.getElementById(graph.chartId+"Container").parent());
+  // document.getElementById(graph.chartId+"Container").parent().style.visibility = "visible";
+
 }
 
 // from array of json get array of single element contained in the json

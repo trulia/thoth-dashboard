@@ -1,0 +1,105 @@
+@import "compass/css3";
+@import "base";
+
+.exceptions{
+	padding-bottom: 30px;
+}
+.recap{
+	font-family: 'Lato', sans-serif;
+	 font-style: normal;
+	  font-weight: 400;	
+	font-size: 40px!important;
+	text-align: center;
+	padding-top: 20px;
+	width: 80%;
+	margin-bottom: 10px;
+
+}
+
+.row {
+	margin-bottom:10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	background-color: #2A2E35;
+	width: 80%;
+	@include border-radius(10px); 
+	padding-left: 20px;
+		padding-bottom: 15px;
+		padding-top: 15px;
+
+}
+
+
+.entypo {
+vertical-align: -10px!important;
+}
+
+
+.date, .exception-class{
+	display:inline-block;
+}
+
+.date{
+		color: white;
+	font-size: 15px;
+}
+
+.exception-class{
+	color: #FACC31;
+	font-family: 'Roboto Slab';
+	font-weight: 400;
+	font-size: 20px;
+	margin-left: 20px;
+}
+
+.query-title , .stacktrace-title{
+	color: white;
+	font-family: 'Lato', sans-serif;
+	 font-style: normal;
+	  font-weight: 400;	
+	font-size: 20px;
+	display:inline-block;
+	margin-right: 40px;
+}
+
+.stacktrace{
+	color: #78D5E3;
+
+}
+.query{
+		color: #98D37F;
+}
+.query, .stacktrace{
+
+	font-family: 'Lato', sans-serif;
+	 font-style: italic;
+	  font-weight: 400;	
+		/* essential */
+	text-overflow: ellipsis;
+	width: 80%;
+	white-space: nowrap;
+	overflow: hidden;
+	display:inline-block;
+	/* for good looks */
+	// padding: 10px;
+}
+
+
+.view-lightbox{
+	margin-left: 40px;
+}
+// .empty-row{
+//     height: 10px !important; /* Overwrite any previous rules */
+//     background-color: #f9f7f4;
+
+// }
+
+// td p{
+// 	display: block;
+// }
+
+
+
+
+
+

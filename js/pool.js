@@ -118,7 +118,7 @@ function prepareGraphs(graphs){
 
         nv.utils.windowResize(chart.update);
         graphs_ready_to_render.push(chart);
-        document.getElementById(graph.chartId).style.display = "inline-block";
+        document.getElementById(graph.chartId).style.visibility = "visible";
   }});
   nv.addGraph(graphs_ready_to_render);
 }
