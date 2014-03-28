@@ -1,0 +1,56 @@
+{
+"numFound": 10,
+"values" : 
+[
+  {
+    "timestamp": "2014-03-20T02:00:01Z",
+    "totalNumber": 9809,
+    "exceptions": 0
+  },
+  {
+    "timestamp": "2014-03-20T02:15:01Z",
+    "totalNumber": 10090,
+    "exceptions": 2
+  },
+  {
+    "timestamp": "2014-03-20T02:30:01Z",
+    "totalNumber": 10206,
+    "exceptions": 1
+  },
+  {
+    "timestamp": "2014-03-20T02:45:01Z",
+    "totalNumber": 10821,
+    "exceptions": 1
+  },
+  {
+    "timestamp": "2014-03-20T03:00:01Z",
+    "totalNumber": 9322,
+    "exceptions": 2
+  },
+  {
+    "timestamp": "2014-03-20T03:15:02Z",
+    "totalNumber": 10605,
+    "exceptions": 2
+  },
+  {
+    "timestamp": "2014-03-20T03:30:01Z",
+    "totalNumber": 10921,
+    "exceptions": 0
+  },
+  {
+    "timestamp": "2014-03-20T03:45:01Z",
+    "totalNumber": 10952,
+    "exceptions": 1
+  },
+  {
+    "timestamp": "2014-03-20T04:00:01Z",
+    "totalNumber": 11759,
+    "exceptions": 2
+  },
+  {
+    "timestamp": "2014-03-20T04:15:01Z",
+    "totalNumber": 10354,
+    "exceptions": 1
+  }
+]
+}
