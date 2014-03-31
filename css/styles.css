@@ -46,6 +46,7 @@ nav li.active {
   background-color: #2a2e35;
 }
 
+
 nav a {
   text-decoration: none;
   text-transform: uppercase;
@@ -136,15 +137,16 @@ i.entypo {
   border-radius: 10px;
   color: #fff;
   margin: 30px 0 0 30px;
-
+  width: 438px;
 }
 
 .graph svg {
-  width: 370px;
+  margin-top:10px;
+  width: 425px;
   height: 225px;
 }
 
-.graph h2 {
+.graph h2, .lighboxGraph h2{
   margin: 0;
   color: white;
   font-size: 19px;
@@ -152,7 +154,37 @@ i.entypo {
   font-weight: 300;
   padding-left: 25px;
   padding-top: 3px;
-  float: left;
+  /*float: left;*/
+}
+
+.graph h3{
+  margin: 0;
+color: white;
+font-size: 19px;
+font-family: 'Roboto Slab';
+font-weight: 300;
+padding-left: 5px;
+padding-top: 3px;
+/*float: left;*/
+display: inline-block;
+}
+
+.graph label{
+  margin: 0;
+color: white;
+font-size: 19px;
+font-family: 'Roboto Slab';
+font-weight: bold;
+padding-left: 25px;
+padding-top: 3px;
+/*float: left;*/
+display: inline-block;
+}
+
+
+.lighboxGraph h2{
+  margin-top: 2%;
+  margin-left: 5%;
 }
 
 .graph a {
@@ -162,9 +194,12 @@ i.entypo {
 .graph i {
   color: #f8ac2a;
   width: 30px;
-  padding-top: 17px;
+  /*padding-top: 17px;*/
   border: 0px;
   font-size: 4em;
+  margin-top: -10px;
+  float: right; 
+  margin-right:20px;
 }
 
 #lightbox {
@@ -174,15 +209,98 @@ i.entypo {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, .7);
+  background-color: rgba(0,0,0, .7);
+  /*background-color: black;*/
+  /*opacity: 0.8;*/
+}
+.lighboxGraph{
+  width: 100%;
+  height: 100%;
+}
+.lighboxGraph svg{
+  background-color: #f9f7f4;
+  position: absolute;
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 90%;
+  height: 80%;
+  top: 10%;
+  bottom: 5%;
+  left: 3%;
+  right: 3%;
 }
 
 #lightbox .box {
   position: absolute;
-  top: 10%;
-  bottom:10%;
-  left: 10%;
-  right:10%;
-
+  top: 5%;
+  bottom:5%;
+  left: 5%;
+  right:5%;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
   background-color:  #2A2E35;
 }
+
+.graph .tick {
+  display: none;
+}
+
+/*
+.nv-legend-text, .nv-legend-symbol {
+  display: none;
+}
+*/
+/* line 12, ../sass/server-new.scss */
+.graph .nv-y .nv-axis, .graph .nv-x .nv-axis, .graph .nv-legend-text {
+  stroke: #f9f7f4;
+
+}
+
+.graph .nvd3 .nv-axis .nv-axisMaxMin text,.graph .nvd3 .nv-axislabel, .graph .nv-legend-text{
+  font-weight: 400;
+  font-family: 'Lato', sans-serif;
+    /*font-style: italic;*/
+}
+
+.graph .nvd3 .nv-axis path {
+  fill: none;
+  stroke: #f9f7f4;
+  stroke-opacity: .75;
+  shape-rendering: crispEdges;
+}
+
+
+.nvd3 .nv-groups path.nv-line {
+  stroke-width: 2px!important;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+#lightbox .nvtooltip {
+  background-color: transparent;
+  color: black; 
+  border: 0px;
+}
+
+.graph .nvtooltip {
+  display: none;
+  background-color: transparent;
+  color: white;
+  border: 0px;
+}
+
+

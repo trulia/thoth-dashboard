@@ -17,8 +17,8 @@
   <nav>
     <img src="img/thoth-logo.svg">
     <ul>
-      <li class="active"><a href="#dashboard"><i class="entypo layout"></i>Dashboard</a>
-      <li><a href="#servers"><i class="entypo popup"></i>Servers</a>
+      <!-- <li class="active"><a href="#dashboard"><i class="entypo layout"></i>Dashboard</a> -->
+      <li class="active"><a href="#servers"><i class="entypo popup"></i>Servers</a>
       <li><a href="#pools"><i class="entypo database"></i>Pools</a>
       <li><a href="#exceptions"><i class="entypo warning"></i>Exceptions</a>
       <li><a href="#queries"><i class="entypo air"></i>Slow Queries</a>
@@ -32,21 +32,21 @@
           <li class="form-title">Server
           <li>
             <label for="from_date">from</label>
-            <input type="text" id="from_date" name="from_date" size="10">
+            <input type="text" id="from_date" name="from_date" size="20" value="2014-03-28 05:14:12">
           <li>
             <label for="to_date">to</label>
-            <input type="text" id="to_date" name="to_date" size="10">
+            <input type="text" id="to_date" name="to_date" size="20" value="2014-03-29 05:14:12">
           <li>
             <label for="server">server</label>
-            <input type="text" id="server" name="server" size="15">
+            <input type="text" id="server" name="server" size="15" value="search501">
           <li>
             <label for="port">port</label>
-            <input type="text" id="port" name="port" size="5">
+            <input type="text" id="port" name="port" size="5" value="8050">
           <li>
             <label for="core">core</label>
-            <input type="text" id="core" name="core" size="5">
+            <input type="text" id="core" name="core" size="5" value="active">
           <li>
-            <button class="btn orange">Get Data</button>
+            <button class="btn orange" onClick="thoth.servers(); return false;">Get Data</button>
         </ul>
       </form>
     </header>
@@ -54,10 +54,11 @@
       <section id="dashboard">
         <div id="query_time" class="graph">
           <h2>Avg query time &mdash; sec</h2>
-          <a href=""><i class="entypo eye"></i></a>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
-        <div id="query_count" class="graph">
+<!--         <div id="query_count" class="graph">
           <h2>Avg number of queries</h2>
           <a href=""><i class="entypo eye"></i></a>
           <svg></svg>
@@ -66,26 +67,29 @@
           <h2>Avg number of queries "on deck"</h2>
           <a href=""><i class="entypo eye"></i></a>
           <svg></svg>
-        </div>
-        <div id="query_distribution" class="graph">
+        </div> -->
+<!--         <div id="query_distribution" class="graph">
           <h2>Distribution of query times (sec)</h2>
           <a href=""><i class="entypo eye"></i></a>
           <svg></svg>
-        </div>
+        </div> -->
       </section>
     </article>
   </div>
 
   <div id="lightbox">
     <div class="box">
-      hellow
+        <div id="lightboxChart" class="lighboxGraph">
+          <h2>Avg query time &mdash; sec</h2>
+          <svg></svg>
+        </div>
     </div>
   </div>
 
   <script src="js/d3.v3.js"></script>
   <script src="js/nvd3/nv.d3.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
+  <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
   <script src="js/thoth.js"></script>
 </body>
 
