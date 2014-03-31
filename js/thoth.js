@@ -40,39 +40,25 @@ var chartsData = {
       'unit' : '',
       'round' : 0
     }    
+  },
+  query_on_deck: {
+    values: [],
+    options: {
+      'name' : 'Avg queries on deck',
+      'tooltip' : 'Avg queries on deck: ',
+      'yLabel' : 'Avg queries on deck',
+      'chartId' : 'query_on_deck',
+      'graphTitle': 'Avg queries on deck',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }    
   }
 };
 
 
 var thoth = {
   dashboard: function () {
-
-
-
-    // $.getJSON('json/avg_nqueries.json', function (data) {
-    //   self._lineGraph({
-    //     'name' : 'Average number of queries',
-    //     'tooltip' : 'Avg # queries: ',
-    //     'yLabel' : 'Avg number of queries',
-    //     'chartId' : 'query_count',
-    //     'color': '#77dba2',
-    //     'unit' : '',
-    //     'round' : 0
-    //    }, data)
-    // });
-
-    // $.getJSON('json/avg_nqueries.json', function (data) {
-    //   self._lineGraph({
-    //     'name' : 'Avg queries on deck',
-    //     'tooltip' : 'Avg queries on deck: ',
-    //     'yLabel' : 'Avg queries on deck',
-    //     'chartId' : 'query_on_deck',
-    //     'color': '#F3C684',
-    //     'unit' : '',
-    //     'round' : 0
-    //    }, data)
-    // });
-
     // $.getJSON('json/distribution_qtime.json', function (data) {
     //   self._stackedLineGraph({
     //     'name' : 'Distribution of query times',
@@ -87,18 +73,16 @@ var thoth = {
   servers: function () {
     var self = this;
 
-    $.getJSON(
-      // 'json/avg_nqueries.json'
-      thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'}))
-      , function (data) {
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'})), function (data) {
       self._lineGraph(chartsData.query_time.options, data);
     }); 
 
-
-
-    // $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
-    //   self._lineGraph(chartsData.query_count.options, data)
-    // }); 
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
+      self._lineGraph(chartsData.query_count.options, data)
+    }); 
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
+      self._lineGraph(chartsData.query_on_deck.options, data)
+    });     
     
   },
   pools: function () {},
@@ -128,29 +112,18 @@ var thoth = {
     });
     return params;
   },
-
-  
-  
-
-
-  
-  
-
-
-  // (2011, 01, 07, 11, 05, 00)
-
   _lineGraph: function (params, data) {
     var chart = nv.models.lineChart()
       .width(400).height(200).color([params.color])
       .tooltipContent(function (key, y, e) {
         // Update values realtime
-        $('#' + params.chartId + ' h3.value').html(d3.round(e, 2));
+        $('#' + params.chartId + ' h3.value').html(e);
         $('#' + params.chartId + ' h3.timestamp').html(y);
         return  ' Value: '+ '<b>' + d3.round(e, 2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
       });
 
     chart.yAxis.axisLabel(chart.yLabel);
-    chart.yAxis.tickFormat(d3.format(',.2f'));
+    chart.yAxis.tickFormat(d3.format(',.'+ params.round +'f'));
     chart.xAxis
       .tickFormat(function (d) {
         return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
@@ -158,12 +131,7 @@ var thoth = {
 
 
 
-    /*chart.x2Axis
-      .axisLabel('Timestamp')
-      .tickFormat(function (d) {
-        return d3.time.format("%H:%M")(new Date(d));
-      });
-    */
+
     var v = []
     data.values.forEach(function (val, idx) {
       v.push({x: Date.parse(val.timestamp), y: val.value});
@@ -259,20 +227,26 @@ function showLightBox(elem){
   var params = chartsData[elem.parentNode.parentNode.id].options;
   if (data.length != 0){
     $('#lightbox').show(); // or .fadeIn();
-    $('#lightboxChart h2').html(chartsData.query_time.options.graphTitle);
-    var chart = nv.models.lineChart()
+    $('#lightboxChart h2').html(chartsData[params.chartId].options.graphTitle);
+    // var chart = nv.models.lineChart()
+    var chart = nv.models.lineWithFocusChart()
         .color([params.color])
-        .tooltipContent(function(key, y, e) {return  params.name + '<b>' + d3.round(e,2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
+        .tooltipContent(function(key, y, e) {return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
 
     chart.yAxis.axisLabel(chart.yLabel);
     chart.lines.scatter.xScale(d3.scale.linear());
     chart.xAxis
-
       .axisLabel('Timestamp')
       .tickFormat(function (d) {
         return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
       });
+    chart.x2Axis
+      .tickFormat(function (d) {
+        return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
+      });
+    
     chart.yAxis.tickFormat(d3.format(',.2f'));
+    chart.y2Axis.tickFormat(d3.format(',.2f'));
 
     d3.select('#lightboxChart svg')
       .datum(data)

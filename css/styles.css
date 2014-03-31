@@ -27,7 +27,7 @@ nav img {
   display: block;
   margin: auto;
   width: 70px;
-  height: 55px;
+  height: 100px;
 }
 
 nav ul {
@@ -91,7 +91,7 @@ header {
 }
 
 .btn {
-  width: 90px;
+  width: 50px;
   height: 34px;
   font-size: 16px;
   border-radius: 5px;
@@ -129,6 +129,11 @@ i.entypo {
   display: inline-block;
   text-align: center;
   margin-right:8px;
+  cursor: pointer;
+}
+
+i.ccw{
+  font-size: 2em;
 }
 
 .graph {
