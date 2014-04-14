@@ -15,7 +15,7 @@
 
 <body>
   <nav>
-    <img src="img/thoth-logo.svg">
+    <img src="img/thoth-logo-combo.png">
     <ul>
       <!-- <li class="active"><a href="#dashboard"><i class="entypo layout"></i>Dashboard</a> -->
       <li class="active"><a href="#servers"><i class="entypo popup"></i>Servers</a>
@@ -32,22 +32,22 @@
           <li class="form-title">Server
           <li>
             <label for="from_date">from</label>
-            <input type="text" id="from_date" name="from_date" size="20" value="2014-03-28 05:14:12">
+            <input type="text" id="from_date" name="from_date" size="20">
           <li>
             <label for="to_date">to</label>
-            <input type="text" id="to_date" name="to_date" size="20" value="2014-03-29 05:14:12">
+            <input type="text" id="to_date" name="to_date" size="20">
           <li>
             <label for="server">server</label>
-            <input type="text" id="server" name="server" size="15" value="search501">
+            <input type="text" id="server" name="server" size="15">
           <li>
             <label for="port">port</label>
-            <input type="text" id="port" name="port" size="5" value="8050">
+            <input type="text" id="port" name="port" size="5">
           <li>
             <label for="core">core</label>
-            <input type="text" id="core" name="core" size="5" value="active">
+            <input type="text" id="core" name="core" size="5">
           <li>
             <!-- <button class="btn orange" onClick="thoth.servers(); return false;">Get Data</button> -->
-            <button class="btn orange"><i class="entypo ccw" onClick="thoth.servers();"></i></button>
+            <button class="btn orange"><i class="entypo ccw" onClick="thoth.servers(); return false;"></i></button>
         </ul>
       </form>
     </header>
@@ -65,12 +65,46 @@
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
+        <br>
+        <div id="query_integral" class="graph">
+          <h2>∫ Query count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>      
         <div id="query_on_deck" class="graph">
           <h2>Avg number of queries "on deck"</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
+        <br>
+
+        <div id="exception_count" class="graph">
+          <h2>Exception count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>     
+        <div id="exception_integral" class="graph">
+          <h2>∫ Exception count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>                
+        <br>
+        <div id="zeroHits_count" class="graph">
+          <h2>Zero Hits count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>     
+        <div id="zeroHits_integral" class="graph">
+          <h2>∫ Zero Hits count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>              
 
 <!--         <div id="query_distribution" class="graph">
           <h2>Distribution of query times (sec)</h2>

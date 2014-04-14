@@ -8,7 +8,8 @@ var thothApi = {
   uri : 'localhost:3001/api/',
   _getUri: function(params){
     var urlParams = [params.objectId, params.server, 'core', params.core, 'port', params.port, 'start', params.from_date, 'end', params.to_date, params.attribute, params.endpoint]
-    var url = 'http://' + thothApi.uri + urlParams.join('/'); 
+    var url = 'http://' + thothApi.uri + urlParams.join('/');
+    console.log(url); 
     return url;
   }
 }
@@ -41,6 +42,19 @@ var chartsData = {
       'round' : 0
     }    
   },
+  query_integral: {
+    values: [],
+    options: {
+      'name' : '∫ Query count',
+      'tooltip' : '∫ Query : ',
+      'yLabel' : 'Query count',
+      'chartId' : 'query_integral',
+      'graphTitle': '∫ Query count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
+    },    
   query_on_deck: {
     values: [],
     options: {
@@ -53,7 +67,62 @@ var chartsData = {
       'unit' : '',
       'round' : 0
     }    
-  }
+  },
+  exception_count: {
+    values: [],
+    options: {
+      'name' : 'Exception count',
+      'tooltip' : 'Exception count: ',
+      'yLabel' : 'Exceptions',
+      'y2Label' : 'Total',
+      'chartId' : 'exception_count',
+      'graphTitle': 'Exception count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }    
+  },
+  exception_integral: {
+    values: [],
+    options: {
+      'name' : '∫ Exception count',
+      'tooltip' : '∫ Exception : ',
+      'yLabel' : 'Exception count',
+      'chartId' : 'exception_integral',
+      'graphTitle': '∫ Exception count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }    
+  },
+  zeroHits_count: {
+    values: [],
+    options: {
+      'name' : 'Zero Hits count',
+      'tooltip' : 'Zero hits count: ',
+      'yLabel' : 'Zero Hits',
+      'y2Label' : 'Total',
+      'chartId' : 'zeroHits_count',
+      'graphTitle': 'Zero Hits count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }    
+  },
+  zeroHits_integral: {
+    values: [],
+    options: {
+      'name' : '∫ Zero Hits count',
+      'tooltip' : '∫ Zero Hits : ',
+      'yLabel' : 'Zero Hits count',
+      'chartId' : 'zeroHits_integral',
+      'graphTitle': '∫ Zero Hits count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }    
+  },
+   
 };
 
 
@@ -83,7 +152,27 @@ var thoth = {
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
       self._lineGraph(chartsData.query_on_deck.options, data)
     });     
-    
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'exception'})), function (data) {
+      self._lineGraph(chartsData.exception_count.options, data)
+    });     
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'exception'})), function (data) {
+      self._lineGraph(chartsData.exception_integral.options, data)
+    });   
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
+      self._lineGraph(chartsData.query_integral.options, data)
+    });         
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
+      self._lineGraph(chartsData.zeroHits_count.options, data)
+    });   
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
+      self._lineGraph(chartsData.zeroHits_integral.options, data)
+    });         
+
   },
   pools: function () {},
   exceptions: function () {},
@@ -128,16 +217,15 @@ var thoth = {
       .tickFormat(function (d) {
         return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
       });
+      
+    var v = [];
 
-
-
-
-    var v = []
     data.values.forEach(function (val, idx) {
       v.push({x: Date.parse(val.timestamp), y: val.value});
     });
 
     chartsData[params.chartId].values = [{key: params.yLabel , values: v}];
+   
     d3.select('#' + params.chartId + ' svg')
       .datum(chartsData[params.chartId].values)
       .call(chart);
@@ -259,4 +347,4 @@ function showLightBox(elem){
 
 
 // Move to on-load
-thoth.servers();
+// thoth.servers();

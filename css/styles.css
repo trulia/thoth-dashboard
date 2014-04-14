@@ -26,8 +26,11 @@ nav img {
   padding: 0;
   display: block;
   margin: auto;
-  width: 70px;
-  height: 100px;
+  /*width: 70px;*/
+  /*height: 100px;*/
+   width: 140px;
+  height: 120px;
+   
 }
 
 nav ul {
