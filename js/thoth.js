@@ -1,33 +1,32 @@
 /* globals nv, d3 */
 function setRecapValue(id, value, unit, round, fontColor) {
-  $( "#" + id + " .recap" ).text(value.toFixed(round) + " " + unit);
-  $( "#" + id + " .recap" ).css("color", fontColor);
+  $("#" + id + " .recap").text(value.toFixed(round) + " " + unit);
+  $("#" + id + " .recap").css("color", fontColor);
 }
 
 var thothApi = {
   uri : 'localhost:3001/api/',
-  _getUri: function(params){
-    var urlParams = [params.objectId, params.server, 'core', params.core, 'port', params.port, 'start', params.from_date, 'end', params.to_date, params.attribute, params.endpoint]
+  _getUri: function (params) {
+    var urlParams = [params.objectId, params.server, 'core', params.core, 'port', params.port, 'start', params.from_date, 'end', params.to_date, params.attribute, params.endpoint];
     var url = 'http://' + thothApi.uri + urlParams.join('/');
-    console.log(url); 
     return url;
   }
-}
+};
 
 
 var chartsData = {
   query_time: {
     values: [],
     options: {
-        'name' : 'Average Qtime',
-        'tooltip' : 'Avg Qtime: ',
-        'yLabel' : 'Avg QTime (ms)',
-        'graphTitle': 'Avg query time — sec',
-        'chartId' : 'query_time' ,
-        'color': '#7fd5e3',
-        'unit' : 'sec',
-        'round' : 2
-       }
+      'name' : 'Average Qtime',
+      'tooltip' : 'Avg Qtime: ',
+      'yLabel' : 'Avg QTime (ms)',
+      'graphTitle': 'Avg query time — sec',
+      'chartId' : 'query_time',
+      'color': '#7fd5e3',
+      'unit' : 'sec',
+      'round' : 2
+    }
   },
   query_count: {
     values: [],
@@ -40,7 +39,7 @@ var chartsData = {
       'color': '#77dba2',
       'unit' : '',
       'round' : 0
-    }    
+    }
   },
   query_integral: {
     values: [],
@@ -54,7 +53,7 @@ var chartsData = {
       'unit' : '',
       'round' : 0
     }
-    },    
+  },
   query_on_deck: {
     values: [],
     options: {
@@ -66,7 +65,7 @@ var chartsData = {
       'color': '#F4C77F',
       'unit' : '',
       'round' : 0
-    }    
+    }
   },
   exception_count: {
     values: [],
@@ -80,7 +79,7 @@ var chartsData = {
       'color': '#F4C77F',
       'unit' : '',
       'round' : 0
-    }    
+    }
   },
   exception_integral: {
     values: [],
@@ -93,7 +92,7 @@ var chartsData = {
       'color': '#F4C77F',
       'unit' : '',
       'round' : 0
-    }    
+    }
   },
   zeroHits_count: {
     values: [],
@@ -107,22 +106,21 @@ var chartsData = {
       'color': '#F4C77F',
       'unit' : '',
       'round' : 0
-    }    
+    }
   },
   zeroHits_integral: {
     values: [],
     options: {
-      'name' : '∫ Zero Hits count',
-      'tooltip' : '∫ Zero Hits : ',
+      'name' : '&#8747; Zero Hits count',
+      'tooltip' : '&#8747; Zero Hits : ',
       'yLabel' : 'Zero Hits count',
       'chartId' : 'zeroHits_integral',
-      'graphTitle': '∫ Zero Hits count',
+      'graphTitle': '&#8747; Zero Hits count',
       'color': '#F4C77F',
       'unit' : '',
       'round' : 0
-    }    
-  },
-   
+    }
+  }
 };
 
 
@@ -144,34 +142,34 @@ var thoth = {
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'})), function (data) {
       self._lineGraph(chartsData.query_time.options, data);
-    }); 
+    });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
-      self._lineGraph(chartsData.query_count.options, data)
-    }); 
+      self._lineGraph(chartsData.query_count.options, data);
+    });
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
-      self._lineGraph(chartsData.query_on_deck.options, data)
-    });     
+      self._lineGraph(chartsData.query_on_deck.options, data);
+    });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'exception'})), function (data) {
-      self._lineGraph(chartsData.exception_count.options, data)
-    });     
+      self._lineGraph(chartsData.exception_count.options, data);
+    });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'exception'})), function (data) {
-      self._lineGraph(chartsData.exception_integral.options, data)
-    });   
+      self._lineGraph(chartsData.exception_integral.options, data);
+    });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
-      self._lineGraph(chartsData.query_integral.options, data)
-    });         
+      self._lineGraph(chartsData.query_integral.options, data);
+    });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
-      self._lineGraph(chartsData.zeroHits_count.options, data)
-    });   
+      self._lineGraph(chartsData.zeroHits_count.options, data);
+    });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
-      self._lineGraph(chartsData.zeroHits_integral.options, data)
-    });         
+      self._lineGraph(chartsData.zeroHits_integral.options, data);
+    });
 
   },
   pools: function () {},
@@ -179,26 +177,39 @@ var thoth = {
   queries: function () {},
   realtime: function () {},
 
+  getHash: function () {
+    var hash = location.hash.split('?')[0].replace('#', '');
+    if (hash === '') {
+      hash = 'servers';
+    }
+    return hash;
+  },
+
   _getParams: function (options) {
+    //TODO: not run this every time we need params for graphs
     var form = $('#params').serializeArray();
     var params = {};
     $.each(form, function () {
-      var value; 
-      if (this.name.indexOf('date')!= -1)  value = new Date(
-        this.value.split(' ')[0].split('-')[0],
-        this.value.split(' ')[0].split('-')[1]-1,
-        this.value.split(' ')[0].split('-')[2],
-        this.value.split(' ')[1].split(':')[0],
-        this.value.split(' ')[1].split(':')[1],
-        this.value.split(' ')[1].split(':')[2])
-        .toISOString() || '';
-      else value = this.value || '';
+
+
+      var value = this.value || '';
+      if (this.name.indexOf('date') !== -1)  {
+        var timestamp = Date.parse(this.value);
+        if (!isNaN(timestamp)) {
+          value = new Date(timestamp).toISOString();
+        }
+      }
+
       params[this.name] = value;
     });
+
+    location.hash = '#' + this.getHash() + '?' + $.param(params);
     // Extra options
-    $.each(options, function (k,v) {
+    $.each(options, function (k, v) {
       params[k] = v;
     });
+
+
     return params;
   },
   _lineGraph: function (params, data) {
@@ -208,24 +219,24 @@ var thoth = {
         // Update values realtime
         $('#' + params.chartId + ' h3.value').html(e);
         $('#' + params.chartId + ' h3.timestamp').html(y);
-        return  ' Value: '+ '<b>' + d3.round(e, 2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
+        return  ' Value: ' + '<b>' + d3.round(e, 2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
       });
 
     chart.yAxis.axisLabel(chart.yLabel);
-    chart.yAxis.tickFormat(d3.format(',.'+ params.round +'f'));
+    chart.yAxis.tickFormat(d3.format(',.' + params.round + 'f'));
     chart.xAxis
       .tickFormat(function (d) {
         return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
       });
-      
+
     var v = [];
 
-    data.values.forEach(function (val, idx) {
+    data.values.forEach(function (val) {
       v.push({x: Date.parse(val.timestamp), y: val.value});
     });
 
-    chartsData[params.chartId].values = [{key: params.yLabel , values: v}];
-   
+    chartsData[params.chartId].values = [{key: params.yLabel, values: v}];
+
     d3.select('#' + params.chartId + ' svg')
       .datum(chartsData[params.chartId].values)
       .call(chart);
@@ -249,8 +260,8 @@ var thoth = {
 
     chart.yAxis.tickFormat(d3.format('d'));
 
-    var v = []
-    data.values.forEach(function (val, idx) {
+    var v = [];
+    data.values.forEach(function (val) {
       v.push({x: Date.parse(val.timestamp), y: val.value});
     });
     d3.select('#' + params.chartId)
@@ -263,63 +274,71 @@ var thoth = {
 
 };
 
-$('nav li').on('click', function (event) {
-  event.preventDefault();
-  var $el = $(this);
-  var hash;
-  if (event.target.nodeName === 'LI') {
-    //update url hash if needed
-    hash = $el.find('a').attr('href');
-    location.hash = hash;
-  }
-  else {
-    hash = $(event.target).attr('href');
-  }
-
-  hash = hash.replace('#', '');
-
-  if ($el.hasClass('active')) {
-    return;
-  }
-  else {
-    $el.siblings('.active').removeClass('active');
-    $el.addClass('active');
-  }
-
-  thoth[hash]();
-
-
-});
-
 // Listen for document click to close non-modal dialog
-$(document).mousedown(function(e) {
-    var clicked = $(e.target); // get the element clicked
-    if (clicked.is('#lightbox')) {
-      $('#lightbox').hide(); //or .fadeOut();
-    } else return;
+$(document).mousedown(function (e) {
+  var clicked = $(e.target); // get the element clicked
+  if (clicked.is('#lightbox')) {
+    $('#lightbox').hide(); //or .fadeOut();
+  }
 });
 
 // Date picker
-jQuery(function($){
-  $('#from_date').datetimepicker({
-    format:'Y-m-d h:i:s'
+$('document').ready(function () {
+  $('#from_date, #to_date').datetimepicker({
+    format: 'Y/m/d h:i:s'
   });
 
-  $('#to_date').datetimepicker({
-    format:'Y-m-d h:i:s'
+  $('#server_settings').on('click', function (event) {
+    event.preventDefault();
+    //reload current view
+    var hash = thoth.getHash();
+
+    thoth[hash]();
   });
+
+
+
+  $('nav li').on('click', function (event) {
+    var $el = $(this);
+    var hash;
+    if (event.target.nodeName === 'LI') {
+      //update url hash if needed
+      hash = $el.find('a').attr('href');
+      location.hash = hash;
+    }
+    else {
+      hash = $(event.target).attr('href');
+    }
+
+    hash = hash.replace('#', '');
+
+    if ($el.hasClass('active') || $el.parents('li').hasClass('active')) {
+      return;
+    }
+    else {
+      $el.siblings('.active').removeClass('active');
+      $el.addClass('active');
+    }
+
+    thoth[hash]();
+
+
+  });
+
 });
 
-function showLightBox(elem){
+function showLightBox(elem) {
   var data = chartsData[elem.parentNode.parentNode.id].values;
   var params = chartsData[elem.parentNode.parentNode.id].options;
-  if (data.length != 0){
+  if (data.length !== 0) {
     $('#lightbox').show(); // or .fadeIn();
     $('#lightboxChart h2').html(chartsData[params.chartId].options.graphTitle);
     // var chart = nv.models.lineChart()
     var chart = nv.models.lineWithFocusChart()
         .color([params.color])
-        .tooltipContent(function(key, y, e) {return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>'  })
+        .tooltipContent(function (key, y, e) {
+          return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
+        });
 
     chart.yAxis.axisLabel(chart.yLabel);
     chart.lines.scatter.xScale(d3.scale.linear());
@@ -332,14 +351,14 @@ function showLightBox(elem){
       .tickFormat(function (d) {
         return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
       });
-    
+
     chart.yAxis.tickFormat(d3.format(',.2f'));
     chart.y2Axis.tickFormat(d3.format(',.2f'));
 
     d3.select('#lightboxChart svg')
       .datum(data)
       .call(chart);
-  
+
     nv.utils.windowResize(chart.update);
   }
 }

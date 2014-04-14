@@ -47,7 +47,7 @@
             <input type="text" id="core" name="core" size="5">
           <li>
             <!-- <button class="btn orange" onClick="thoth.servers(); return false;">Get Data</button> -->
-            <button class="btn orange"><i class="entypo ccw" onClick="thoth.servers(); return false;"></i></button>
+            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
         </ul>
       </form>
     </header>
@@ -71,7 +71,7 @@
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
-        </div>      
+        </div>
         <div id="query_on_deck" class="graph">
           <h2>Avg number of queries "on deck"</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
@@ -85,26 +85,26 @@
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
-        </div>     
+        </div>
         <div id="exception_integral" class="graph">
           <h2>∫ Exception count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
-        </div>                
+        </div>
         <br>
         <div id="zeroHits_count" class="graph">
           <h2>Zero Hits count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
-        </div>     
+        </div>
         <div id="zeroHits_integral" class="graph">
           <h2>∫ Zero Hits count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
-        </div>              
+        </div>
 
 <!--         <div id="query_distribution" class="graph">
           <h2>Distribution of query times (sec)</h2>
