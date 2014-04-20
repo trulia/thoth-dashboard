@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="400px" height="295.591px" viewBox="0 0 400 295.591" enable-background="new 0 0 400 295.591" xml:space="preserve">
+<rect x="-2" y="151" fill="#373D49" width="404" height="145"/>
+<rect fill="#1ECFC9" width="400" height="151"/>
+<g>
+	<g>
+		<g>
+			<circle fill="#373D49" cx="198.421" cy="89.5" r="69.908"/>
+		</g>
+		<g>
+			<g>
+				<path fill="#F9F7F4" d="M198.421,59.935c-24.292,0-45.702,12.333-58.313,31.08c12.611,18.746,34.021,31.08,58.313,31.08
+					s45.702-12.333,58.313-31.08C244.123,72.268,222.713,59.935,198.421,59.935z"/>
+			</g>
+			<g>
+				<defs>
+					<path id="SVGID_1_" d="M198.421,59.739c-24.292,0-45.702,12.333-58.313,31.08c12.611,18.746,34.021,31.08,58.313,31.08
+						s45.702-12.333,58.313-31.08C244.123,72.072,222.713,59.739,198.421,59.739z"/>
+				</defs>
+				<clipPath id="SVGID_2_">
+					<use xlink:href="#SVGID_1_"  overflow="visible"/>
+				</clipPath>
+				<g clip-path="url(#SVGID_2_)">
+					<circle fill="#2AD8CF" cx="198.341" cy="79.465" r="32.288"/>
+				</g>
+			</g>
+			<g opacity="0.4">
+				<g>
+					<g>
+						<circle fill="#FFFFFF" cx="198.234" cy="80.506" r="16.909"/>
+					</g>
+				</g>
+			</g>
+			<g>
+				<path fill="#FFFFFF" d="M209.97,68.601C206.943,65.609,202.972,64,198.38,64H198v16.143L209.97,68.601z"/>
+			</g>
+			<g>
+				<circle fill="#373D49" cx="198.247" cy="80.413" r="9.602"/>
+			</g>
+		</g>
+		<g>
+			<defs>
+				<circle id="SVGID_3_" cx="198.421" cy="89.5" r="70.266"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_3_"  overflow="visible"/>
+			</clipPath>
+			<g clip-path="url(#SVGID_4_)">
+				<g>
+					<path fill="#1ECFC9" d="M257,151h-48.074c-8.597,0-12.361-6.248-15.385-11.133c-2.532-4.09-4.24-6.688-7.249-6.707
+						c-3.007,0.02-4.71,2.659-7.235,6.747c-3.017,4.886-6.771,11.094-15.37,11.094H147v-4h16.687c6.002,0,8.797-4.75,11.578-9.254
+						c2.545-4.122,5.156-9.083,11.329-9.122l0,0l0,0c5.73,0,8.355,4.863,10.906,8.984c2.789,4.505,5.423,9.391,11.426,9.391H257V151
+						z"/>
+				</g>
+			</g>
+			<g clip-path="url(#SVGID_4_)">
+				<path fill="#1ECFC9" d="M267.233,70.616c-8.688-9.397-18.992-16.797-30.626-21.996c-12.041-5.381-24.889-8.109-38.187-8.109
+					s-26.146,2.728-38.187,8.109c-11.633,5.199-21.937,12.599-30.626,21.996l-3.102-2.868c9.078-9.819,19.846-17.552,32.004-22.985
+					c12.587-5.625,26.014-8.477,39.91-8.477c13.896,0,27.324,2.852,39.91,8.477c12.158,5.433,22.925,13.166,32.004,22.985
+					L267.233,70.616z"/>
+			</g>
+		</g>
+	</g>
+	<rect x="91.847" y="177.197" fill="none" width="216.306" height="59.855"/>
+	<text transform="matrix(1 0 0 1 135.292 221.7456)" fill="#1ECFC9" font-family="'Blanch-Caps'" font-size="90">THOTH</text>
+</g>
+</svg>
