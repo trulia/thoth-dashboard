@@ -120,21 +120,26 @@ var chartsData = {
       'unit' : '',
       'round' : 0
     }
+  },
+  query_distribution: {
+    values: [],
+    options: {
+      'name' : 'Distribution of query times',
+      'tooltip' : 'Number of queries: ',
+      'yLabel' : 'Number of queries',
+      'chartId' : 'query_distribution',
+      'graphTitle': 'Distribution of query times',
+      'color': '#7fd5e3',
+      'unit': '',
+      'round': 0
+    }
   }
 };
 
 
 var thoth = {
   dashboard: function () {
-    // $.getJSON('json/distribution_qtime.json', function (data) {
-    //   self._stackedLineGraph({
-    //     'name' : 'Distribution of query times',
-    //     'tooltip' : 'Number of queries: ',
-    //     'yLabel' : 'Number of queries',
-    //     'chartId' : 'query_distribution',
-    //     'color': '#7fd5e3'
-    //    }, data)
-    // });
+
 
   },
   servers: function () {
@@ -169,6 +174,11 @@ var thoth = {
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
       self._lineGraph(chartsData.zeroHits_integral.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
+    // $.getJSON('json/distribution_qtime.json', function (data) {
+      self._stackedLineGraph(chartsData.query_distribution.options, data)
     });
 
   },
@@ -253,23 +263,34 @@ var thoth = {
       .x(function (d) { return d[0]; })
       .y(function (d) { return d[1]; })
       .style("expand")
+      .showControls(false)
       .transitionDuration(300).width(400).height(250);
+
 
     chart.xAxis
       .tickFormat(function (d) { return d3.time.format('%x')(new Date(d)); });
 
-    chart.yAxis.tickFormat(d3.format('d'));
+    // chart.yAxis.tickFormat(d3.format('d'));
 
     var v = [];
-    data.values.forEach(function (val) {
-      v.push({x: Date.parse(val.timestamp), y: val.value});
+    ["between_0_10", "between_10_100", "between_100_1000", "over_1000"].forEach(function(key){
+      var temp =[];
+      data.values.forEach(function (val) {
+        temp.push( [Date.parse(val.timestamp), val[key]] );
+      });
+      v.push({ "key": key, "values": temp});
+      
     });
+
     d3.select('#' + params.chartId)
-      .datum([{key: 'chart', values: v}])
+      .datum(v)
       .transition().duration(0)
       .call(chart);
 
     nv.utils.windowResize(chart.update);
+
+      d3.select("g.nv-controlsWrap")
+  .attr("transform", "translate(-60,-90)");
   }
 
 };
@@ -281,6 +302,17 @@ $(document).mousedown(function (e) {
     $('#lightbox').hide(); //or .fadeOut();
   }
 });
+
+function updateFromHash(){
+  var params = location.hash.substr(location.hash.indexOf("?")+1);
+  var hash = location.hash.split('?')[0].replace('#','');
+  if (params != "" && hash != undefined){
+  params.split('&').forEach(function(param){
+    $('#' + param.split('=')[0]).val( decodeURIComponent(param.split('=')[1]).replace('/',''));
+  }); 
+  thoth[hash]();   
+  }  
+}
 
 // Date picker
 $('document').ready(function () {
@@ -297,6 +329,11 @@ $('document').ready(function () {
   });
 
 
+
+  updateFromHash();
+  $(window).on('hashchange', function () {
+    updateFromHash();
+  })
 
   $('nav li').on('click', function (event) {
     var $el = $(this);
@@ -324,6 +361,8 @@ $('document').ready(function () {
 
 
   });
+
+
 
 });
 
@@ -362,8 +401,6 @@ function showLightBox(elem) {
     nv.utils.windowResize(chart.update);
   }
 }
-
-
 
 // Move to on-load
 // thoth.servers();

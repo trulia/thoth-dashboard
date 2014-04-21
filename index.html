@@ -46,7 +46,6 @@
             <label for="core">core</label>
             <input type="text" id="core" name="core" size="5">
           <li>
-            <!-- <button class="btn orange" onClick="thoth.servers(); return false;">Get Data</button> -->
             <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
         </ul>
       </form>
@@ -106,11 +105,12 @@
           <svg></svg>
         </div>
 
-<!--         <div id="query_distribution" class="graph">
+        <div class="graph">
           <h2>Distribution of query times (sec)</h2>
-          <a href=""><i class="entypo eye"></i></a>
-          <svg></svg>
-        </div> -->
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+          <svg id="query_distribution"></svg>
+        </div>
       </section>
     </article>
   </div>
