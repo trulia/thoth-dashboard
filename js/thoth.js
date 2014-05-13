@@ -136,7 +136,9 @@ var chartsData = {
   }
 };
 
-
+/**
+ * API calls grouped by board
+ */
 var thoth = {
   dashboard: function () {
 
@@ -182,7 +184,14 @@ var thoth = {
     });
 
   },
-  pools: function () {},
+  pools: function () {
+    var self = this;
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
+      self._cumulativeLineGraph(chartsData.query_time.options, data);
+    });
+
+  },
   exceptions: function () {},
   queries: function () {},
   realtime: function () {},
@@ -255,6 +264,48 @@ var thoth = {
     //setRecapValue(params.chartId + ' h2', data[0].values.slice(-1)[0].y, params.unit, params.round, params.color);
     nv.utils.windowResize(chart.update);
     return chart;
+  },
+
+  /**
+   * ## Cumulative Line Graph
+   *
+   * Showing pool data with multiple line graph
+   *
+   * @param params
+   * @param data
+   * @private
+   */
+  _cumulativeLineGraph: function (params, data) {
+
+    d3.json('json/cumulativeData.json', function(data) {
+      nv.addGraph(function() {
+        var chart = nv.models.cumulativeLineChart()
+            .x(function(d) { return d[0] })
+            .y(function(d) { return d[1]/100 }) //adjusting, 100% is 1.00, not 100 as it is in the data
+            .color(d3.scale.category10().range())
+            .useInteractiveGuideline(true)
+          ;
+
+        chart.xAxis
+          .tickValues([1078030800000,1122782400000,1167541200000,1251691200000])
+          .tickFormat(function(d) {
+            return d3.time.format('%x')(new Date(d))
+          });
+
+        chart.yAxis
+          .tickFormat(d3.format(',.1%'));
+
+        d3.select('#query_time svg')
+          .datum(data)
+          .call(chart);
+
+        //TODO: Figure out a good way to do this automatically
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+      });
+    });
+
   },
 
   _stackedLineGraph: function (params, data) {
@@ -333,7 +384,7 @@ $('document').ready(function () {
   updateFromHash();
   $(window).on('hashchange', function () {
     updateFromHash();
-  })
+  });
 
   $('nav li').on('click', function (event) {
     var $el = $(this);
