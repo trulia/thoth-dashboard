@@ -21,8 +21,6 @@ app.get('/exceptions', function (req, res) {
   res.sendfile(__dirname + '/views/exceptions.html');
 });
 
-
-
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/views/server.html');
 });
