@@ -77,7 +77,7 @@ function selectValue(){
 }
 
 
-//TODO: refactore fetch functions
+//TODO: refactor fetch functions
 function fetchExceptionList() {
   console.log('http://localhost:3001/api/list/'+ server + '/core/'+ core +'/port/'+ port +'/start/' + start + '/end/' + end +'/page/'+ page+'/nresults/' + nresults);
   //       

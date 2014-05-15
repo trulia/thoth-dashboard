@@ -179,7 +179,7 @@ var thoth = {
     });
 
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
-    // $.getJSON('json/distribution_qtime.json', function (data) {
+      // $.getJSON('json/distribution_qtime.json', function (data) {
       self._stackedLineGraph(chartsData.query_distribution.options, data)
     });
 
@@ -190,6 +190,38 @@ var thoth = {
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
       self._cumulativeLineGraph(chartsData.query_time.options, data);
     });
+    /*
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
+     self._cumulativeLineGraph(chartsData.query_count.options, data);
+     });
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
+     self._cumulativeLineGraph(chartsData.query_on_deck.options, data);
+     });
+
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'exception'})), function (data) {
+     self._cumulativeLineGraph(chartsData.exception_count.options, data);
+     });
+
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'exception'})), function (data) {
+     self._cumulativeLineGraph(chartsData.exception_integral.options, data);
+     });
+
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
+     self._cumulativeLineGraph(chartsData.query_integral.options, data);
+     });
+
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
+     self._cumulativeLineGraph(chartsData.zeroHits_count.options, data);
+     });
+
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
+     self._cumulativeLineGraph(chartsData.zeroHits_integral.options, data);
+     });
+
+     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
+     self._stackedLineGraph(chartsData.query_distribution.options, data)
+     });
+     */
 
   },
   exceptions: function () {},
@@ -276,12 +308,11 @@ var thoth = {
    * @private
    */
   _cumulativeLineGraph: function (params, data) {
-
     d3.json('json/cumulativeData.json', function(data) {
       nv.addGraph(function() {
         var chart = nv.models.cumulativeLineChart()
             .x(function(d) { return d[0] })
-            .y(function(d) { return d[1]/100 }) //adjusting, 100% is 1.00, not 100 as it is in the data
+            .y(function(d) { return d[1] }) //adjusting, 100% is 1.00, not 100 as it is in the data
             .color(d3.scale.category10().range())
             .useInteractiveGuideline(true)
           ;
@@ -293,7 +324,7 @@ var thoth = {
           });
 
         chart.yAxis
-          .tickFormat(d3.format(',.1%'));
+          .tickFormat(d3.format(',.'));
 
         d3.select('#query_time svg')
           .datum(data)
@@ -305,7 +336,6 @@ var thoth = {
         return chart;
       });
     });
-
   },
 
   _stackedLineGraph: function (params, data) {
@@ -330,7 +360,7 @@ var thoth = {
         temp.push( [Date.parse(val.timestamp), val[key]] );
       });
       v.push({ "key": key, "values": temp});
-      
+
     });
 
     d3.select('#' + params.chartId)
@@ -340,8 +370,8 @@ var thoth = {
 
     nv.utils.windowResize(chart.update);
 
-      d3.select("g.nv-controlsWrap")
-  .attr("transform", "translate(-60,-90)");
+    d3.select("g.nv-controlsWrap")
+      .attr("transform", "translate(-60,-90)");
   }
 
 };
@@ -358,11 +388,11 @@ function updateFromHash(){
   var params = location.hash.substr(location.hash.indexOf("?")+1);
   var hash = location.hash.split('?')[0].replace('#','');
   if (params != "" && hash != undefined){
-  params.split('&').forEach(function(param){
-    $('#' + param.split('=')[0]).val( decodeURIComponent(param.split('=')[1]).replace('/',''));
-  }); 
-  thoth[hash]();   
-  }  
+    params.split('&').forEach(function(param){
+      $('#' + param.split('=')[0]).val( decodeURIComponent(param.split('=')[1]).replace('/',''));
+    });
+    thoth[hash]();
+  }
 }
 
 // Date picker
@@ -425,10 +455,10 @@ function showLightBox(elem) {
     $('#lightboxChart h2').html(chartsData[params.chartId].options.graphTitle);
     // var chart = nv.models.lineChart()
     var chart = nv.models.lineWithFocusChart()
-        .color([params.color])
-        .tooltipContent(function (key, y, e) {
-          return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
-        });
+      .color([params.color])
+      .tooltipContent(function (key, y, e) {
+        return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
+      });
 
     chart.yAxis.axisLabel(chart.yLabel);
     chart.lines.scatter.xScale(d3.scale.linear());
