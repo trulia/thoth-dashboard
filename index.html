@@ -7,6 +7,7 @@
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic,300italic' rel='stylesheet' type='text/css'>
   <link href="css/entypo.css" rel="stylesheet" type="text/css">
   <link href="css/nvd3/nv.d3.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker/jquery.datetimepicker.css">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 
@@ -51,27 +52,27 @@
       </form>
     </header>
     <article id="main" class="container">
-      <section id="dashboard">
-        <div id="query_time" class="graph">
+      <section id="dashboard" class="row">
+        <div id="query_time" class="graph col-md-5">
           <h2>Avg query time &mdash; sec</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
-        <div id="query_count" class="graph">
+        <div id="query_count" class="graph col-md-5">
           <h2>Avg number of queries</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
         <br>
-        <div id="query_integral" class="graph">
+        <div id="query_integral" class="graph col-md-5">
           <h2>∫ Query count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
-        <div id="query_on_deck" class="graph">
+        <div id="query_on_deck" class="graph col-md-5">
           <h2>Avg number of queries "on deck"</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
@@ -79,33 +80,33 @@
         </div>
         <br>
 
-        <div id="exception_count" class="graph">
+        <div id="exception_count" class="graph col-md-5">
           <h2>Exception count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
-        <div id="exception_integral" class="graph">
+        <div id="exception_integral" class="graph col-md-5">
           <h2>∫ Exception count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
         <br>
-        <div id="zeroHits_count" class="graph">
+        <div id="zeroHits_count" class="graph col-md-5">
           <h2>Zero Hits count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
-        <div id="zeroHits_integral" class="graph">
+        <div id="zeroHits_integral" class="graph col-md-5">
           <h2>∫ Zero Hits count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
         <br>
-        <div class="graph">
+        <div class="graph col-md-5">
           <h2>Distribution of query times (sec)</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
@@ -127,6 +128,7 @@
   <script src="js/d3.v3.js"></script>
   <script src="js/nvd3/nv.d3.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
   <script src="js/thoth.js"></script>
 </body>

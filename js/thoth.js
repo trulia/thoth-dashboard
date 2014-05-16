@@ -308,33 +308,36 @@ var thoth = {
    * @private
    */
   _cumulativeLineGraph: function (params, data) {
-    d3.json('json/cumulativeData.json', function(data) {
-      nv.addGraph(function() {
-        var chart = nv.models.cumulativeLineChart()
-            .x(function(d) { return d[0] })
-            .y(function(d) { return d[1] }) //adjusting, 100% is 1.00, not 100 as it is in the data
-            .color(d3.scale.category10().range())
-            .useInteractiveGuideline(true)
-          ;
 
-        chart.xAxis
-          .tickValues([1078030800000,1122782400000,1167541200000,1251691200000])
-          .tickFormat(function(d) {
-            return d3.time.format('%x')(new Date(d))
-          });
+    nv.addGraph(function() {
+      var chart = nv.models.cumulativeLineChart()
+          .x(function(d) { return d[0] })
+          .y(function(d) { return d[1] }) //adjusting, 100% is 1.00, not 100 as it is in the data
+          .color(d3.scale.category10().range())
+          .useInteractiveGuideline(true)
+        ;
 
-        chart.yAxis
-          .tickFormat(d3.format(',.'));
+      chart.xAxis
+        .tickValues([1078030800000,1122782400000,1167541200000,1251691200000])
+        .tickFormat(function(d) {
+          return d3.time.format('%x')(new Date(d))
+        });
 
-        d3.select('#query_time svg')
-          .datum(data)
-          .call(chart);
+      // Formatting values to be represented with 3 figures and a symbol
+      chart.yAxis
+        .tickFormat(function(d) {
+          return d + d3.formatPrefix(d).symbol();
+        })
+        .tickFormat(d3.format('.3s'));
 
-        //TODO: Figure out a good way to do this automatically
-        nv.utils.windowResize(chart.update);
+      d3.select('#query_time svg')
+        .datum(data)
+        .call(chart);
 
-        return chart;
-      });
+      //TODO: Figure out a good way to do this automatically
+      nv.utils.windowResize(chart.update);
+
+      return chart;
     });
   },
 
@@ -437,14 +440,8 @@ $('document').ready(function () {
       $el.siblings('.active').removeClass('active');
       $el.addClass('active');
     }
-
     thoth[hash]();
-
-
   });
-
-
-
 });
 
 function showLightBox(elem) {
