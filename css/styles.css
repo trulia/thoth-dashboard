@@ -20,7 +20,7 @@ nav {
   padding: 0;
   margin: 0;
   display: block;
-  width: 140px;
+  width: 250px;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -31,10 +31,8 @@ nav img {
   padding: 0;
   display: block;
   margin: auto;
-  /*width: 70px;*/
-  /*height: 100px;*/
-   width: 140px;
-  height: 120px;
+  width: 250px;
+  height: 180px;
 
 }
 
@@ -63,17 +61,18 @@ nav a {
 
 .content {
   height: 100%;
-  margin-left: 140px;
+  margin-left: 250px;
   background-color:#fff;
   color: #000;
 }
 
 header {
   background-color: #dfe8e7;
+  height: 92px;
 }
 
 .form-inline {
-  padding: 15px 0;
+  padding: 25px 0 0 20px;
   margin: 0;
   font-size: 16px;
   font-family: 'Lato', sans-serif;
@@ -144,9 +143,8 @@ i.ccw {
   display: inline-block;
   background-color: #2A2E35;
   border-radius: 10px;
+  margin: 30px;
   color: #fff;
-  margin: 30px 0 0 30px;
-  width: 44%;
 }
 
 .graph svg {
@@ -295,7 +293,7 @@ div.tooltip {
   padding: 2px;
   font: 12px sans-serif;
   background: lightsteelblue;
-  border: 0px;
+  border: 0;
   border-radius: 8px;
   pointer-events: none;
 }
@@ -303,16 +301,16 @@ div.tooltip {
 #lightbox .nvtooltip {
   background-color: transparent;
   color: black;
-  border: 0px;
+  border: 0;
 }
 
 .graph .nvtooltip {
   display: none;
   background-color: transparent;
   color: white;
-  border: 0px;
+  border: 0;
 }
 
-.container{
-  width: 1280px;
+.container {
+  width: 100% !important;
 }
