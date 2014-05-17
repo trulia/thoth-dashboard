@@ -190,39 +190,39 @@ var thoth = {
     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
       self._cumulativeLineGraph(chartsData.query_time.options, data);
     });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
+      self._cumulativeLineGraph(chartsData.query_count.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
+      self._cumulativeLineGraph(chartsData.query_on_deck.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'exception'})), function (data) {
+      self._cumulativeLineGraph(chartsData.exception_count.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'exception'})), function (data) {
+      self._cumulativeLineGraph(chartsData.exception_integral.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
+      self._cumulativeLineGraph(chartsData.query_integral.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
+      self._cumulativeLineGraph(chartsData.zeroHits_count.options, data);
+    });
+
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
+      self._cumulativeLineGraph(chartsData.zeroHits_integral.options, data);
+    });
     /*
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
-     self._cumulativeLineGraph(chartsData.query_count.options, data);
-     });
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
-     self._cumulativeLineGraph(chartsData.query_on_deck.options, data);
-     });
-
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'exception'})), function (data) {
-     self._cumulativeLineGraph(chartsData.exception_count.options, data);
-     });
-
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'exception'})), function (data) {
-     self._cumulativeLineGraph(chartsData.exception_integral.options, data);
-     });
-
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
-     self._cumulativeLineGraph(chartsData.query_integral.options, data);
-     });
-
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
-     self._cumulativeLineGraph(chartsData.zeroHits_count.options, data);
-     });
-
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
-     self._cumulativeLineGraph(chartsData.zeroHits_integral.options, data);
-     });
-
-     $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
-     self._stackedLineGraph(chartsData.query_distribution.options, data)
-     });
-     */
-
+    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
+      self._stackedLineGraph(chartsData.query_distribution.options, data)
+    });
+    */
   },
   exceptions: function () {},
   queries: function () {},
@@ -281,7 +281,6 @@ var thoth = {
       });
 
     var v = [];
-
     data.values.forEach(function (val) {
       v.push({x: Date.parse(val.timestamp), y: val.value});
     });
@@ -316,7 +315,7 @@ var thoth = {
           .color(d3.scale.category10().range())
           .useInteractiveGuideline(true)
         ;
-
+      //chartsData[params.chartId].options.color = d3.scale.category10().range();
       chart.xAxis
         .tickValues([1078030800000,1122782400000,1167541200000,1251691200000])
         .tickFormat(function(d) {
@@ -330,7 +329,19 @@ var thoth = {
         })
         .tickFormat(d3.format('.3s'));
 
-      d3.select('#query_time svg')
+      // Populate values for lightbox display
+      var v = [];
+      data.forEach(function(obj) {
+        obj.values.forEach(function (val) {
+          v.push({
+            // set x to date, y to value
+            x: val[0], y: val[1]
+          });
+        });
+        chartsData[params.chartId].values.push({key: obj.key, values: v});
+      });
+
+      d3.select('#' + params.chartId + ' svg')
         .datum(data)
         .call(chart);
 
@@ -452,11 +463,9 @@ function showLightBox(elem) {
     $('#lightboxChart h2').html(chartsData[params.chartId].options.graphTitle);
     // var chart = nv.models.lineChart()
     var chart = nv.models.lineWithFocusChart()
-      .color([params.color])
       .tooltipContent(function (key, y, e) {
         return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
       });
-
     chart.yAxis.axisLabel(chart.yLabel);
     chart.lines.scatter.xScale(d3.scale.linear());
     chart.xAxis
