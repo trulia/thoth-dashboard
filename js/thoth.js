@@ -134,7 +134,6 @@ var thoth = {
     return params;
   },
   _lineGraph: function (params, data) {
-
     return graphBuilder.lineGraph(params, data);
   },
 
@@ -151,7 +150,7 @@ var thoth = {
 
     nv.addGraph(function() {
       var chart = nv.models.cumulativeLineChart()
-          .x(function(d) { return d[0] })
+          .x(function(d) { return Date.parse(d[0]) })
           .y(function(d) { return d[1] }) //adjusting, 100% is 1.00, not 100 as it is in the data
           .color(d3.scale.category10().range())
           .useInteractiveGuideline(true)
@@ -176,7 +175,7 @@ var thoth = {
         obj.values.forEach(function (val) {
           v.push({
             // set x to date, y to value
-            x: val[0], y: val[1]
+            x: Date.parse(val[0]), y: val[1]
           });
         });
         chartsData[params.chartId].values.push({key: obj.key, values: v});
