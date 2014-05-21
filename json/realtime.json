@@ -1,0 +1,44 @@
+{
+  "nqueries": {
+    "avg": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 10000
+    },
+    "integral": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 800
+    }
+  },
+  "queriesOnDeck": {
+    "avg": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 9721
+    }
+  },
+  "exception": {
+    "count": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 9721
+    },
+    "integral": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 6450
+    }
+  },
+  "zeroHits": {
+    "count": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 9721
+    },
+    "integral": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 9721
+    }
+  },
+  "qtime": {
+    "avg": {
+      "timestamp": "2014-03-20T01:45:01Z",
+      "value": 6
+    }
+  }
+}

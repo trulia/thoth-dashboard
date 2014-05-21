@@ -1,232 +1,102 @@
-/* globals nv, d3 */
+/* globals nv, d3, thothApi, chartsData, realtime, graphBuilder */
+/* exported thoth, showLightBox */
+/* exported thoth, setRecapValue, showLightBox */
 function setRecapValue(id, value, unit, round, fontColor) {
   $("#" + id + " .recap").text(value.toFixed(round) + " " + unit);
   $("#" + id + " .recap").css("color", fontColor);
 }
 
-var thothApi = {
-  uri : 'localhost:3001/api/',
-  _getUri: function (params) {
-    var urlParams = [params.objectId, params.server, 'core', params.core, 'port', params.port, 'start', params.from_date, 'end', params.to_date, params.attribute, params.endpoint];
-    var url = 'http://' + thothApi.uri + urlParams.join('/');
-    return url;
-  }
-};
-
-
-var chartsData = {
-  query_time: {
-    values: [],
-    options: {
-      'name' : 'Average Qtime',
-      'tooltip' : 'Avg Qtime: ',
-      'yLabel' : 'Avg QTime (ms)',
-      'graphTitle': 'Avg query time — sec',
-      'chartId' : 'query_time',
-      'color': '#7fd5e3',
-      'unit' : 'sec',
-      'round' : 2
-    }
-  },
-  query_count: {
-    values: [],
-    options: {
-      'name' : 'Average number of queries',
-      'tooltip' : 'Avg # queries: ',
-      'yLabel' : 'Avg number of queries',
-      'graphTitle': 'Avg number of queries',
-      'chartId' : 'query_count',
-      'color': '#77dba2',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  query_integral: {
-    values: [],
-    options: {
-      'name' : '∫ Query count',
-      'tooltip' : '∫ Query : ',
-      'yLabel' : 'Query count',
-      'chartId' : 'query_integral',
-      'graphTitle': '∫ Query count',
-      'color': '#F4C77F',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  query_on_deck: {
-    values: [],
-    options: {
-      'name' : 'Avg queries on deck',
-      'tooltip' : 'Avg queries on deck: ',
-      'yLabel' : 'Avg queries on deck',
-      'chartId' : 'query_on_deck',
-      'graphTitle': 'Avg queries on deck',
-      'color': '#F4C77F',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  exception_count: {
-    values: [],
-    options: {
-      'name' : 'Exception count',
-      'tooltip' : 'Exception count: ',
-      'yLabel' : 'Exceptions',
-      'y2Label' : 'Total',
-      'chartId' : 'exception_count',
-      'graphTitle': 'Exception count',
-      'color': '#F4C77F',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  exception_integral: {
-    values: [],
-    options: {
-      'name' : '∫ Exception count',
-      'tooltip' : '∫ Exception : ',
-      'yLabel' : 'Exception count',
-      'chartId' : 'exception_integral',
-      'graphTitle': '∫ Exception count',
-      'color': '#F4C77F',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  zeroHits_count: {
-    values: [],
-    options: {
-      'name' : 'Zero Hits count',
-      'tooltip' : 'Zero hits count: ',
-      'yLabel' : 'Zero Hits',
-      'y2Label' : 'Total',
-      'chartId' : 'zeroHits_count',
-      'graphTitle': 'Zero Hits count',
-      'color': '#F4C77F',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  zeroHits_integral: {
-    values: [],
-    options: {
-      'name' : '&#8747; Zero Hits count',
-      'tooltip' : '&#8747; Zero Hits : ',
-      'yLabel' : 'Zero Hits count',
-      'chartId' : 'zeroHits_integral',
-      'graphTitle': '&#8747; Zero Hits count',
-      'color': '#F4C77F',
-      'unit' : '',
-      'round' : 0
-    }
-  },
-  query_distribution: {
-    values: [],
-    options: {
-      'name' : 'Distribution of query times',
-      'tooltip' : 'Number of queries: ',
-      'yLabel' : 'Number of queries',
-      'chartId' : 'query_distribution',
-      'graphTitle': 'Distribution of query times',
-      'color': '#7fd5e3',
-      'unit': '',
-      'round': 0
-    }
-  }
-};
-
 /**
  * API calls grouped by board
  */
+
 var thoth = {
-  dashboard: function () {
-
-
-  },
   servers: function () {
+    $('#servers').show();
     var self = this;
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'})), function (data) {
       self._lineGraph(chartsData.query_time.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
       self._lineGraph(chartsData.query_count.options, data);
     });
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
       self._lineGraph(chartsData.query_on_deck.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'exception'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'exception'})), function (data) {
       self._lineGraph(chartsData.exception_count.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'exception'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'exception'})), function (data) {
       self._lineGraph(chartsData.exception_integral.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
       self._lineGraph(chartsData.query_integral.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
       self._lineGraph(chartsData.zeroHits_count.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
       self._lineGraph(chartsData.zeroHits_integral.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'server', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
       // $.getJSON('json/distribution_qtime.json', function (data) {
-      self._stackedLineGraph(chartsData.query_distribution.options, data)
+      self._stackedLineGraph(chartsData.query_distribution.options, data);
     });
 
   },
   pools: function () {
     var self = this;
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
       self._cumulativeLineGraph(chartsData.query_time.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
       self._cumulativeLineGraph(chartsData.query_count.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
       self._cumulativeLineGraph(chartsData.query_on_deck.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'exception'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'exception'})), function (data) {
       self._cumulativeLineGraph(chartsData.exception_count.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'exception'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'exception'})), function (data) {
       self._cumulativeLineGraph(chartsData.exception_integral.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
       self._cumulativeLineGraph(chartsData.query_integral.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
       self._cumulativeLineGraph(chartsData.zeroHits_count.options, data);
     });
 
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
       self._cumulativeLineGraph(chartsData.zeroHits_integral.options, data);
     });
     /*
-    $.getJSON(thothApi._getUri(self._getParams({objectId: 'pool', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
+    $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
       self._stackedLineGraph(chartsData.query_distribution.options, data)
     });
     */
   },
   exceptions: function () {},
   queries: function () {},
-  realtime: function () {},
+  realtime: function () {
+    realtime.show();
+  },
 
   getHash: function () {
     var hash = location.hash.split('?')[0].replace('#', '');
@@ -264,36 +134,8 @@ var thoth = {
     return params;
   },
   _lineGraph: function (params, data) {
-    var chart = nv.models.lineChart().color([params.color])
-      .tooltipContent(function (key, y, e) {
-        // Update values realtime
-        $('#' + params.chartId + ' h3.value').html(e);
-        $('#' + params.chartId + ' h3.timestamp').html(y);
-        return  ' Value: ' + '<b>' + d3.round(e, 2) + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
-      });
 
-    chart.yAxis.axisLabel(chart.yLabel);
-    chart.yAxis.tickFormat(d3.format(',.' + params.round + 'f'));
-    chart.xAxis
-      .tickFormat(function (d) {
-        return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
-      });
-
-    var v = [];
-    data.values.forEach(function (val) {
-      v.push({x: Date.parse(val.timestamp), y: val.value});
-    });
-
-    chartsData[params.chartId].values = [{key: params.yLabel, values: v}];
-
-    d3.select('#' + params.chartId + ' svg')
-      .datum(chartsData[params.chartId].values)
-      .call(chart);
-
-    // TO REMOVE
-    //setRecapValue(params.chartId + ' h2', data[0].values.slice(-1)[0].y, params.unit, params.round, params.color);
-    nv.utils.windowResize(chart.update);
-    return chart;
+    return graphBuilder.lineGraph(params, data);
   },
 
   /**
@@ -352,39 +194,7 @@ var thoth = {
   },
 
   _stackedLineGraph: function (params, data) {
-    var chart = nv.models.stackedAreaChart()
-      .useInteractiveGuideline(true)
-      .x(function (d) { return d[0]; })
-      .y(function (d) { return d[1]; })
-      .style("expand")
-      .showControls(false)
-      .transitionDuration(300).width(400).height(250);
-
-
-    chart.xAxis
-      .tickFormat(function (d) { return d3.time.format('%x')(new Date(d)); });
-
-    // chart.yAxis.tickFormat(d3.format('d'));
-
-    var v = [];
-    ["between_0_10", "between_10_100", "between_100_1000", "over_1000"].forEach(function(key){
-      var temp =[];
-      data.values.forEach(function (val) {
-        temp.push( [Date.parse(val.timestamp), val[key]] );
-      });
-      v.push({ "key": key, "values": temp});
-
-    });
-
-    d3.select('#' + params.chartId)
-      .datum(v)
-      .transition().duration(0)
-      .call(chart);
-
-    nv.utils.windowResize(chart.update);
-
-    d3.select("g.nv-controlsWrap")
-      .attr("transform", "translate(-60,-90)");
+    return graphBuilder.stackedAreaChart(params, data);
   }
 
 };
@@ -397,12 +207,12 @@ $(document).mousedown(function (e) {
   }
 });
 
-function updateFromHash(){
-  var params = location.hash.substr(location.hash.indexOf("?")+1);
-  var hash = location.hash.split('?')[0].replace('#','');
-  if (params != "" && hash != undefined){
-    params.split('&').forEach(function(param){
-      $('#' + param.split('=')[0]).val( decodeURIComponent(param.split('=')[1]).replace('/',''));
+function updateFromHash() {
+  var params = location.hash.substr(location.hash.indexOf("?") + 1);
+  var hash = location.hash.split('?')[0].replace('#', '');
+  if (params !== "" && hash) {
+    params.split('&').forEach(function (param) {
+      $('#' + param.split('=')[0]).val(decodeURIComponent(param.split('=')[1]).replace('/', ''));
     });
     thoth[hash]();
   }
@@ -422,14 +232,11 @@ $('document').ready(function () {
     thoth[hash]();
   });
 
-
-
-  updateFromHash();
-  $(window).on('hashchange', function () {
-    updateFromHash();
-  });
-
   $('nav li').on('click', function (event) {
+    //Temp hack to hide pages
+    $('section').hide();
+    realtime.hide();
+
     var $el = $(this);
     var hash;
     if (event.target.nodeName === 'LI') {

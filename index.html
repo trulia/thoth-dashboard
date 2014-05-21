@@ -52,7 +52,7 @@
       </form>
     </header>
     <article id="main" class="container">
-      <section id="dashboard" class="row">
+      <section id="servers" class="row">
         <div id="query_time" class="graph col-md-5">
           <h2>Avg query time &mdash; sec</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
@@ -67,7 +67,7 @@
         </div>
         <br>
         <div id="query_integral" class="graph col-md-5">
-          <h2>∫ Query count</h2>
+          <h2>&#8747; Query count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
@@ -87,7 +87,7 @@
           <svg></svg>
         </div>
         <div id="exception_integral" class="graph col-md-5">
-          <h2>∫ Exception count</h2>
+          <h2>&#8747; Exception count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
@@ -100,7 +100,7 @@
           <svg></svg>
         </div>
         <div id="zeroHits_integral" class="graph col-md-5">
-          <h2>∫ Zero Hits count</h2>
+          <h2>&#8747; Zero Hits count</h2>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
@@ -111,6 +111,68 @@
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
           <svg id="query_distribution"></svg>
+        </div>
+      </section>
+
+      <section id="realtime">
+        <div class="graph col-md-5">
+          <h2>Avg query time &mdash; sec</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="graph col-md-5">
+          <h2>Avg number of queries</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div class="graph col-md-5">
+          <h2>&#8747; Query count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="graph col-md-5">
+          <h2>Avg number of queries "on deck"</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+
+        <div class="graph col-md-5">
+          <h2>Exception count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="graph col-md-5">
+          <h2>&#8747; Exception count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div class="graph col-md-5">
+          <h2>Zero Hits count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="graph col-md-5">
+          <h2>&#8747; Zero Hits count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div class="graph col-md-5">
+          <h2>Distribution of query times (sec)</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+          <svg></svg>
         </div>
       </section>
     </article>
@@ -130,6 +192,10 @@
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
+  <script src="js/charts_data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/graph_builder.js"></script>
+  <script src="js/realtime.js"></script>
   <script src="js/thoth.js"></script>
 </body>
 
