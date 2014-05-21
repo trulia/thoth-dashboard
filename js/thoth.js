@@ -329,8 +329,8 @@ var thoth = {
         .tickFormat(d3.format('.3s'));
 
       // Populate values for lightbox display
-      var v = [];
       data.forEach(function(obj) {
+        var v = [];
         obj.values.forEach(function (val) {
           v.push({
             // set x to date, y to value

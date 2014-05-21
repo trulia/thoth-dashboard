@@ -149,7 +149,7 @@ i.ccw {
 
 .graph svg {
   margin-top: 10px;
-  width: 100%;
+  min-width: 400px;
   height: 240px;
   overflow: auto;
 }
@@ -225,7 +225,7 @@ i.ccw {
   height: 100%;
 }
 
-.lighbtoxGraph svg {
+.lightboxGraph svg {
   background-color: #f9f7f4;
   position: absolute;
   padding-left: 2%;
