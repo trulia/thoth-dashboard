@@ -264,8 +264,7 @@ var thoth = {
     return params;
   },
   _lineGraph: function (params, data) {
-    var chart = nv.models.lineChart()
-      .width(400).height(200).color([params.color])
+    var chart = nv.models.lineChart().color([params.color])
       .tooltipContent(function (key, y, e) {
         // Update values realtime
         $('#' + params.chartId + ' h3.value').html(e);
@@ -471,11 +470,11 @@ function showLightBox(elem) {
     chart.xAxis
       .axisLabel('Timestamp')
       .tickFormat(function (d) {
-        return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
+        return d3.time.format("%m/%d %H:%M")(new Date(d));
       });
     chart.x2Axis
       .tickFormat(function (d) {
-        return d3.time.format("%m/%d %H:%M:%S")(new Date(d));
+        return d3.time.format("%m/%d %H:%M")(new Date(d));
       });
 
     chart.yAxis.tickFormat(d3.format(',.2f'));
