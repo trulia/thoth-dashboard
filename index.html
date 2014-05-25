@@ -33,19 +33,19 @@
           <li class="form-title">Server
           <li>
             <label for="from_date">from</label>
-            <input type="text" id="from_date" name="from_date" size="20">
+            <input type="text" id="from_date" name="from_date" size="20" value="2014/05/22 03:43:02">
           <li>
             <label for="to_date">to</label>
-            <input type="text" id="to_date" name="to_date" size="20">
+            <input type="text" id="to_date" name="to_date" size="20" value="2014/05/24 03:43:02">
           <li>
             <label for="server">server</label>
-            <input type="text" id="server" name="server" size="15">
+            <input type="text" id="server" name="server" size="15" value="dr">
           <li>
             <label for="port">port</label>
-            <input type="text" id="port" name="port" size="5">
+            <input type="text" id="port" name="port" size="5" value="8050">
           <li>
             <label for="core">core</label>
-            <input type="text" id="core" name="core" size="5">
+            <input type="text" id="core" name="core" size="5" value="active">
           <li>
             <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
         </ul>
@@ -113,6 +113,68 @@
           <svg id="query_distribution"></svg>
         </div>
       </section>
+
+      <section id="pools" class="row">
+        <div id="pool_query_time" class="graph col-md-5">
+          <h2>Avg query time &mdash; sec</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div id="pool_query_count" class="graph col-md-5">
+          <h2>Avg number of queries</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div id="pool_query_integral" class="graph col-md-5">
+          <h2>&#8747; Query count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div id="pool_query_on_deck" class="graph col-md-5">
+          <h2>Avg number of queries "on deck"</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+
+        <div id="pool_exception_count" class="graph col-md-5">
+          <h2>Exception count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div id="pool_exception_integral" class="graph col-md-5">
+          <h2>&#8747; Exception count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div id="pool_zeroHits_count" class="graph col-md-5">
+          <h2>Zero Hits count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div id="pool_zeroHits_integral" class="graph col-md-5">
+          <h2>&#8747; Zero Hits count</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <!-- <br> -->
+<!--         <div class="graph col-md-5">
+          <h2>Distribution of query times (sec)</h2>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+          <svg id="query_distribution"></svg>
+        </div> -->
+      </section>      
 
       <section id="realtime">
         <div class="graph col-md-5">

@@ -12,7 +12,7 @@ function setRecapValue(id, value, unit, round, fontColor) {
 
 var thoth = {
   servers: function () {
-    $('#servers').show();
+    $('#servers').show(); $('#pools').hide(); realtime.hide();
     var self = this;
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'})), function (data) {
@@ -53,39 +53,43 @@ var thoth = {
 
   },
   pools: function () {
+    $('#pools').show(); $('#servers').hide(); realtime.hide();
     var self = this;
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
-      self._cumulativeLineGraph(chartsData.query_time.options, data);
+      self._cumulativeLineGraph(chartsData.pool_query_time.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'nqueries'})), function (data) {
-      self._cumulativeLineGraph(chartsData.query_count.options, data);
+      self._cumulativeLineGraph(chartsData.pool_query_count.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'queriesOnDeck'})), function (data) {
-      self._cumulativeLineGraph(chartsData.query_on_deck.options, data);
+      self._cumulativeLineGraph(chartsData.pool_query_on_deck.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'exception'})), function (data) {
-      self._cumulativeLineGraph(chartsData.exception_count.options, data);
+      self._cumulativeLineGraph(chartsData.pool_exception_count.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'exception'})), function (data) {
-      self._cumulativeLineGraph(chartsData.exception_integral.options, data);
+      self._cumulativeLineGraph(chartsData.pool_exception_integral.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'nqueries'})), function (data) {
-      self._cumulativeLineGraph(chartsData.query_integral.options, data);
+      self._cumulativeLineGraph(chartsData.pool_query_integral.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'count', endpoint: 'zeroHits'})), function (data) {
-      self._cumulativeLineGraph(chartsData.zeroHits_count.options, data);
+      self._cumulativeLineGraph(chartsData.pool_zeroHits_count.options, data);
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'integral', endpoint: 'zeroHits'})), function (data) {
-      self._cumulativeLineGraph(chartsData.zeroHits_integral.options, data);
+      self._cumulativeLineGraph(chartsData.pool_zeroHits_integral.options, data);
     });
+
+
+
     /*
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
       self._stackedLineGraph(chartsData.query_distribution.options, data)
@@ -130,7 +134,7 @@ var thoth = {
       params[k] = v;
     });
 
-
+    console.log(params);
     return params;
   },
   _lineGraph: function (params, data) {
@@ -233,8 +237,8 @@ $('document').ready(function () {
 
   $('nav li').on('click', function (event) {
     //Temp hack to hide pages
-    $('section').hide();
-    realtime.hide();
+    // $('section').hide();
+    // realtime.hide();
 
     var $el = $(this);
     var hash;
@@ -294,5 +298,6 @@ function showLightBox(elem) {
   }
 }
 
+$('section').hide();
 // Move to on-load
 // thoth.servers();

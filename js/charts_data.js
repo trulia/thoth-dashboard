@@ -118,6 +118,115 @@ var chartsData = {
       'unit': '',
       'round': 0
     }
+  },
+
+
+  pool_query_time: {
+    values: [],
+    options: {
+      'name' : 'Average Qtime',
+      'tooltip' : 'Avg Qtime: ',
+      'yLabel' : 'Avg QTime (ms)',
+      'graphTitle': 'Avg query time — sec',
+      'chartId' : 'pool_query_time',
+      'color': '#7fd5e3',
+      'unit' : 'sec',
+      'round' : 2
+    }
+  },
+  pool_query_count: {
+    values: [],
+    options: {
+      'name' : 'Average number of queries',
+      'tooltip' : 'Avg # queries: ',
+      'yLabel' : 'Avg number of queries',
+      'graphTitle': 'Avg number of queries',
+      'chartId' : 'pool_query_count',
+      'color': '#77dba2',
+      'unit' : '',
+      'round' : 0
+    }
+  },
+  pool_query_integral: {
+    values: [],
+    options: {
+      'name' : '∫ Query count',
+      'tooltip' : '∫ Query : ',
+      'yLabel' : 'Query count',
+      'chartId' : 'pool_query_integral',
+      'graphTitle': '∫ Query count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
+  },
+  pool_query_on_deck: {
+    values: [],
+    options: {
+      'name' : 'Avg queries on deck',
+      'tooltip' : 'Avg queries on deck: ',
+      'yLabel' : 'Avg queries on deck',
+      'chartId' : 'pool_query_on_deck',
+      'graphTitle': 'Avg queries on deck',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
+  },
+  pool_exception_count: {
+    values: [],
+    options: {
+      'name' : 'Exception count',
+      'tooltip' : 'Exception count: ',
+      'yLabel' : 'Exceptions',
+      'y2Label' : 'Total',
+      'chartId' : 'pool_exception_count',
+      'graphTitle': 'Exception count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
+  },
+  pool_exception_integral: {
+    values: [],
+    options: {
+      'name' : '∫ Exception count',
+      'tooltip' : '∫ Exception : ',
+      'yLabel' : 'Exception count',
+      'chartId' : 'pool_exception_integral',
+      'graphTitle': '∫ Exception count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
+  },
+  pool_zeroHits_count: {
+    values: [],
+    options: {
+      'name' : 'Zero Hits count',
+      'tooltip' : 'Zero hits count: ',
+      'yLabel' : 'Zero Hits',
+      'y2Label' : 'Total',
+      'chartId' : 'pool_zeroHits_count',
+      'graphTitle': 'Zero Hits count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
+  },
+  pool_zeroHits_integral: {
+    values: [],
+    options: {
+      'name' : '&#8747; Zero Hits count',
+      'tooltip' : '&#8747; Zero Hits : ',
+      'yLabel' : 'Zero Hits count',
+      'chartId' : 'pool_zeroHits_integral',
+      'graphTitle': '&#8747; Zero Hits count',
+      'color': '#F4C77F',
+      'unit' : '',
+      'round' : 0
+    }
   }
+
 };
 
