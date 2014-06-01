@@ -10,7 +10,17 @@ function setRecapValue(id, value, unit, round, fontColor) {
  * Show right form and data box while hiding the other forms/data boxes
  */
 function showFormAndData(objectId){
-
+ $('#' + objectId).show(); 
+ ['servers','pools','realtime'].forEach(function(data){
+  if (objectId == data) {
+    $('#' + data).show();
+    $('#' + 'params_' + data).show();
+  }
+  else {
+    $('#' + data).hide();
+    $('#' + 'params_' + data).hide();
+  } 
+ });
 }
 
 
@@ -20,8 +30,7 @@ function showFormAndData(objectId){
 
 var thoth = {
   servers: function () {
-    $('#servers').show(); $('#pools').hide(); $('#realtime').hide();
-    $('#params_server').show();  $('#params_pools').hide();
+    showFormAndData('servers');
 
     var self = this;
 
@@ -63,9 +72,7 @@ var thoth = {
 
   },
   pools: function () {
-    $('#pools').show(); $('#servers').hide(); $('#realtime').hide();
-    $('#params_pool').show(); $('#params_server').hide();
-
+    showFormAndData('pools');
 
     var self = this;
 
@@ -125,9 +132,7 @@ var thoth = {
 
   _getParams: function (options) {
     //TODO: not run this every time we need params for graphs
-    console.log(options);//
-    //
-    var form = $('#params_' + options.objectId).serializeArray();
+    var form = $('#params_' + options.objectId +'s').serializeArray();
     var params = {};
     $.each(form, function () {
 
@@ -149,7 +154,6 @@ var thoth = {
       params[k] = v;
     });
 
-    console.log(params);
     return params;
   },
   _lineGraph: function (params, data) {
@@ -248,8 +252,9 @@ $('document').ready(function () {
     $('#params_server').hide(); $('#params_pool').hide(); $('#params_realtime').hide();
   } else {
     // URL has already a hash 
-    var hash = thoth.getHash();
-    thoth[hash]();
+    // var hash = thoth.getHash();
+    // thoth[hash]();
+    updateFromHash();
   }
 
 
