@@ -41,7 +41,8 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
     },
 
     show: function () {
-      $('#realtime').show();
+      showFormAndData('realtime');
+
       var serverParams = thoth._getParams(params);
       if (initialize) {
         this.init(serverParams);
