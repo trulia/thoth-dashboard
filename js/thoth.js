@@ -242,18 +242,14 @@ function updateFromHash() {
 
 // Date picker
 $('document').ready(function () {
-
-  // $('#params_pool').hide(); $('#params_server').hide();
+  // Deal with forms and data boxes
   if (thoth.getHash()=='empty'){
     // First time loading page and didn't select anything yet
-    // Hide sections
-    $('#servers').hide(); $('#pools').hide(); $('#realtime').hide();
-    // Hide forms
-    $('#params_server').hide(); $('#params_pool').hide(); $('#params_realtime').hide();
+    // Hide everything
+    showFormAndData(null);
   } else {
     // URL has already a hash 
-    // var hash = thoth.getHash();
-    // thoth[hash]();
+    showFormAndData(thoth.getHash());
     updateFromHash();
   }
 
