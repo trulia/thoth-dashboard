@@ -51,7 +51,7 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
       var self = this;
       this.timeout = setInterval(function () {
         self._update();
-      }, 500);
+      }, 1000);
     },
 
     hide: function () {
@@ -61,7 +61,7 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
 
     _update: function () {
       var self = this;
-      $.getJSON('/json/realtime.json', function (data) {
+      $.getJSON('http://localhost:3001/api/realtime/search501/core/active/port/8050/avg/qtime', function (data) {
         $.each(graphs, function (idx, graph) {
 
           if (graph.data.length > 100)

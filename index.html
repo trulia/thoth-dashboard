@@ -28,7 +28,7 @@
   </nav>
   <div class="content">
     <header>
-      <form id="params">
+      <form id="params_server" style="display:none;">
         <ul class="form-inline">
           <li class="form-title">Server
           <li>
@@ -39,6 +39,28 @@
             <input type="text" id="to_date" name="to_date" size="20" value="2014/05/24 03:43:02">
           <li>
             <label for="server">server</label>
+            <input type="text" id="server" name="server" size="15" value="search501">
+          <li>
+            <label for="port">port</label>
+            <input type="text" id="port" name="port" size="5" value="8050">
+          <li>
+            <label for="core">core</label>
+            <input type="text" id="core" name="core" size="5" value="active">
+          <li>
+            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
+        </ul>
+      </form>
+      <form id="params_pool" style="display:none;">
+        <ul class="form-inline">
+          <li class="form-title">Pool
+          <li>
+            <label for="from_date">from</label>
+            <input type="text" id="from_date" name="from_date" size="20" value="2014/05/22 03:43:02">
+          <li>
+            <label for="to_date">to</label>
+            <input type="text" id="to_date" name="to_date" size="20" value="2014/05/24 03:43:02">
+          <li>
+            <label for="server">pool</label>
             <input type="text" id="server" name="server" size="15" value="dr">
           <li>
             <label for="port">port</label>
@@ -50,6 +72,7 @@
             <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
         </ul>
       </form>
+
     </header>
     <article id="main" class="container">
       <section id="servers" class="row">
