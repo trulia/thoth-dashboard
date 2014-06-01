@@ -7,12 +7,22 @@ function setRecapValue(id, value, unit, round, fontColor) {
 }
 
 /**
+ * Show right form and data box while hiding the other forms/data boxes
+ */
+function showFormAndData(objectId){
+
+}
+
+
+/**
  * API calls grouped by board
  */
 
 var thoth = {
   servers: function () {
-    $('#servers').show(); $('#pools').hide(); realtime.hide();
+    $('#servers').show(); $('#pools').hide(); $('#realtime').hide();
+    $('#params_server').show();  $('#params_pools').hide();
+
     var self = this;
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'avg', endpoint: 'qtime'})), function (data) {
@@ -53,7 +63,10 @@ var thoth = {
 
   },
   pools: function () {
-    $('#pools').show(); $('#servers').hide(); realtime.hide();
+    $('#pools').show(); $('#servers').hide(); $('#realtime').hide();
+    $('#params_pool').show(); $('#params_server').hide();
+
+
     var self = this;
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
@@ -105,14 +118,16 @@ var thoth = {
   getHash: function () {
     var hash = location.hash.split('?')[0].replace('#', '');
     if (hash === '') {
-      hash = 'servers';
+      hash = 'empty';
     }
     return hash;
   },
 
   _getParams: function (options) {
     //TODO: not run this every time we need params for graphs
-    var form = $('#params').serializeArray();
+    console.log(options);//
+    //
+    var form = $('#params_' + options.objectId).serializeArray();
     var params = {};
     $.each(form, function () {
 
@@ -223,6 +238,22 @@ function updateFromHash() {
 
 // Date picker
 $('document').ready(function () {
+
+  // $('#params_pool').hide(); $('#params_server').hide();
+  if (thoth.getHash()=='empty'){
+    // First time loading page and didn't select anything yet
+    // Hide sections
+    $('#servers').hide(); $('#pools').hide(); $('#realtime').hide();
+    // Hide forms
+    $('#params_server').hide(); $('#params_pool').hide(); $('#params_realtime').hide();
+  } else {
+    // URL has already a hash 
+    var hash = thoth.getHash();
+    thoth[hash]();
+  }
+
+
+
   $('#from_date, #to_date').datetimepicker({
     format: 'Y/m/d h:i:s'
   });
@@ -239,7 +270,6 @@ $('document').ready(function () {
     //Temp hack to hide pages
     // $('section').hide();
     // realtime.hide();
-
     var $el = $(this);
     var hash;
     if (event.target.nodeName === 'LI') {
@@ -253,13 +283,14 @@ $('document').ready(function () {
 
     hash = hash.replace('#', '');
 
-    if ($el.hasClass('active') || $el.parents('li').hasClass('active')) {
-      return;
-    }
-    else {
+    // if ($el.hasClass('active') || $el.parents('li').hasClass('active')) {
+    //   return;
+    // }
+    // else {
       $el.siblings('.active').removeClass('active');
       $el.addClass('active');
-    }
+    // }
+
     thoth[hash]();
   });
 });
@@ -298,6 +329,8 @@ function showLightBox(elem) {
   }
 }
 
-$('section').hide();
+// $('section').hide();
+
+
 // Move to on-load
 // thoth.servers();
