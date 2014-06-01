@@ -313,3 +313,7 @@ div.tooltip {
 .container {
   width: 100% !important;
 }
+
+a:hover{
+  color: inherit;
+}
