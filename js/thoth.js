@@ -23,6 +23,23 @@ function showFormAndData(objectId){
  });
 }
 
+/**
+ * Set default dates in the forms. From : Yesterday , To: Tomorrow
+ */
+function setDefaultFromAndToDates(){
+  var today = new Date();
+  var yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  var todayStr = today.getFullYear() + '/' + ('00'+ (today.getMonth()+1)).slice(-2) + '/' + ('00'+ (today.getDate()+1)).slice(-2) + ' ' + '12:00:00';
+  var yesterdayStr = yesterday.getFullYear() + '/' + ('00'+ (yesterday.getMonth()+1)).slice(-2) + '/' + ('00'+ yesterday.getDate()).slice(-2) + ' ' + '12:00:00';
+
+  $('#params_servers #from_date').val(yesterdayStr);
+  $('#params_servers #to_date').val(todayStr);
+
+  $('#params_pools #from_date').val(yesterdayStr);
+  $('#params_pools #to_date').val(todayStr);
+}
 
 /**
  * API calls grouped by board
@@ -258,6 +275,9 @@ $('document').ready(function () {
   $('#from_date, #to_date').datetimepicker({
     format: 'Y/m/d h:i:s'
   });
+
+  // Set default dates for from/to input forms
+  setDefaultFromAndToDates();
 
   $('#server_settings').on('click', function (event) {
     event.preventDefault();
