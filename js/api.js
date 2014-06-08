@@ -4,6 +4,10 @@ var thothApi = {
     var urlParams = [params.objectId, params.server, 'core', params.core, 'port', params.port, 'start', params.from_date, 'end', params.to_date, params.attribute, params.endpoint];
     var url = 'http://' + thothApi._uri + urlParams.join('/');
     return url;
+  },
+
+  getParamsListUri: function(param) {
+    return 'http://' + thothApi._uri + 'list/' + param;
   }
 };
 

@@ -139,6 +139,10 @@ var thoth = {
     realtime.show();
   },
 
+  /**
+   * Get the active view from current URL
+   * @returns {XML|string|void}
+   */
   getHash: function () {
     var hash = location.hash.split('?')[0].replace('#', '');
     if (hash === '') {
@@ -267,10 +271,9 @@ $('document').ready(function () {
   } else {
     // URL has already a hash 
     showFormAndData(thoth.getHash());
-    updateFromHash();
+
+    // updateFromHash();
   }
-
-
 
   $('#from_date, #to_date').datetimepicker({
     format: 'Y/m/d h:i:s'
@@ -288,31 +291,9 @@ $('document').ready(function () {
   });
 
   $('nav li').on('click', function (event) {
-    //Temp hack to hide pages
-    // $('section').hide();
-    // realtime.hide();
-    var $el = $(this);
-    var hash;
-    if (event.target.nodeName === 'LI') {
-      //update url hash if needed
-      hash = $el.find('a').attr('href');
-      location.hash = hash;
-    }
-    else {
-      hash = $(event.target).attr('href');
-    }
 
-    hash = hash.replace('#', '');
-
-    // if ($el.hasClass('active') || $el.parents('li').hasClass('active')) {
-    //   return;
-    // }
-    // else {
-      $el.siblings('.active').removeClass('active');
-      $el.addClass('active');
-    // }
-
-    thoth[hash]();
+    var activeView = $(event.currentTarget).children().text().toLowerCase();
+    populateForm(activeView);
   });
 });
 
