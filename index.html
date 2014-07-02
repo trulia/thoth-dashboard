@@ -90,27 +90,45 @@
 ======= -->
   <header>
     <form id="params" >
+<!-- =======
+<nav>
+  <img src="img/thoth-logo-combo.png">
+  <ul>
+    <li class="active"><a href="#servers"><i class="entypo popup"></i>Servers</a>
+    <li><a href="#pools"><i class="entypo database"></i>Pools</a>
+    <li><a href="#exceptions"><i class="entypo warning"></i>Exceptions</a>
+    <li><a href="#queries"><i class="entypo air"></i>Slow Queries</a>
+    <li><a href="#realtime"><i class="entypo back-in-time"></i>Realtime</a>
+  </ul>
+</nav>
+<div class="content">
+>>>>>>> first steps in making the whole dashboard work based on header values -->
 
-      <label for="from_date"> From </label>
-      <input type="text" id="from_date" name="from_date" size="20" value="2014/05/22 03:43:02">
+<header>
+  <form id="params" >
+    <label for="from_date"> From </label>
+    <input type="text" id="from_date" name="from_date" data-type="from-date" size="20" value="2014/05/22 03:43:02">
 
-      <label for="to_date"> To </label>
-      <input type="text" id="to_date" name="to_date" size="20" value="2014/05/24 03:43:02">
+    <label for="to_date"> To </label>
+    <input type="text" id="to_date" name="to_date" data-type="to-date" size="20" value="2014/05/24 03:43:02">
 
-      <label for="server-values" class="optional"> Server </label>
-      <select id="server-values" class="optional" data-role="server-values-select"></select>
+    <label for="server-values" class="optional"> Server </label>
+    <select id="server-values" class="optional" data-role="server-values-select"></select>
 
-      <label for="pool-values" class="optional"> Pool </label>
-      <select id="pool-values" class="optional" data-role="pool-values-select"></select>
+    <label for="pool-values" class="optional"> Pool </label>
+    <select id="pool-values" class="optional" data-role="pool-values-select"></select>
 
-      <label for="port-values" class="optional"> Port </label>
-      <select id="port-values" class="optional" data-role="port-values-select"></select>
+    <label for="port-values" class="optional"> Port </label>
+    <select id="port-values" class="optional" data-role="port-values-select"></select>
 
-      <label for="core-values" class="optional"> Core </label>
-      <select id="core-values" class="optional" data-role="core-values-select"></select>
+    <label for="core-values" class="optional"> Core </label>
+    <select id="core-values" class="optional" data-role="core-values-select"></select>
 
-      <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
+    <button data-role="submit-settings" class="btn orange"><i class="entypo ccw"></i></button>
+  </form>
+</header>
 
+<!-- <<<<<<< HEAD -->
 
       <!--
       <ul class="form-inline">
@@ -164,187 +182,218 @@
           <svg></svg>
         </div>
         <br>
+=<!-- ======
+<article id="main" class="container">
+  <section id="servers" class="row">
+    <div id="query_time" class="graph col-md-5">
+      <h2>Avg query time &mdash; sec</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="query_count" class="graph col-md-5">
+      <h2>Avg number of queries</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div id="query_integral" class="graph col-md-5">
+      <h2>&#8747; Query count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="query_on_deck" class="graph col-md-5">
+      <h2>Avg number of queries "on deck"</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+>>>>>>> first steps in making the whole dashboard work based on header values -->
 
-        <div id="exception_count" class="graph col-md-5">
-          <h2>Exception count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="exception_integral" class="graph col-md-5">
-          <h2>&#8747; Exception count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div id="zeroHits_count" class="graph col-md-5">
-          <h2>Zero Hits count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="zeroHits_integral" class="graph col-md-5">
-          <h2>&#8747; Zero Hits count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div class="graph col-md-5">
-          <h2>Distribution of query times (sec)</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-          <svg id="query_distribution"></svg>
-        </div>
-      </section>
+    <div id="exception_count" class="graph col-md-5">
+      <h2>Exception count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="exception_integral" class="graph col-md-5">
+      <h2>&#8747; Exception count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div id="zeroHits_count" class="graph col-md-5">
+      <h2>Zero Hits count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="zeroHits_integral" class="graph col-md-5">
+      <h2>&#8747; Zero Hits count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div class="graph col-md-5">
+      <h2>Distribution of query times (sec)</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+      <svg id="query_distribution"></svg>
+    </div>
+  </section>
 
-      <section id="pools" class="row">
-        <div id="pool_query_time" class="graph col-md-5">
-          <h2>Avg query time &mdash; sec</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="pool_query_count" class="graph col-md-5">
-          <h2>Avg number of queries</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div id="pool_query_integral" class="graph col-md-5">
-          <h2>&#8747; Query count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="pool_query_on_deck" class="graph col-md-5">
-          <h2>Avg number of queries "on deck"</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
+  <section id="pools" class="row">
+    <div id="pool_query_time" class="graph col-md-5">
+      <h2>Avg query time &mdash; sec</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="pool_query_count" class="graph col-md-5">
+      <h2>Avg number of queries</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div id="pool_query_integral" class="graph col-md-5">
+      <h2>&#8747; Query count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="pool_query_on_deck" class="graph col-md-5">
+      <h2>Avg number of queries "on deck"</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
 
-        <div id="pool_exception_count" class="graph col-md-5">
-          <h2>Exception count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="pool_exception_integral" class="graph col-md-5">
-          <h2>&#8747; Exception count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div id="pool_zeroHits_count" class="graph col-md-5">
-          <h2>Zero Hits count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="pool_zeroHits_integral" class="graph col-md-5">
-          <h2>&#8747; Zero Hits count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <!-- <br> -->
-<!--         <div class="graph col-md-5">
-          <h2>Distribution of query times (sec)</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-          <svg id="query_distribution"></svg>
-        </div> -->
-      </section>      
+    <div id="pool_exception_count" class="graph col-md-5">
+      <h2>Exception count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="pool_exception_integral" class="graph col-md-5">
+      <h2>&#8747; Exception count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div id="pool_zeroHits_count" class="graph col-md-5">
+      <h2>Zero Hits count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="pool_zeroHits_integral" class="graph col-md-5">
+      <h2>&#8747; Zero Hits count</h2>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <!-- <br> -->
+    <!--         <div class="graph col-md-5">
+              <h2>Distribution of query times (sec)</h2>
+              <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+              <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+              <svg id="query_distribution"></svg>
+            </div> -->
+  </section>
 
-      <section id="realtime">
-        <div class="graph col-md-5">
-          <h2>Avg query time &mdash; sec</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div class="graph col-md-5">
-          <h2>Avg number of queries</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div class="graph col-md-5">
-          <h2>&#8747; Query count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div class="graph col-md-5">
-          <h2>Avg number of queries "on deck"</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
+  <section id="realtime">
+    <div class="graph col-md-5">
+      <h2>Avg query time &mdash; sec</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div class="graph col-md-5">
+      <h2>Avg number of queries</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div class="graph col-md-5">
+      <h2>&#8747; Query count</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div class="graph col-md-5">
+      <h2>Avg number of queries "on deck"</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
 
-        <div class="graph col-md-5">
-          <h2>Exception count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div class="graph col-md-5">
-          <h2>&#8747; Exception count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div class="graph col-md-5">
-          <h2>Zero Hits count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div class="graph col-md-5">
-          <h2>&#8747; Zero Hits count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div class="graph col-md-5">
-          <h2>Distribution of query times (sec)</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-      </section>
-    </article>
-  </div>
+    <div class="graph col-md-5">
+      <h2>Exception count</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div class="graph col-md-5">
+      <h2>&#8747; Exception count</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div class="graph col-md-5">
+      <h2>Zero Hits count</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div class="graph col-md-5">
+      <h2>&#8747; Zero Hits count</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
+    <div class="graph col-md-5">
+      <h2>Distribution of query times (sec)</h2>
+      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+      <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+  </section>
+</article>
+</div>
 
-  <div id="lightbox">
-    <div class="box">
-        <div id="lightboxChart" class="lightboxGraph">
-          <h2>Avg query time &mdash; sec</h2>
-          <svg></svg>
-        </div>
+<div id="lightbox">
+  <div class="box">
+    <div id="lightboxChart" class="lightboxGraph">
+      <h2>Avg query time &mdash; sec</h2>
+      <svg></svg>
     </div>
   </div>
+</div>
 
-  <script src="js/d3.v3.js"></script>
-  <script src="js/nvd3/nv.d3.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
-  <script src="js/charts_data.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/graph_builder.js"></script>
-  <script src="js/realtime.js"></script>
-  <script src="js/thoth.js"></script>
-  <script src="js/form_options.js"></script>
+<script src="js/d3.v3.js"></script>
+<script src="js/nvd3/nv.d3.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/charts_data.js"></script>
+<script src="js/api.js"></script>
+<script src="js/graph_builder.js"></script>
+<script src="js/realtime.js"></script>
+<script src="js/thoth.js"></script>
+<script src="js/form_options.js"></script>
 </body>
 
 </html>

@@ -6,9 +6,9 @@ var thothApi = {
     return url;
   },
 
+  //Query a list of options for a specific param
+  //e.g: http://localhost:3001/api/list/servers returns {search501, search502, search503..etc}
   getParamsListUri: function(param) {
     return 'http://' + thothApi._uri + 'list/' + param;
   }
 };
-
-

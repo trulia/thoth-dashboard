@@ -26,11 +26,13 @@ var form_options = {
     ]
 };
 
+//Step1: hide all the selects
+//Step2: for the given activeView params (e.g. server, port, core),
+// fetch a list of options and populate each select
 function populateForm (activeView) {
 
   var list = [];
-
-  //Clean params, hide all select
+  //Clean params, hide all the select
   var $formParams = $('form>select');
   $.each($formParams, function () {
     $(this).hide();
@@ -42,9 +44,9 @@ function populateForm (activeView) {
       $.getJSON(thothApi.getParamsListUri(param + 's'), function (data) {
         list = data.list;
 
-        // Find the correct select element and show it, with its label
+        //Find the correct select element and show it, with its label
         var $select = $('[data-role=' + param + '-values-select]');
-        //debugger;
+        //Show selected select only
         $select.prev('label').show();
         $select.show();
 
@@ -59,10 +61,4 @@ function populateForm (activeView) {
       })
     }
   );
-}
-
-function displayParamsForView (activeView, param) {
-  form_options['all'].forEach(function (param){
-
-  })
 }

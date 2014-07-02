@@ -141,7 +141,7 @@ var thoth = {
 
   /**
    * Get the active view from current URL
-   * @returns {XML|string|void}
+   * @returns string
    */
   getHash: function () {
     var hash = location.hash.split('?')[0].replace('#', '');
@@ -153,30 +153,20 @@ var thoth = {
 
   _getParams: function (options) {
     //TODO: not run this every time we need params for graphs
-    var form = $('#params_' + options.objectId +'s').serializeArray();
-    var params = {};
-    $.each(form, function () {
-
-
-      var value = this.value || '';
-      if (this.name.indexOf('date') !== -1)  {
-        var timestamp = Date.parse(this.value);
-        if (!isNaN(timestamp)) {
-          value = new Date(timestamp).toISOString();
-        }
+    var paramsList = {};
+    //Add dates
+    paramsList['from_date'] = (Date.parse($('[data-type=from-date]').val()));
+    paramsList['to_date']   = (Date.parse($('[data-type=to-date]').val()));
+    //Add values of selects visible for this view
+    var $formElements = $('#params>select');
+    $.each($formElements, function(){
+      if ($(this).is(':visible')){
+        paramsList[$(this).prev().text().replace(/ /g,'').toLowerCase()] = ($(this).val());
       }
-
-      params[this.name] = value;
     });
-
-    location.hash = '#' + this.getHash() + '?' + $.param(params);
-    // Extra options
-    $.each(options, function (k, v) {
-      params[k] = v;
-    });
-
-    return params;
+    return _.extend(paramsList, options);
   },
+
   _lineGraph: function (params, data) {
     return graphBuilder.lineGraph(params, data);
   },
@@ -279,10 +269,14 @@ $('document').ready(function () {
     format: 'Y/m/d h:i:s'
   });
 
+// <<<<<<< HEAD
   // Set default dates for from/to input forms
-  setDefaultFromAndToDates();
+  // setDefaultFromAndToDates();
 
-  $('#server_settings').on('click', function (event) {
+  // $('#server_settings').on('click', function (event) {
+// =======
+  $('[data-role="submit-settings"]').on('click', function (event) {
+// >>>>>>> first steps in making the whole dashboard work based on header values
     event.preventDefault();
     //reload current view
     var hash = thoth.getHash();
@@ -290,8 +284,8 @@ $('document').ready(function () {
     thoth[hash]();
   });
 
+  // Listen to click on menu element
   $('nav li').on('click', function (event) {
-
     var activeView = $(event.currentTarget).children().text().toLowerCase();
     populateForm(activeView);
   });
