@@ -155,8 +155,8 @@ var thoth = {
     //TODO: not run this every time we need params for graphs
     var paramsList = {};
     //Add dates
-    paramsList['from_date'] = (Date.parse($('[data-type=from-date]').val()));
-    paramsList['to_date']   = (Date.parse($('[data-type=to-date]').val()));
+    paramsList['from_date'] = new Date(Date.parse($('[data-type=from-date]').val())).toISOString();
+    paramsList['to_date']   = new Date(Date.parse($('[data-type=to-date]').val())).toISOString();
     //Add values of selects visible for this view
     var $formElements = $('#params>select');
     $.each($formElements, function(){
