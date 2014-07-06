@@ -164,7 +164,7 @@ var thoth = {
         paramsList[$(this).prev().text().replace(/ /g,'').toLowerCase()] = ($(this).val());
       }
     });
-    return _.extend(paramsList, options);
+    return $.extend(paramsList, options);
   },
 
   _lineGraph: function (params, data) {
