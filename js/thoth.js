@@ -33,12 +33,9 @@ function setDefaultFromAndToDates(){
 
   var todayStr = today.getFullYear() + '/' + ('00'+ (today.getMonth()+1)).slice(-2) + '/' + ('00'+ (today.getDate()+1)).slice(-2) + ' ' + '12:00:00';
   var yesterdayStr = yesterday.getFullYear() + '/' + ('00'+ (yesterday.getMonth()+1)).slice(-2) + '/' + ('00'+ yesterday.getDate()).slice(-2) + ' ' + '12:00:00';
+  $('#params #from_date').val(yesterdayStr);
+  $('#params #to_date').val(todayStr);
 
-  $('#params_servers #from_date').val(yesterdayStr);
-  $('#params_servers #to_date').val(todayStr);
-
-  $('#params_pools #from_date').val(yesterdayStr);
-  $('#params_pools #to_date').val(todayStr);
 }
 
 /**
@@ -271,7 +268,7 @@ $('document').ready(function () {
 
 // <<<<<<< HEAD
   // Set default dates for from/to input forms
-  // setDefaultFromAndToDates();
+  setDefaultFromAndToDates();
 
   // $('#server_settings').on('click', function (event) {
 // =======
