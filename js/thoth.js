@@ -11,7 +11,7 @@ function setRecapValue(id, value, unit, round, fontColor) {
  */
 function showFormAndData(objectId){
  $('#' + objectId).show(); 
- ['servers','pools','realtime'].forEach(function(data){
+ ['servers','pools','realtime','slowqueries'].forEach(function(data){
   if (objectId == data) {
     $('#' + data).show();
     $('#' + 'params_' + data).show();
@@ -21,6 +21,21 @@ function showFormAndData(objectId){
     $('#' + 'params_' + data).hide();
   } 
  });
+}
+
+/**
+ * Return a qtime in mseconds or seconds depending on the quantity
+ * in: qtime in ms
+ */
+
+function formatQtime(qtime){
+  if (qtime > 1000){
+    // more than 1 sec, return secs
+    return (qtime/1000)+' s';
+  } else{
+    // less than 1 sec, return ms
+    return qtime+' ms';
+  }
 }
 
 /**
@@ -35,7 +50,6 @@ function setDefaultFromAndToDates(){
   var yesterdayStr = yesterday.getFullYear() + '/' + ('00'+ (yesterday.getMonth()+1)).slice(-2) + '/' + ('00'+ yesterday.getDate()).slice(-2) + ' ' + '12:00:00';
   $('#params #from_date').val(yesterdayStr);
   $('#params #to_date').val(todayStr);
-
 }
 
 /**
@@ -131,7 +145,64 @@ var thoth = {
     */
   },
   exceptions: function () {},
-  queries: function () {},
+
+  fill_slowQuery: function(page, data){
+    // Remove previous boxes
+    $('#content').remove();
+    // Create the container for the new boxes
+    $('#page-content').append('<div id="content"></div>');
+
+    for (var i=0; i<data.values.length;i++){
+      var el = data.values[i];
+      var plainDate = new Date(el.timestamp);
+
+      var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
+
+      // Month/Day/Year Time/am-pm
+      
+
+      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp">' + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="qtime">' + formatQtime(el.qtime) + '</div><div class="query"> <label>Query</label><p class="query-text">' + el.query + '</p></div></div>');
+
+    }
+
+
+
+  },
+
+  slowqueries: function (npage) {
+    showFormAndData('slowqueries');
+    var self = this;
+    if (npage == undefined ) npage =1;
+
+
+      $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'slowqueries', page: npage})), function (data) {
+        // self._stackedLineGraph(chartsData.query_distribution.options, data);
+        var pages = Math.round(data.numFound / 12)-1;
+      
+            // $('#page-content').remove();
+             // $('slowqueries').append('<div class="page-content"></div>');
+            // $('#page-content').append('<div class="slowquery-box col-md-3"><div class="timestamp">03/10/14 04:45pm</div><a><i class="entypo eye" onClick="showLightBox(this);"></i></a><div class="qtime">1.25s</div><div class="query"> <label>Query</label><p class="query-text">{sort=prevPriceDate_s+desc&start=0&cachebust=1398060298113&q=(numberOfBedrooms_i:[+3+TO+*+]+)+AND+(numberOfBathrooms_f:[+2+TO+*+]+)+AND+(price_i:[+0+TO+250000+]+)+AND+(squareFeet_i:[+2000+TO+*+]+)+AND+(prevPriceDate_s:[+2014-03-29+TO+*+]+)+AND+(prevPriceDolChge_i:[+1+TO+*+]+)+AND+((city_s:"HOLLADAY"+AND+state_s:"UT"))+AND+(status_s:"For+Sale"+OR+status_s:"Foreclosure")+AND+active_i:1++AND+!blocked_i:1+&slowpool=1&wt=json&version=2.2&rows=10}</p></div></div>');
+
+
+         $('#pagination-demo').twbsPagination({
+          totalPages: pages,
+          visiblePages: 7,
+          onPageClick: function (event, page) {
+              // $('#page-content').text('Page ' + page);
+              // console.dir(event);
+              $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'slowqueries', page: page})), function (data) {
+                thoth['fill_slowQuery'](page, data);
+              });
+              
+          }
+      });
+
+        self._slowQueryList(pages);
+      });      
+
+
+
+  },
   realtime: function () {
     realtime.show();
   },
@@ -167,6 +238,12 @@ var thoth = {
   _lineGraph: function (params, data) {
     return graphBuilder.lineGraph(params, data);
   },
+  _slowQueryList: function (data) {
+    console.log(data);
+
+    // return graphBuilder.lineGraph(params, data);
+  },
+
 
   /**
    * ## Cumulative Line Graph
@@ -234,6 +311,9 @@ $(document).mousedown(function (e) {
   var clicked = $(e.target); // get the element clicked
   if (clicked.is('#lightbox')) {
     $('#lightbox').hide(); //or .fadeOut();
+  }
+    if (clicked.is('#listLightbox')) {
+    $('#listLightbox').hide(); //or .fadeOut();
   }
 });
 
@@ -320,6 +400,48 @@ function showLightBox(elem) {
 
     nv.utils.windowResize(chart.update);
   }
+}
+
+function copyToClipboard(elem) {
+}
+
+function showListLightBox(elem) {
+  // var data = chartsData[elem.parentNode.parentNode.id].values;
+  // var params = chartsData[elem.parentNode.parentNode.id].options;
+  // if (data.length !== 0) {
+    $('#listLightbox').show(); // or .fadeIn();
+    console.dir(elem.parentNode.parentNode.id);
+    // console.dir();
+    // $('#lightboxChart h2').html(chartsData[params.chartId].options.graphTitle);
+    var text = $('#'+elem.parentNode.parentNode.id +' .query-text')[0].innerText;
+    text= text.replace(/\&/g,"\n");
+    $('#lightboxChart div').html(text);
+    // // var chart = nv.models.lineChart()
+    // var chart = nv.models.lineWithFocusChart()
+    //   .tooltipContent(function (key, y, e) {
+    //     return  params.tooltip + '<b> ' + e + '</b><br/>' + 'Time: <b>' + y + '</b></br>';
+    //   });
+    // chart.yAxis.axisLabel(chart.yLabel);
+    // chart.lines.scatter.xScale(d3.scale.linear());
+    // chart.xAxis
+    //   .axisLabel('Timestamp')
+    //   .tickFormat(function (d) {
+    //     return d3.time.format("%m/%d %H:%M")(new Date(d));
+    //   });
+    // chart.x2Axis
+    //   .tickFormat(function (d) {
+    //     return d3.time.format("%m/%d %H:%M")(new Date(d));
+    //   });
+
+    // chart.yAxis.tickFormat(d3.format(',.2f'));
+    // chart.y2Axis.tickFormat(d3.format(',.2f'));
+
+    // d3.select('#lightboxChart svg')
+    //   .datum(data)
+    //   .call(chart);
+
+    // nv.utils.windowResize(chart.update);
+  // }
 }
 
 // $('section').hide();

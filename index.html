@@ -20,11 +20,12 @@
       <li class="active"><a href="#servers"><i class="entypo popup"></i>Servers</a>
       <li><a href="#pools"><i class="entypo database"></i>Pools</a>
       <li><a href="#exceptions"><i class="entypo warning"></i>Exceptions</a>
-      <li><a href="#queries"><i class="entypo air"></i>Slow Queries</a>
+      <li><a href="#slowqueries"><i class="entypo air"></i>Slow Queries</a>
       <li><a href="#realtime"><i class="entypo back-in-time"></i>Realtime</a>
     </ul>
   </nav>
   <div class="content">
+
 <header>
   <form id="params" >
     <label for="from_date"> From </label>
@@ -35,6 +36,90 @@
 
     <label for="server-values" class="optional"> Server </label>
     <select id="server-values" class="optional" data-role="server-values-select"></select>
+<!-- 
+    <header>
+      <form id="params_servers" style="display:none;">
+        <ul class="form-inline">
+          <li class="form-title">Server
+          <li>
+            <label for="from_date">from</label>
+            <input type="text" id="from_date" name="from_date" size="20">
+          <li>
+            <label for="to_date">to</label>
+            <input type="text" id="to_date" name="to_date" size="20">
+          <li>
+            <label for="server">server</label>
+            <input type="text" id="server" name="server" size="15" value="search501">
+          <li>
+            <label for="port">port</label>
+            <input type="text" id="port" name="port" size="5" value="8050">
+          <li>
+            <label for="core">core</label>
+            <input type="text" id="core" name="core" size="5" value="active">
+          <li>
+            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
+        </ul>
+      </form>
+      <form id="params_pools" style="display:none;">
+        <ul class="form-inline">
+          <li class="form-title">Pool
+          <li>
+            <label for="from_date">from</label>
+            <input type="text" id="from_date" name="from_date" size="20">
+          <li>
+            <label for="to_date">to</label>
+            <input type="text" id="to_date" name="to_date" size="20">
+          <li>
+            <label for="server">pool</label>
+            <input type="text" id="server" name="server" size="15" value="dr">
+          <li>
+            <label for="port">port</label>
+            <input type="text" id="port" name="port" size="5" value="8050">
+          <li>
+            <label for="core">core</label>
+            <input type="text" id="core" name="core" size="5" value="active">
+          <li>
+            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
+        </ul>
+      </form>
+      <form id="params_realtime" style="display:none;">
+        <ul class="form-inline">
+          <li class="form-title">Realtime
+          <li>
+            <label for="server">server</label>
+            <input type="text" id="server" name="server" size="15" value="search501">
+          <li>
+            <label for="port">port</label>
+            <input type="text" id="port" name="port" size="5" value="8050">
+          <li>
+            <label for="core">core</label>
+            <input type="text" id="core" name="core" size="5" value="active">
+          <li>
+            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
+        </ul>
+      </form>
+      <form id="params_slowqueries" style="display:none;">
+        <ul class="form-inline">
+          <li class="form-title">Server
+          <li>
+            <label for="from_date">from</label>
+            <input type="text" id="from_date" name="from_date" size="20">
+          <li>
+            <label for="to_date">to</label>
+            <input type="text" id="to_date" name="to_date" size="20">
+          <li>
+            <label for="server">server</label>
+            <input type="text" id="server" name="server" size="15" value="search501">
+          <li>
+            <label for="port">port</label>
+            <input type="text" id="port" name="port" size="5" value="8050">
+          <li>
+            <label for="core">core</label>
+            <input type="text" id="core" name="core" size="5" value="active">
+          <li>
+            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
+        </ul>
+      </form> -->
 
     <label for="pool-values" class="optional"> Pool </label>
     <select id="pool-values" class="optional" data-role="pool-values-select"></select>
@@ -200,41 +285,52 @@
     </div>
     <br>
 
-    <div class="graph col-md-5">
-      <h2>Exception count</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div class="graph col-md-5">
-      <h2>&#8747; Exception count</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div class="graph col-md-5">
-      <h2>Zero Hits count</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div class="graph col-md-5">
-      <h2>&#8747; Zero Hits count</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div class="graph col-md-5">
-      <h2>Distribution of query times (sec)</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-  </section>
-</article>
+
+
+        <div class="graph col-md-5">
+          <h2>Exception count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="graph col-md-5">
+          <h2>&#8747; Exception count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div class="graph col-md-5">
+          <h2>Zero Hits count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="graph col-md-5">
+          <h2>&#8747; Zero Hits count</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div class="graph col-md-5">
+          <h2>Distribution of query times (sec)</h2>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+      </section>
+     <section id="slowqueries" class="row">
+      <div id="page-content"></div>
+<div class="pagination center">
+<ul id="pagination-demo" class="pagination-sm"></ul>   
 </div>
+         
+        
+      </section>
+    </article>
+  </div>
+
 
 <div id="lightbox">
   <div class="box">
@@ -245,7 +341,20 @@
   </div>
 </div>
 
-<script src="js/d3.v3.js"></script>
+
+
+    <div id="listLightbox">
+    <div class="box">
+        <div id="lightboxChart" class="lightboxGraph">
+          <h2>Avg query time &mdash; sec</h2>
+           <button class="copy-to-clipboard btn orange" onClick="copyToClipboard(this);"><i class="entypo clipboard"></i></button>
+          <div></div>
+        </div>
+    </div>
+  </div>
+
+
+<!-- <script src="js/d3.v3.js"></script>
 <script src="js/nvd3/nv.d3.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -257,6 +366,22 @@
 <script src="js/realtime.js"></script>
 <script src="js/thoth.js"></script>
 <script src="js/form_options.js"></script>
+ -->
+
+
+  <script src="js/d3.v3.js"></script>
+  <script src="js/nvd3/nv.d3.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
+  <script src="js/charts_data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/graph_builder.js"></script>
+  <script src="js/realtime.js"></script>
+  <script src="js/thoth.js"></script>
+  <script src="js/jquery.twbsPagination.min.js"></script>
+
+
 </body>
 
 </html>
