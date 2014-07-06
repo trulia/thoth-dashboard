@@ -33,12 +33,9 @@ function setDefaultFromAndToDates(){
 
   var todayStr = today.getFullYear() + '/' + ('00'+ (today.getMonth()+1)).slice(-2) + '/' + ('00'+ (today.getDate()+1)).slice(-2) + ' ' + '12:00:00';
   var yesterdayStr = yesterday.getFullYear() + '/' + ('00'+ (yesterday.getMonth()+1)).slice(-2) + '/' + ('00'+ yesterday.getDate()).slice(-2) + ' ' + '12:00:00';
+  $('#params #from_date').val(yesterdayStr);
+  $('#params #to_date').val(todayStr);
 
-  $('#params_servers #from_date').val(yesterdayStr);
-  $('#params_servers #to_date').val(todayStr);
-
-  $('#params_pools #from_date').val(yesterdayStr);
-  $('#params_pools #to_date').val(todayStr);
 }
 
 /**
@@ -139,6 +136,10 @@ var thoth = {
     realtime.show();
   },
 
+  /**
+   * Get the active view from current URL
+   * @returns string
+   */
   getHash: function () {
     var hash = location.hash.split('?')[0].replace('#', '');
     if (hash === '') {
@@ -149,30 +150,20 @@ var thoth = {
 
   _getParams: function (options) {
     //TODO: not run this every time we need params for graphs
-    var form = $('#params_' + options.objectId +'s').serializeArray();
-    var params = {};
-    $.each(form, function () {
-
-
-      var value = this.value || '';
-      if (this.name.indexOf('date') !== -1)  {
-        var timestamp = Date.parse(this.value);
-        if (!isNaN(timestamp)) {
-          value = new Date(timestamp).toISOString();
-        }
+    var paramsList = {};
+    //Add dates
+    paramsList['from_date'] = new Date(Date.parse($('[data-type=from-date]').val())).toISOString();
+    paramsList['to_date']   = new Date(Date.parse($('[data-type=to-date]').val())).toISOString();
+    //Add values of selects visible for this view
+    var $formElements = $('#params>select');
+    $.each($formElements, function(){
+      if ($(this).is(':visible')){
+        paramsList[$(this).prev().text().replace(/ /g,'').toLowerCase()] = ($(this).val());
       }
-
-      params[this.name] = value;
     });
-
-    location.hash = '#' + this.getHash() + '?' + $.param(params);
-    // Extra options
-    $.each(options, function (k, v) {
-      params[k] = v;
-    });
-
-    return params;
+    return $.extend(paramsList, options);
   },
+
   _lineGraph: function (params, data) {
     return graphBuilder.lineGraph(params, data);
   },
@@ -267,19 +258,22 @@ $('document').ready(function () {
   } else {
     // URL has already a hash 
     showFormAndData(thoth.getHash());
-    updateFromHash();
+
+    // updateFromHash();
   }
-
-
 
   $('#from_date, #to_date').datetimepicker({
     format: 'Y/m/d h:i:s'
   });
 
+// <<<<<<< HEAD
   // Set default dates for from/to input forms
   setDefaultFromAndToDates();
 
-  $('#server_settings').on('click', function (event) {
+  // $('#server_settings').on('click', function (event) {
+// =======
+  $('[data-role="submit-settings"]').on('click', function (event) {
+// >>>>>>> first steps in making the whole dashboard work based on header values
     event.preventDefault();
     //reload current view
     var hash = thoth.getHash();
@@ -287,32 +281,10 @@ $('document').ready(function () {
     thoth[hash]();
   });
 
+  // Listen to click on menu element
   $('nav li').on('click', function (event) {
-    //Temp hack to hide pages
-    // $('section').hide();
-    // realtime.hide();
-    var $el = $(this);
-    var hash;
-    if (event.target.nodeName === 'LI') {
-      //update url hash if needed
-      hash = $el.find('a').attr('href');
-      location.hash = hash;
-    }
-    else {
-      hash = $(event.target).attr('href');
-    }
-
-    hash = hash.replace('#', '');
-
-    // if ($el.hasClass('active') || $el.parents('li').hasClass('active')) {
-    //   return;
-    // }
-    // else {
-      $el.siblings('.active').removeClass('active');
-      $el.addClass('active');
-    // }
-
-    thoth[hash]();
+    var activeView = $(event.currentTarget).children().text().toLowerCase();
+    populateForm(activeView);
   });
 });
 

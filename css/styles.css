@@ -317,3 +317,6 @@ div.tooltip {
 a:hover{
   color: inherit;
 }
+#params .optional{
+  display: none;
+}
