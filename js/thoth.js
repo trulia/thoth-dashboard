@@ -16,12 +16,16 @@ function showFormAndData(objectId){
   if (objectId == data) {
     $('#' + data).show();
     $('#' + 'params_' + data).show();
+
   }
   else {
     $('#' + data).hide();
     $('#' + 'params_' + data).hide();
   } 
  });
+
+
+
 }
 
 /**

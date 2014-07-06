@@ -105,7 +105,7 @@ header {
   cursor: pointer;
 }
 
-input[type="text"] {
+input[type="text"],select {
   margin-left: 5px;
   margin-right: 15px;
   border: 0;
@@ -123,6 +123,11 @@ input[type="text"] {
 
 input[type="text"]:focus {
   outline: none;
+}
+
+button[data-role="submit-settings"]{
+  margin-left: 20px;
+  margin-top: -10px;
 }
 
 i.entypo {
@@ -355,7 +360,7 @@ div.tooltip {
   width: 60px;
   height: 28px;
   padding: 2px;
-  font: 12px sans-serif;
+  font: 12px sans-serif;  
   background: lightsteelblue;
   border: 0;
   border-radius: 8px;
@@ -392,6 +397,10 @@ a:hover{
   color: inherit;
 }
 
+#params{
+  margin-left: 50px;
+  padding-top: 30px;
+}
 #params .optional{
   display: none;
 }
@@ -405,3 +414,40 @@ a:hover{
    text-align: center;
    width: 100%;
 }
+
+
+
+
+select, input[type="text"] {
+height: 30px;
+line-height: 30px;
+text-align: center;
+}
+
+
+
+/*
+select {
+width: 220px;
+background-color: #ffffff;
+border: 1px solid #cccccc;
+}*/
+
+/*
+select, input[type="file"] {
+height: 30px;
+line-height: 30px;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+display: inline-block;
+height: 20px;
+padding: 4px 6px;
+margin-bottom: 10px;
+font-size: 14px;
+line-height: 20px;
+color: #555555;
+vertical-align: middle;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}*/

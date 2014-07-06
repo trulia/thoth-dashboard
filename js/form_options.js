@@ -33,6 +33,8 @@ var form_options = {
 function populateForm (activeView) {
 
   var list = [];
+
+
   //Clean params, hide all the select
   var $formParams = $('form>select');
   $.each($formParams, function () {
@@ -43,7 +45,7 @@ function populateForm (activeView) {
   form_options[activeView].forEach(function (param) {
       //TODO get better with this pluralization
       $.getJSON(thothApi.getParamsListUri(param + 's'), function (data) {
-        list = data.list;
+        list = data.list.sort();
 
         //Find the correct select element and show it, with its label
         var $select = $('[data-role=' + param + '-values-select]');
