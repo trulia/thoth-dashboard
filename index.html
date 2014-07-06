@@ -25,85 +25,6 @@
     </ul>
   </nav>
   <div class="content">
-<!-- <<<<<<< HEAD
-    <header>
-      <form id="params_servers" style="display:none;">
-        <ul class="form-inline">
-          <li class="form-title">Server
-          <li>
-            <label for="from_date">from</label>
-            <input type="text" id="from_date" name="from_date" size="20">
-          <li>
-            <label for="to_date">to</label>
-            <input type="text" id="to_date" name="to_date" size="20">
-          <li>
-            <label for="server">server</label>
-            <input type="text" id="server" name="server" size="15" value="search501">
-          <li>
-            <label for="port">port</label>
-            <input type="text" id="port" name="port" size="5" value="8050">
-          <li>
-            <label for="core">core</label>
-            <input type="text" id="core" name="core" size="5" value="active">
-          <li>
-            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
-        </ul>
-      </form>
-      <form id="params_pools" style="display:none;">
-        <ul class="form-inline">
-          <li class="form-title">Pool
-          <li>
-            <label for="from_date">from</label>
-            <input type="text" id="from_date" name="from_date" size="20">
-          <li>
-            <label for="to_date">to</label>
-            <input type="text" id="to_date" name="to_date" size="20">
-          <li>
-            <label for="server">pool</label>
-            <input type="text" id="server" name="server" size="15" value="dr">
-          <li>
-            <label for="port">port</label>
-            <input type="text" id="port" name="port" size="5" value="8050">
-          <li>
-            <label for="core">core</label>
-            <input type="text" id="core" name="core" size="5" value="active">
-          <li>
-            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
-        </ul>
-      </form>
-      <form id="params_realtime" style="display:none;">
-        <ul class="form-inline">
-          <li class="form-title">Realtime
-          <li>
-            <label for="server">server</label>
-            <input type="text" id="server" name="server" size="15" value="search501">
-          <li>
-            <label for="port">port</label>
-            <input type="text" id="port" name="port" size="5" value="8050">
-          <li>
-            <label for="core">core</label>
-            <input type="text" id="core" name="core" size="5" value="active">
-          <li>
-            <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
-        </ul>
-      </form>
-======= -->
-  <header>
-    <form id="params" >
-<!-- =======
-<nav>
-  <img src="img/thoth-logo-combo.png">
-  <ul>
-    <li class="active"><a href="#servers"><i class="entypo popup"></i>Servers</a>
-    <li><a href="#pools"><i class="entypo database"></i>Pools</a>
-    <li><a href="#exceptions"><i class="entypo warning"></i>Exceptions</a>
-    <li><a href="#queries"><i class="entypo air"></i>Slow Queries</a>
-    <li><a href="#realtime"><i class="entypo back-in-time"></i>Realtime</a>
-  </ul>
-</nav>
-<div class="content">
->>>>>>> first steps in making the whole dashboard work based on header values -->
-
 <header>
   <form id="params" >
     <label for="from_date"> From </label>
@@ -127,33 +48,6 @@
     <button data-role="submit-settings" class="btn orange"><i class="entypo ccw"></i></button>
   </form>
 </header>
-
-<!-- <<<<<<< HEAD -->
-
-      <!--
-      <ul class="form-inline">
-        <li class="form-title">Servers
-        <li>
-          <label for="from_date">from</label>
-          <input type="text" id="from_date" name="from_date" size="20" value="2014/05/22 03:43:02">
-        <li>
-          <label for="to_date">to</label>
-          <input type="text" id="to_date" name="to_date" size="20" value="2014/05/24 03:43:02">
-        <li>
-          <label for="server">server</label>
-          <input type="text" id="server" name="server" size="15" value="search501">
-        <li>
-          <label for="port">port</label>
-          <input type="text" id="port" name="port" size="5" value="8050">
-        <li>
-          <label for="core">core</label>
-          <input type="text" id="core" name="core" size="5" value="active">
-        <li>
-          <button id="server_settings" class="btn orange"><i class="entypo ccw"></i></button>
-      </ul>
-      -->
-    </form>
-  </header>
     <article id="main" class="container">
       <section id="servers" class="row">
         <div id="query_time" class="graph col-md-5">
@@ -182,37 +76,6 @@
           <svg></svg>
         </div>
         <br>
-=<!-- ======
-<article id="main" class="container">
-  <section id="servers" class="row">
-    <div id="query_time" class="graph col-md-5">
-      <h2>Avg query time &mdash; sec</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="query_count" class="graph col-md-5">
-      <h2>Avg number of queries</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div id="query_integral" class="graph col-md-5">
-      <h2>&#8747; Query count</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="query_on_deck" class="graph col-md-5">
-      <h2>Avg number of queries "on deck"</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
->>>>>>> first steps in making the whole dashboard work based on header values -->
-
     <div id="exception_count" class="graph col-md-5">
       <h2>Exception count</h2>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
