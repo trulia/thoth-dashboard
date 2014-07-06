@@ -135,7 +135,7 @@ i.entypo {
   cursor: pointer;
 }
 
-i.ccw {
+i.ccw, i.clipboard {
   font-size: 2em;
 }
 
@@ -145,6 +145,30 @@ i.ccw {
   border-radius: 10px;
   margin: 30px;
   color: #fff;
+}
+
+.slowquery-box {
+  display: inline-block;
+  background-color: #2A2E35;
+  border-radius: 10px;
+  margin: 30px;
+  color: #fff;
+
+}
+
+.slowquery-box .timestamp {
+  background-color: #F3C684;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-top:10px;
+  padding-bottom:5px;
+  padding-left:20px;
+  color: #373D49;
+
+}
+
+.slowquery-box.col-md-3{
+  padding:0px;
 }
 
 .graph svg {
@@ -207,8 +231,42 @@ i.ccw {
   float: right;
   margin-right: 20px;
 }
+.slowquery-box i{
+  color: #373D49;
+  width: 30px;
+  /*padding-top: 17px;*/
+  border: 0px;
+  font-size: 4em;
+  margin-top: -15px;
+  float: right;
+  margin-right: 20px; 
 
-#lightbox {
+}
+
+.slowquery-box .query{
+  background-color: #414752;
+ margin-left: 20px;
+margin-right: 20px;
+padding: 10px;
+  margin-bottom:20px;
+}
+
+.slowquery-box .qtime{
+    font-size: 4em;
+     margin-left: 20px;
+     color:#F3C684;
+
+}
+
+.slowquery-box .query-text{
+  color:#2FCFC8;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /*overflow: auto;*/
+  overflow-x:hidden;
+}
+
+#lightbox,#listLightbox {
   display: none;
   position: fixed;
   top: 0;
@@ -220,12 +278,19 @@ i.ccw {
   /*opacity: 0.8;*/
 }
 
+.listLightbox div{
+  margin-top: 10px;
+  min-width: 400px;
+  height: 240px;
+  overflow: auto;
+}
+
 .lightboxGraph {
   width: 100%;
   height: 100%;
 }
 
-.lightboxGraph svg {
+.lightboxGraph svg , #lightboxChart div{
   background-color: #f9f7f4;
   position: absolute;
   padding-left: 2%;
@@ -238,7 +303,7 @@ i.ccw {
   right: 3%;
 }
 
-#lightbox .box {
+#lightbox .box, #listLightbox .box {
   position: absolute;
   top: 5%;
   bottom: 5%;
@@ -303,6 +368,15 @@ div.tooltip {
   border: 0;
 }
 
+.copy-to-clipboard{
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+#listLightbox h2{
+  display:inline-block;
+}
+
 .graph .nvtooltip {
   display: none;
   background-color: transparent;
@@ -317,6 +391,17 @@ div.tooltip {
 a:hover{
   color: inherit;
 }
+
 #params .optional{
   display: none;
+}
+
+#pagination-demo {
+   float: none;
+   display: inline-block;
+   overflow: hidden;
+}
+.pagination.center {
+   text-align: center;
+   width: 100%;
 }
