@@ -6,6 +6,7 @@ function setRecapValue(id, value, unit, round, fontColor) {
   $("#" + id + " .recap").css("color", fontColor);
 }
 
+
 /**
  * Show right form and data box while hiding the other forms/data boxes
  */
@@ -147,6 +148,8 @@ var thoth = {
   exceptions: function () {},
 
   fill_slowQuery: function(page, data){
+
+
     // Remove previous boxes
     $('#content').remove();
     // Create the container for the new boxes
@@ -163,37 +166,27 @@ var thoth = {
 
       $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp">' + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="qtime">' + formatQtime(el.qtime) + '</div><div class="query"> <label>Query</label><p class="query-text">' + el.query + '</p></div></div>');
 
-    }
 
 
-
+} 
   },
 
   slowqueries: function (npage) {
     showFormAndData('slowqueries');
     var self = this;
     if (npage == undefined ) npage =1;
-
-
       $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'slowqueries', page: npage})), function (data) {
-        // self._stackedLineGraph(chartsData.query_distribution.options, data);
         var pages = Math.round(data.numFound / 12)-1;
-      
-            // $('#page-content').remove();
-             // $('slowqueries').append('<div class="page-content"></div>');
-            // $('#page-content').append('<div class="slowquery-box col-md-3"><div class="timestamp">03/10/14 04:45pm</div><a><i class="entypo eye" onClick="showLightBox(this);"></i></a><div class="qtime">1.25s</div><div class="query"> <label>Query</label><p class="query-text">{sort=prevPriceDate_s+desc&start=0&cachebust=1398060298113&q=(numberOfBedrooms_i:[+3+TO+*+]+)+AND+(numberOfBathrooms_f:[+2+TO+*+]+)+AND+(price_i:[+0+TO+250000+]+)+AND+(squareFeet_i:[+2000+TO+*+]+)+AND+(prevPriceDate_s:[+2014-03-29+TO+*+]+)+AND+(prevPriceDolChge_i:[+1+TO+*+]+)+AND+((city_s:"HOLLADAY"+AND+state_s:"UT"))+AND+(status_s:"For+Sale"+OR+status_s:"Foreclosure")+AND+active_i:1++AND+!blocked_i:1+&slowpool=1&wt=json&version=2.2&rows=10}</p></div></div>');
 
-
+        $('#pagination-demo').remove();
+        $('#pagination-wrapper').append('<ul id="pagination-demo" class="pagination-sm"></ul>');
          $('#pagination-demo').twbsPagination({
           totalPages: pages,
           visiblePages: 7,
           onPageClick: function (event, page) {
-              // $('#page-content').text('Page ' + page);
-              // console.dir(event);
               $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'slowqueries', page: page})), function (data) {
                 thoth['fill_slowQuery'](page, data);
               });
-              
           }
       });
 
