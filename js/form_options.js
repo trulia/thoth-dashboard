@@ -16,7 +16,8 @@ var form_options = {
       'port',
       'core'
     ],
-    'slow_queries' : [
+    'slow queries' : [
+      'server',
       'port',
       'core'
     ],
