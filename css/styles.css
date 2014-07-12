@@ -35,6 +35,17 @@ nav img {
   height: 180px;
 
 }
+.thoth-fork, .powered-trulia{
+  width: 150px;
+  height: 50px;
+}
+.powered-trulia{
+  margin-top:25px;
+}
+
+.thoth-fork{
+  margin-top:150px;
+}
 
 nav ul {
   list-style: none;
@@ -128,6 +139,17 @@ input[type="text"]:focus {
 button[data-role="submit-settings"]{
   margin-left: 20px;
   margin-top: -10px;
+}
+
+i{
+  margin-left:10px;
+}
+ li a{
+  margin-left: 40px;
+}
+
+ li a i {
+  padding-right: 30px;
 }
 
 i.entypo {
