@@ -361,6 +361,26 @@ function updateQueryStringFromForm(){
     return queryString; 
 }
 
+/**
+ * Change class for left menu link if page is selected
+ */
+function activateMenuLink(){
+
+  var $li = $("#menu li");
+  $li.removeClass('active');
+   if (getParamValue('p') != null) {
+    // populateForm(getParamValue('p'));
+    var index;
+    if ('servers' == getParamValue('p')) index = 0;
+    if ('pools' == getParamValue('p')) index = 1;
+    if ('exceptions' == getParamValue('p')) index = 2;
+    if ('slowqueries' == getParamValue('p')) index = 3;
+    if ('realtime' == getParamValue('p')) index = 4;
+
+    $($li[index]).addClass('active'); 
+  }
+}
+
 $('document').ready(function () {
   // Bind event on the button
   $('[data-role="submit-settings"]').on('click', function (event) {
@@ -371,6 +391,8 @@ $('document').ready(function () {
   initializeDatetimePickers();
   if (getParamValue('p') != null) populateForm(getParamValue('p'));
   showFormAndData(getParamValue('p'));
+  activateMenuLink();
+
 
 });
 
