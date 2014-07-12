@@ -104,14 +104,19 @@ header {
   margin-right: 10px;
 }
 
+.light-blue{
+  background-color: #31CFC9;
+  box-shadow: #29B4AB 0px 4px 0px;
+}
+
 .btn {
   width: 50px;
   height: 34px;
   font-size: 16px;
   border-radius: 5px;
-  box-shadow: #e8942d 0px 4px 0px;
+  /*box-shadow: #e8942d 0px 4px 0px;*/
   border: 0px;
-  background-color: #F6AB3B;
+  /*background-color: #F6AB3B;*/
   color: white;
   cursor: pointer;
 }
@@ -139,6 +144,15 @@ input[type="text"]:focus {
 button[data-role="submit-settings"]{
   margin-left: 20px;
   margin-top: -10px;
+  padding-top: 8px;
+  padding-left: 14px;
+}
+ button[data-role="share-url"]{
+  margin-left: 5px;
+  margin-top: -10px;
+  padding-top: 8px;
+  padding-left: 17px;
+
 }
 
 i{
@@ -167,7 +181,7 @@ i.entypo {
   cursor: pointer;
 }
 
-i.ccw, i.clipboard {
+i.ccw, i.clipboard, i.share {
   font-size: 2em;
 }
 
