@@ -172,18 +172,6 @@ var thoth = {
     realtime.show();
   },
 
-  /**
-   * Get the active view from current URL
-   * @returns string
-   */
-  getHash: function () {
-    var hash = location.hash.split('?')[0].replace('#', '');
-    if (hash === '') {
-      hash = 'empty';
-    }
-    console.log("Debug: Thoth hash: " + hash);
-    return hash;
-  },
   _fill_slowQuery: function(page, data){
     // Remove previous slow query boxes
     $('#content').remove();
@@ -382,6 +370,8 @@ $('document').ready(function () {
   formParams = getParamsFromQueryString();
   initializeDatetimePickers();
   if (getParamValue('p') != null) populateForm(getParamValue('p'));
+  showFormAndData(getParamValue('p'));
+
 });
 
 
