@@ -276,7 +276,7 @@ var thoth = {
 // Listen for document click to close non-modal dialog
 $(document).mousedown(function (e) {
   var clicked = $(e.target); // get the element clicked
-  if (clicked.is('#lightbox')) {
+  if (clicked.is('#lightbox') || clicked.is('.close-button')) {
     $('#lightbox').hide(); //or .fadeOut();
   }
     if (clicked.is('#listLightbox')) {
@@ -361,6 +361,14 @@ function updateQueryStringFromForm(){
     return queryString; 
 }
 
+
+function handleRequiredForms(action){
+  var elements = [$('#params #to_date'), $('#params #from_date'), $('[for="from_date"]'), $('[for="to_date"]'), $('[data-role="share-url"]'), $('[data-role="submit-settings"]')];
+  elements.forEach(function(el){
+    el[action]();
+  });
+}
+
 /**
  * Change class for left menu link if page is selected
  */
@@ -381,11 +389,6 @@ function activateMenuLink(){
   }
 }
 
-
-function damiano(){
-  alert('ciao!');
-}
-
 $('document').ready(function () {
 
   // Bind events to the button
@@ -399,13 +402,17 @@ $('document').ready(function () {
     alert("Share this URL: \n\n" + document.location.href);
   });
 
-
   formParams = getParamsFromQueryString();
   initializeDatetimePickers();
-  if (getParamValue('p') != null) populateForm(getParamValue('p'));
+  if (getParamValue('p') == null){
+    handleRequiredForms('hide');
+  } else {
+    handleRequiredForms('show');
+    populateForm(getParamValue('p'))
+  }
+
   showFormAndData(getParamValue('p'));
   activateMenuLink();
-
 
 });
 

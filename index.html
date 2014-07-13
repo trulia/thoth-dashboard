@@ -29,11 +29,11 @@
 
 <header>
   <form id="params" >
-    <label for="from_date"> From </label>
-    <input type="text" id="from_date" name="from_date" data-type="from-date" size="20">
+    <label for="from_date" class="optional"> From </label>
+    <input type="text" class="optional" id="from_date" name="from_date" data-type="from-date" size="20">
 
-    <label for="to_date"> To </label>
-    <input type="text" id="to_date" name="to_date" data-type="to-date" size="20">
+    <label for="to_date" class="optional"> To </label>
+    <input type="text" class="optional" id="to_date" name="to_date" data-type="to-date" size="20">
 
     <label for="server-values" class="optional"> Server </label>
     <select id="server-values" class="optional" data-role="server-values-select"></select>
@@ -46,8 +46,8 @@
     <label for="core-values" class="optional"> Core </label>
     <select id="core-values" class="optional" data-role="core-values-select"></select>
 
-    <button data-role="submit-settings" class="btn light-blue"><i class="entypo ccw"></i></button>
-    <button data-role="share-url" class="btn light-blue"><i class="entypo share"></i></button>
+    <button data-role="submit-settings" class="btn light-blue optional"><i class="entypo ccw"></i></button>
+    <button data-role="share-url" class="btn light-blue optional"><i class="entypo share"></i></button>
 
   </form>
 </header>
@@ -60,7 +60,7 @@
           <svg></svg>
         </div>
         <div id="query_count" class="graph col-md-5">
-          <h2>Avg number of queries</h2>
+          <h2>Avg number of queries</h2> 
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
@@ -253,6 +253,7 @@
 <div id="lightbox">
   <div class="box">
     <div id="lightboxChart" class="lightboxGraph">
+      <button class="circle"><i class="entypo cross close-button" ></i></button>
       <h2>Avg query time &mdash; sec</h2>
       <svg></svg>
     </div>

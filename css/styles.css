@@ -230,7 +230,7 @@ i.ccw, i.clipboard, i.share {
   font-size: 19px;
   font-family: 'Roboto Slab';
   font-weight: 300;
-  padding-top: 3px;
+  padding-top: 10px;
   /*float: left;*/
 }
 
@@ -336,25 +336,48 @@ padding: 10px;
   height: 100%;
 }
 
+.lightboxGraph h2{
+  color: white;
+  text-align: center;
+}
+
+.close-button{
+  float:right;
+  color: #373D49;
+  font-size: 5.5em!important;
+  margin-top: 2px;
+  margin-right: 4px!important;
+}
+
 .lightboxGraph svg , #lightboxChart div{
   background-color: #f9f7f4;
   position: absolute;
-  padding-left: 2%;
+  /*padding-left: 2%;*/
   padding-right: 2%;
-  width: 90%;
+  width: 95%;
   height: 80%;
-  top: 10%;
+  top: 12%;
   bottom: 5%;
-  left: 3%;
-  right: 3%;
+  left: 2%;
+  /*right: 3%;*/
+}
+
+.circle {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  float: right;
+  background-color: #1ECFC9;
+  margin-top: -30px;
+  margin-right: -5px;
 }
 
 #lightbox .box, #listLightbox .box {
   position: absolute;
   top: 5%;
   bottom: 5%;
-  left: 5%;
-  right: 5%;
+  left: 2%;
+  right: 2%;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
