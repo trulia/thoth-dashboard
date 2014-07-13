@@ -381,12 +381,25 @@ function activateMenuLink(){
   }
 }
 
+
+function damiano(){
+  alert('ciao!');
+}
+
 $('document').ready(function () {
-  // Bind event on the button
+
+  // Bind events to the button
   $('[data-role="submit-settings"]').on('click', function (event) {
     event.preventDefault();
     document.location =  updateQueryStringFromForm();
   });
+
+  $('[data-role="share-url"]').on('click', function (event) {
+    event.preventDefault();
+    alert("Share this URL: \n\n" + document.location.href);
+  });
+
+
   formParams = getParamsFromQueryString();
   initializeDatetimePickers();
   if (getParamValue('p') != null) populateForm(getParamValue('p'));
