@@ -456,8 +456,13 @@ function copyToClipboard(elem) {
 
 function showListLightBox(elem) {
     $('#listLightbox').show(); // or .fadeIn();
-    console.dir(elem.parentNode.parentNode.id);
+
     var text = $('#'+elem.parentNode.parentNode.id +' .query-text')[0].innerText;
-    text= text.replace(/\&/g,"\n");
-    $('#lightboxChart div').html(text);
+    text= text.replace(/\&/g,"\n\n");
+    var timestamp = $('#'+elem.parentNode.parentNode.id +' .timestamp')[0].innerText;
+    var qtime = $('#'+elem.parentNode.parentNode.id +' .qtime')[0].innerText;
+
+    $('#lightboxChart textarea').html(text);
+    $('#lightboxChart .timestamp').html(timestamp);
+    $('#lightboxChart .qtime').html(qtime);
 }

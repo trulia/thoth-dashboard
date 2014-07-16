@@ -480,6 +480,46 @@ a:hover{
 }
 
 
+#listLightbox textarea{
+  margin-left: 5%;
+  width: 90%;
+  height: 70%;
+  margin-top: 10px;
+  color: #1ECFC9;
+  border: 0;
+  padding: 1%;
+  background-color: #414752;
+  font-size: 1.5em;
+}
+#lighboxGraph{
+  background-color: #373D49;
+}
+p.qtime, p.timestamp{
+  display: inline-block;
+  /*margin-top: 2%;*/
+  font-size: 2em;
+}
+p.qtime{
+    color: white;
+    margin-left: 30px;
+}
+p.timestamp{
+    color: gray;
+    margin-top: 2%;
+}
+
+#listLightbox .circle{
+  margin-top: -10px!important;
+}
+#listLightbox label{
+  /*font-size: 2em;*/
+  color: lightcoral;
+  font-weight: 400;
+  /*color: white;*/
+  margin-left: 5%;
+  font-size: 2em;
+  display: inline-block;
+}
 
 
 select, input[type="text"] {
