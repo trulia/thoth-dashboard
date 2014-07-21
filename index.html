@@ -239,12 +239,11 @@
         </div>
       </section>
      <section id="slowqueries" class="row">
-      <div id="page-content"></div>
-<div id="pagination-wrapper" class="pagination center">
-<ul id="pagination-demo" class="pagination-sm"></ul>   
-</div>
-         
-        
+        <div id="page-content"></div>
+        <div id="pagination-wrapper" class="pagination center">
+        <ul id="pagination-demo" class="pagination-sm"></ul>   
+      </div>
+          
       </section>
     </article>
   </div>
@@ -267,13 +266,19 @@
         <div id="lightboxChart" class="lightboxGraph">
           <button class="circle"><i class="entypo cross close-button" ></i></button>
           <label></label>
-          <p class="timestamp">2014/07/15 2012:00:00</p>
+          <p class="timestamp"></p>
           <br>
-          <label>QTime: </label>
-          <p class="qtime">151ms</p>
+          <label class="qtime" style="display:none;" >QTime: </label>
+          <p class="qtime" style="display:none;"></p>
           <br>
-          <label>Query</label>
-          <textarea> blablabla </textarea>
+
+          <label class="exception-stackTrace" style="display:none;">StackTrace</label>
+          <textarea class="exception-stackTrace" style="display:none;"></textarea>
+          <label class="exception-query" style="display:none;" >Query</label>
+          <textarea class="exception-query" style="display:none;"></textarea>
+
+          <label class="query-text" style="display:none;">Query</label>
+          <textarea class="query-text" style="display:none;"></textarea>
 
         </div>
     </div>

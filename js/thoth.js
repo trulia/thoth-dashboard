@@ -15,10 +15,15 @@ function setRecapValue(id, value, unit, round, fontColor) {
  */
 function showFormAndData(objectId){
   $('#' + objectId).show(); 
-  ['servers','pools','realtime','slowqueries'].forEach(function(data){
+  ['servers','pools','realtime','slowqueries','exceptions'].forEach(function(data){
     if (objectId == data) {
       $('#' + data).show();
       $('#' + 'params_' + data).show();
+
+     if (data == 'exceptions'){
+       $('#slowqueries').show();
+      $('#' + 'params_' + 'slowqueries').show();     
+     }
     } else {
       $('#' + data).hide();
       $('#' + 'params_' + data).hide();
@@ -142,7 +147,6 @@ var thoth = {
       self._cumulativeLineGraph(chartsData.pool_zeroHits_integral.options, data);
     });
   },
-  exceptions: function () {},
   slowqueries: function (npage) {
     showFormAndData('slowqueries');
     var self = this;
@@ -168,6 +172,30 @@ var thoth = {
 
 
   },
+  exceptions: function (npage) {
+    showFormAndData('exceptions');
+    var self = this;
+    if (npage == undefined ) npage =1;
+      $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'exception', page: npage})), function (data) {
+        var pages = Math.round(data.numFound / 12) - 1;
+
+        $('#pagination-demo').remove();
+        $('#pagination-wrapper').append('<ul id="pagination-demo" class="pagination-sm"></ul>');
+         $('#pagination-demo').twbsPagination({
+          totalPages: pages,
+          visiblePages: 7,
+          onPageClick: function (event, page) {
+              $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'exception', page: page})), function (data) {
+                self._fill_exceptions(page, data);
+              });
+          }
+      });
+
+      });      
+
+
+
+  },
   realtime: function () {
     realtime.show();
   },
@@ -183,9 +211,28 @@ var thoth = {
       var plainDate = new Date(el.timestamp);
       // Month/Day/Year Time/am-pm
       var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
-      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp">' 
+      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp slowquery">' 
         + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="qtime">' 
         + formatQtime(el.qtime) + '</div><div class="query"> <label>Query</label><p class="query-text">' 
+        + el.query + '</p></div></div>');
+    } 
+  },
+
+  _fill_exceptions: function(page, data){
+    // Remove previous slow query boxes
+    $('#content').remove();
+    // Create the container for the new boxes
+    $('#page-content').append('<div id="content"></div>');
+
+    for (var i=0; i<data.values.length;i++){
+      var el = data.values[i];
+      var plainDate = new Date(el.timestamp);
+      // Month/Day/Year Time/am-pm
+      var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
+      var exceptionName = el.exception.substr(0,el.exception.indexOf(' '));
+      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">' 
+        + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName">'+exceptionName+'</div><div class="query-exception"><label>StackTrace</label><p class="query-text">' 
+        + el.exception + '</div><div class="query"> <label>Query</label><p class="query-text">' 
         + el.query + '</p></div></div>');
     } 
   },
@@ -347,13 +394,17 @@ function getSelectedParamValue(paramId){
 function updateQueryStringFromForm(){
     var $formParams = $('form>select');  
     var serverParam = $formParams[0];
-    var isServerPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")!='slowqueries');
+    var isServerPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")!='slowqueries' && getParamValue("p")!='exceptions');
     var isPoolPage = $formParams[1].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0;
     var isSlowqueriesPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")=='slowqueries');
+    var isExceptionsPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")=='exceptions');
+  
     var queryString = "?";
     if (isServerPage) queryString += 'p=servers&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
     if (isPoolPage) queryString += 'p=pools&pool=' + '"' + getSelectedParamValue($formParams[1].id) + '"';
     if (isSlowqueriesPage) queryString += 'p=slowqueries&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
+    if (isExceptionsPage) queryString += 'p=exceptions&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
+
     queryString += '&port=' + '"' + getSelectedParamValue($formParams[2].id) + '"';
     queryString += '&core=' + '"' + getSelectedParamValue($formParams[3].id) + '"' ;
     queryString += '&from=' + '"' + $('#params #from_date').val().replace(/ /g,'%20') + '"';
@@ -451,18 +502,23 @@ function showLightBox(elem) {
   }
 }
 
-function copyToClipboard(elem) {
-}
-
 function showListLightBox(elem) {
-    $('#listLightbox').show(); // or .fadeIn();
+    $('#listLightbox').show(); 
+    $('#lightboxChart .timestamp').html( $('#'+elem.parentNode.parentNode.id +' .timestamp')[0].innerText);
+    var qtime = $('#'+elem.parentNode.parentNode.id +' .qtime')[0];
+    if (qtime != undefined){
+      qtime = qtime.innerText;
+      $('#lightboxChart p.qtime').html(qtime);
+      $('#lightboxChart .qtime').show();
+      $('#lightboxChart .query-text').show();  
+      $('#lightboxChart textarea.query-text').html($('#'+elem.parentNode.parentNode.id +' .query-text')[0].innerText.replace(/\&/g,"\n\n"));
 
-    var text = $('#'+elem.parentNode.parentNode.id +' .query-text')[0].innerText;
-    text= text.replace(/\&/g,"\n\n");
-    var timestamp = $('#'+elem.parentNode.parentNode.id +' .timestamp')[0].innerText;
-    var qtime = $('#'+elem.parentNode.parentNode.id +' .qtime')[0].innerText;
+    } else {
+      $('#lightboxChart .exception-stackTrace').show();  
+      $('#lightboxChart .exception-query').show();  
+      $('#lightboxChart textarea.exception-query').html($('#'+elem.parentNode.parentNode.id +' .query .query-text')[0].innerText.replace(/\&/g,"\n\n"));
+      $('#lightboxChart textarea.exception-stackTrace').html($('#'+elem.parentNode.parentNode.id +' .query-exception .query-text')[0].innerText);
 
-    $('#lightboxChart textarea').html(text);
-    $('#lightboxChart .timestamp').html(timestamp);
-    $('#lightboxChart .qtime').html(qtime);
+    }
+
 }

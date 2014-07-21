@@ -202,15 +202,21 @@ i.ccw, i.clipboard, i.share {
 
 }
 
-.slowquery-box .timestamp {
-  background-color: #F3C684;
+.slowquery-box .timestamp.exception {
+  background-color: #F27B81;
+}
+.slowquery-box .timestamp{
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding-top:10px;
   padding-bottom:5px;
   padding-left:20px;
   color: #373D49;
+}
 
+
+.slowquery-box .timestamp.slowquery {
+  background-color: #F3C684;
 }
 
 .slowquery-box.col-md-3{
@@ -289,18 +295,28 @@ i.ccw, i.clipboard, i.share {
 
 }
 
-.slowquery-box .query{
-  background-color: #414752;
- margin-left: 20px;
-margin-right: 20px;
-padding: 10px;
+.slowquery-box .query,.slowquery-box .query-exception  {
+    background-color: #414752;
+   margin-left: 20px;
+  margin-right: 20px;
+  padding: 10px;
   margin-bottom:20px;
 }
+
+
 
 .slowquery-box .qtime{
     font-size: 4em;
      margin-left: 20px;
      color:#F3C684;
+
+}
+.slowquery-box .exceptionName{
+    font-size: 1.5em;
+     margin-left: 20px;
+     color:#F27B81;
+     margin-top: 30px;
+margin-bottom: 30px;
 
 }
 
@@ -311,6 +327,7 @@ padding: 10px;
   /*overflow: auto;*/
   overflow-x:hidden;
 }
+
 
 #lightbox,#listLightbox {
   display: none;
@@ -340,7 +357,9 @@ padding: 10px;
   color: white;
   text-align: center;
 }
-
+#listLightbox textarea.exception-stackTrace, #listLightbox textarea.exception-query{
+  height: 30%!important;
+}
 .close-button{
   float:right;
   color: #373D49;
