@@ -8,7 +8,7 @@ var chartsData = {
       'yLabel' : 'Avg QTime (ms)',
       'graphTitle': 'Avg query time — sec',
       'chartId' : 'query_time',
-      'color': '#7fd5e3',
+      'color': '#F4C77F',
       'unit' : 'sec',
       'round' : 2
     }
@@ -21,7 +21,7 @@ var chartsData = {
       'yLabel' : 'Avg number of queries',
       'graphTitle': 'Avg number of queries',
       'chartId' : 'query_count',
-      'color': '#77dba2',
+      'color': '#73DDA0',
       'unit' : '',
       'round' : 0
     }
@@ -34,7 +34,7 @@ var chartsData = {
       'yLabel' : 'Query count',
       'chartId' : 'query_integral',
       'graphTitle': '∫ Query count',
-      'color': '#F4C77F',
+      'color': '#73DDA0',
       'unit' : '',
       'round' : 0
     }
@@ -61,7 +61,7 @@ var chartsData = {
       'y2Label' : 'Total',
       'chartId' : 'exception_count',
       'graphTitle': 'Exception count',
-      'color': '#F4C77F',
+      'color': '#F47A80',
       'unit' : '',
       'round' : 0
     }
@@ -74,7 +74,7 @@ var chartsData = {
       'yLabel' : 'Exception count',
       'chartId' : 'exception_integral',
       'graphTitle': '∫ Exception count',
-      'color': '#F4C77F',
+      'color': '#F47A80',
       'unit' : '',
       'round' : 0
     }
@@ -88,7 +88,7 @@ var chartsData = {
       'y2Label' : 'Total',
       'chartId' : 'zeroHits_count',
       'graphTitle': 'Zero Hits count',
-      'color': '#F4C77F',
+      'color': '#CEC5ED',
       'unit' : '',
       'round' : 0
     }
@@ -101,7 +101,7 @@ var chartsData = {
       'yLabel' : 'Zero Hits count',
       'chartId' : 'zeroHits_integral',
       'graphTitle': '&#8747; Zero Hits count',
-      'color': '#F4C77F',
+      'color': '#CEC5ED',
       'unit' : '',
       'round' : 0
     }
@@ -114,7 +114,7 @@ var chartsData = {
       'yLabel' : 'Number of queries',
       'chartId' : 'query_distribution',
       'graphTitle': 'Distribution of query times',
-      'color': '#7fd5e3',
+      'color': '#F4C77F',
       'unit': '',
       'round': 0
     }

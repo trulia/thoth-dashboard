@@ -223,6 +223,44 @@ i.ccw, i.clipboard, i.share {
   padding:0px;
 }
 
+.col-md-5{
+  padding: 0px;
+}
+
+.title{
+  font-size: 19px;
+  font-family: 'Roboto Slab';
+  font-weight: 300;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 30px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.graph a i {
+  color: #373D49;
+}
+
+#query_count .title, #query_integral .title{
+  background-color: #73DDA0;
+  color: #373D49;
+}
+
+#exception_count .title, #exception_integral .title{
+  background-color: #F47A80;
+  color: #373D49;
+}
+
+#zeroHits_count .title, #zeroHits_integral .title{
+  background-color: #CEC5ED;
+  color: #373D49;
+}
+
+#distribution_qtime .title,#query_time .title, #query_on_deck .title{
+  background-color: #F4C77F;
+  color: #373D49;
+}
+
 .graph svg {
   margin-top: 10px;
   min-width: 400px;
@@ -279,7 +317,7 @@ i.ccw, i.clipboard, i.share {
   /*padding-top: 17px;*/
   border: 0px;
   font-size: 4em;
-  margin-top: -10px;
+  margin-top: -20px;
   float: right;
   margin-right: 20px;
 }
@@ -296,7 +334,7 @@ i.ccw, i.clipboard, i.share {
 }
 
 .slowquery-box .query,.slowquery-box .query-exception  {
-    background-color: #414752;
+  background-color: #414752;
    margin-left: 20px;
   margin-right: 20px;
   padding: 10px;
