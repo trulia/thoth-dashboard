@@ -241,22 +241,22 @@ i.ccw, i.clipboard, i.share {
   color: #373D49;
 }
 
-#query_count .title, #query_integral .title{
+#query_count .title, #query_integral .title,#pool_query_count .title, #pool_query_integral .title{
   background-color: #73DDA0;
   color: #373D49;
 }
 
-#exception_count .title, #exception_integral .title{
+#exception_count .title, #exception_integral .title,#pool_exception_count .title, #pool_exception_integral .title{
   background-color: #F47A80;
   color: #373D49;
 }
 
-#zeroHits_count .title, #zeroHits_integral .title{
+#zeroHits_count .title, #zeroHits_integral .title,#pool_zeroHits_count .title, #pool_zeroHits_integral .title{
   background-color: #CEC5ED;
   color: #373D49;
 }
 
-#distribution_qtime .title,#query_time .title, #query_on_deck .title{
+#distribution_qtime .title,#query_time .title, #query_on_deck .title,#pool_query_time .title, #pool_query_on_deck .title{
   background-color: #F4C77F;
   color: #373D49;
 }

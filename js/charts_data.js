@@ -8,7 +8,7 @@ var chartsData = {
       'yLabel' : 'Avg QTime (ms)',
       'graphTitle': 'Avg query time — sec',
       'chartId' : 'query_time',
-      'color': '#F4C77F',
+      'color': '#7fd5e3',
       'unit' : 'sec',
       'round' : 2
     }
