@@ -53,126 +53,123 @@
 </header>
     <article id="main" class="container">
       <section id="servers" class="row">
-        <div id="query_time" class="graph col-md-5">
-          <h2>Avg query time &mdash; sec</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
+
         <div id="query_count" class="graph col-md-5">
-          <h2>Avg number of queries</h2> 
+          <div class="title">Avg number of queries</div> 
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
-        <br>
         <div id="query_integral" class="graph col-md-5">
-          <h2>&#8747; Query count</h2>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="query_on_deck" class="graph col-md-5">
-          <h2>Avg number of queries "on deck"</h2>
+          <div class="title">&#8747; Query count</div>
           <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
           <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
           <svg></svg>
         </div>
         <br>
-    <div id="exception_count" class="graph col-md-5">
-      <h2>Exception count</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="exception_integral" class="graph col-md-5">
-      <h2>&#8747; Exception count</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div id="zeroHits_count" class="graph col-md-5">
-      <h2>Zero Hits count</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="zeroHits_integral" class="graph col-md-5">
-      <h2>&#8747; Zero Hits count</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div class="graph col-md-5">
-      <h2>Distribution of query times (sec)</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-      <svg id="query_distribution"></svg>
-    </div>
+        <div id="exception_count" class="graph col-md-5">
+          <div class="title">Exception count</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div id="exception_integral" class="graph col-md-5">
+          <div class="title">&#8747; Exception count</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div id="zeroHits_count" class="graph col-md-5">
+          <div class="title">Zero Hits count</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div id="zeroHits_integral" class="graph col-md-5">
+          <div class="title">&#8747; Zero Hits count</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <br>
+        <div id="query_time" class="graph col-md-5">
+          <div class="title">Avg query time &mdash; sec</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>          
+        <div id="distribution_qtime" class="graph col-md-5">
+          <div class="title">Distribution of query times (sec)</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+          <svg id="query_distribution"></svg>
+        </div>
+        <br>
+        <div id="query_on_deck" class="graph col-md-5">
+          <div class="title">Avg number of queries "on deck"</div>
+          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div> 
   </section>
 
   <section id="pools" class="row">
-    <div id="pool_query_time" class="graph col-md-5">
-      <h2>Avg query time &mdash; sec</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
+
     <div id="pool_query_count" class="graph col-md-5">
-      <h2>Avg number of queries</h2>
+      <div class="title">Avg number of queries</div>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
       <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
       <svg></svg>
     </div>
-    <br>
     <div id="pool_query_integral" class="graph col-md-5">
-      <h2>&#8747; Query count</h2>
+      <div class="title">&#8747; Query count</div>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
       <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
       <svg></svg>
     </div>
-    <div id="pool_query_on_deck" class="graph col-md-5">
-      <h2>Avg number of queries "on deck"</h2>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
+    <br>    
+
 
     <div id="pool_exception_count" class="graph col-md-5">
-      <h2>Exception count</h2>
+      <div class="title">Exception count</div>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
       <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
       <svg></svg>
     </div>
     <div id="pool_exception_integral" class="graph col-md-5">
-      <h2>&#8747; Exception count</h2>
+      <div class="title">&#8747; Exception count</div>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
       <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
       <svg></svg>
     </div>
     <br>
-    <div id="pool_zeroHits_count" class="graph col-md-5">
-      <h2>Zero Hits count</h2>
+   <div id="pool_zeroHits_count" class="graph col-md-5">
+      <div class="title">Zero Hits count</div>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
       <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
       <svg></svg>
     </div>
     <div id="pool_zeroHits_integral" class="graph col-md-5">
-      <h2>&#8747; Zero Hits count</h2>
+      <div class="title">&#8747; Zero Hits count</div>
       <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
       <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
       <svg></svg>
     </div>
-    <!-- <br> -->
-    <!--         <div class="graph col-md-5">
-              <h2>Distribution of query times (sec)</h2>
-              <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-              <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-              <svg id="query_distribution"></svg>
-            </div> -->
+    <br>
+    <div id="pool_query_time" class="graph col-md-5">
+      <div class="title">Avg query time &mdash; sec</div>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <div id="pool_query_on_deck" class="graph col-md-5">
+      <div class="title">Avg number of queries "on deck"</div>
+      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+      <svg></svg>
+    </div>
+    <br>
   </section>
 
   <section id="realtime">
