@@ -23,6 +23,7 @@ var form_options = {
       'core'
     ],
     'realtime'     : [
+      'server',
       'port',
       'core'
     ]
@@ -73,10 +74,11 @@ function populateForm (activeView) {
   });
 
   var pageToPopulate;
-  if (activeView == 'servers') pageToPopulate = populateSelect('server');
-  if (activeView == 'pools') pageToPopulate = populateSelect('pool');
-  if (activeView == 'slowqueries') pageToPopulate = populateSelect('server');
-  if (activeView == 'exceptions') pageToPopulate = populateSelect('server');
+  if (activeView === 'servers') pageToPopulate = populateSelect('server');
+  if (activeView === 'pools') pageToPopulate = populateSelect('pool');
+  if (activeView === 'slowqueries') pageToPopulate = populateSelect('server');
+  if (activeView === 'exceptions') pageToPopulate = populateSelect('server');
+  if (activeView === 'realtime') pageToPopulate = populateSelect('server');
 
   $.when(pageToPopulate, populateSelect('port'), populateSelect('core')).done(function(){
     thoth[activeView]();
