@@ -1,5 +1,6 @@
 /* globals chartsData, thothApi, d3, graphBuilder */
 /* exported realtime */
+
 var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
   var graphs = [
     {data: [], attribute: 'avg', endpoint: 'qtime', settings: chartsData.query_time.options },
@@ -12,13 +13,14 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
     {data: [], attribute: 'integral', endpoint: 'zeroHits', settings: chartsData.zeroHits_integral.options }
     //{attribute: 'distribution', endpoint: 'qtime', settings: chartsData.query_distribtion.options },
   ];
+
   var params = {
     'objectId': 'server'
   };
-
   var initialize = true;
 
   return {
+
     init: function (params) {
       var self = this;
       var $svg = $('#realtime svg');
@@ -49,10 +51,7 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
         initialize = false;
       }
 
-      var self = this;
-      this.timeout = setInterval(function () {
-        self._update();
-      }, 1000);
+      this._update();
     },
 
     hide: function () {
@@ -62,31 +61,30 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
 
     _update: function () {
       var self = this;
-      $.getJSON('http://localhost:3001/api/realtime/search501/core/active/port/8050/avg/qtime', function (data) {
-        $.each(graphs, function (idx, graph) {
 
-          if (graph.data.length > 100)
-          {
-            graph.data.shift();
-          }
+      $.getScript('https://cdn.socket.io/socket.io-1.0.0.js', function(){
+        var socket = io.connect('localhost:3001');
+        socket.on('new realtime data', function(data){
+          $.each(graphs, function (idx, graph) {
 
-          graph.data.push({
-            //once we have the actual endpoint we should use .timestamp
-            //instead
-            x: Date.now(),//Date.parse(data[graph.endpoint][graph.attribute].timestamp)
-            y: data[graph.endpoint][graph.attribute].value
+            if (graph.data.length > 100)
+            {
+              graph.data.shift();
+            }
+            graph.data.push({
+              x: Date.parse(data[graph.endpoint][0].timestamp),
+              y: data[graph.endpoint][0].value
+            });
+            self._updateGraph(graph);
           });
-          self._updateGraph(graph);
         });
       });
     },
 
     _updateGraph: function (graph) {
       d3.select(graph.el)
-      .datum([{key: graph.settings.yLabel, values: graph.data}])
-      .call(graph.chart);
+        .datum([{key: graph.settings.yLabel, values: graph.data}])
+        .call(graph.chart);
     }
   };
-}(graphBuilder, thothApi, chartsData, d3));
-
-
+} (graphBuilder, thothApi, chartsData, d3));
