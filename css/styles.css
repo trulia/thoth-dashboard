@@ -141,13 +141,13 @@ input[type="text"]:focus {
   outline: none;
 }
 
-button[data-role="submit-settings"]{
+button[data-role="submit_settings"]{
   margin-left: 20px;
   margin-top: -10px;
   padding-top: 8px;
   padding-left: 14px;
 }
- button[data-role="share-url"]{
+ button[data-role="share_url"]{
   margin-left: 5px;
   margin-top: -10px;
   padding-top: 8px;

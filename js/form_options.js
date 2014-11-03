@@ -40,7 +40,7 @@ function populateSelect(param){
   return $.getJSON(thothApi.getParamsListUri(param + 's'), function (data) {
     list = data.list.sort();
     //Find the correct select element and show it, with its label
-    var $select = $('[data-role=' + param + '-values-select]');
+    var $select = $('[data-role=' + param + '_values_select]');
     //Show selected select only
     $select.prev('label').show();
     $select.show();
@@ -67,7 +67,7 @@ function populateSelect(param){
 function populateForm (activeView) {
   var list = [];
   //Clean params, hide all the select
-  var $formParams = $('form>select');
+  var $formParams = $('form select');
   $.each($formParams, function () {
     $(this).hide();
     $(this).prev('label').hide();
