@@ -31,24 +31,25 @@
     <form id="params" >
       <div class="row">
         <label for="from_date" class="optional" data-role="from_date_label"> From </label>
-        <input type="text" class="optional" id="from_date" name="from_date" data-role="from_date_input" size="20">
+        <input type="text" class="optional formInput" id="from_date" name="from_date" data-role="from_date_input" size="20">
 
         <label for="to_date" class="optional" data-role="to_date_label"> To </label>
-        <input type="text" class="optional" id="to_date" name="to_date" data-role="to_date_input" size="20">
+        <input type="text" class="optional formInput" id="to_date" name="to_date" data-role="to_date_input" size="20">
 
         <label for="server-values" class="optional" data-role="server_values_label"> Server </label>
-        <select id="server-values" class="optional" data-role="server_values_select"></select>
+        <select id="server-values" class="optional formInput" data-role="server_values_select"></select>
+
         <label for="pool-values" class="optional" data-role="pool_values_label"> Pool </label>
-        <select id="pool-values" class="optional" data-role="pool_values_select"></select>
+        <select id="pool-values" class="optional formInput" data-role="pool_values_select"></select>
 
         <label for="port-values" class="optional" data-role="port_values_label"> Port </label>
-        <select id="port-values" class="optional" data-role="port_values_select"></select>
+        <select id="port-values" class="optional formInput" data-role="port_values_select"></select>
 
         <label for="core-values" class="optional" data-role="core_values_label"> Core </label>
-        <select id="core-values" class="optional" data-role="core_values_select"></select>
+        <select id="core-values" class="optional formInput" data-role="core_values_select"></select>
 
-        <button class="btn light-blue optional" data-role="submit_settings" ><i class="entypo ccw"></i></button>
-        <button class="btn light-blue optional" data-role="share_url"><i class="entypo share"></i></button>
+        <button class="btn light-blue optional formInput vab" data-role="submit_settings" ><i class="entypo ccw"></i></button>
+        <button class="btn light-blue optional formInput vab" data-role="share_url"><i class="entypo share"></i></button>
       </div>
     </form>
   </header>
@@ -174,30 +175,33 @@
     </section>
 
     <section id="realtime">
-      <div class="graph col-md-5">
-        <h2>Avg query time &mdash; sec</h2>
-        <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-        <svg></svg>
+      <div class="row">
+        <div class="rt_avg_query_time graph col-md-5">
+          <div class="title">Avg query time &mdash; sec</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="rt_avg_query_number graph col-md-5">
+          <div class="title">Avg number of queries</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
       </div>
-      <div class="graph col-md-5">
-        <h2>Avg number of queries</h2>
-        <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-        <svg></svg>
-      </div>
-      <br>
-      <div class="graph col-md-5">
-        <h2>Exceptions Count</h2>
-        <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-        <svg></svg>
-      </div>
-      <div class="graph col-md-5">
-        <h2>Zero Hits Count</h2>
-        <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-        <svg></svg>
+      <div class="row">
+        <div class="rt_exceptions_count graph col-md-5">
+          <div class="title">Exceptions Count</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="rt_zero_hits_count graph col-md-5">
+          <div class="title">Zero Hits Count</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
       </div>
     </section>
 

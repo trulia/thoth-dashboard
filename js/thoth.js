@@ -241,7 +241,6 @@ var thoth = {
         paramsList[$(this).prev().text().replace(/ /g,'').toLowerCase()] = ($(this).val());
       }
     });
-    debugger;
     return $.extend(paramsList, options);
   },
 

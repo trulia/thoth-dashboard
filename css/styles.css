@@ -63,11 +63,14 @@ nav li.active {
   background-color: #2a2e35;
 }
 
-
 nav a {
   text-decoration: none;
   text-transform: uppercase;
   color: #fff;
+}
+
+article > section {
+  margin-bottom: 30px;
 }
 
 .content {
@@ -79,7 +82,21 @@ nav a {
 
 header {
   background-color: #dfe8e7;
-  height: 92px;
+}
+
+.row {
+  width: 100%;
+  margin-left: 0;
+}
+
+.btn.formInput {
+  margin-left: 5px;
+}
+
+.formOptionWrapper {
+  width: 100px;
+  min-width: 100px;
+  overflow: hidden;
 }
 
 .form-inline {
@@ -106,7 +123,6 @@ header {
 
 .light-blue{
   background-color: #31CFC9;
-  box-shadow: #29B4AB 0px 4px 0px;
 }
 
 .btn {
@@ -189,7 +205,9 @@ i.ccw, i.clipboard, i.share {
   display: inline-block;
   background-color: #2A2E35;
   border-radius: 10px;
-  margin: 30px;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
   color: #fff;
 }
 
@@ -241,22 +259,22 @@ i.ccw, i.clipboard, i.share {
   color: #373D49;
 }
 
-#query_count .title, #query_integral .title,#pool_query_count .title, #pool_query_integral .title{
+#query_count .title, #query_integral .title,#pool_query_count .title, #pool_query_integral .title, .rt_avg_query_number .title {
   background-color: #73DDA0;
   color: #373D49;
 }
 
-#exception_count .title, #exception_integral .title,#pool_exception_count .title, #pool_exception_integral .title{
+#exception_count .title, #exception_integral .title,#pool_exception_count .title, #pool_exception_integral .title, .rt_exceptions_count .title {
   background-color: #F47A80;
   color: #373D49;
 }
 
-#zeroHits_count .title, #zeroHits_integral .title,#pool_zeroHits_count .title, #pool_zeroHits_integral .title{
+#zeroHits_count .title, #zeroHits_integral .title,#pool_zeroHits_count .title, #pool_zeroHits_integral .title, .rt_zero_hits_count .title {
   background-color: #CEC5ED;
   color: #373D49;
 }
 
-#distribution_qtime .title,#query_time .title, #query_on_deck .title,#pool_query_time .title, #pool_query_on_deck .title{
+#distribution_qtime .title,#query_time .title, #query_on_deck .title,#pool_query_time .title, #pool_query_on_deck .title, .rt_avg_query_time .title {
   background-color: #F4C77F;
   color: #373D49;
 }
@@ -519,8 +537,9 @@ a:hover{
 }
 
 #params{
-  margin-left: 50px;
-  padding-top: 30px;
+  margin-left: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 #params .optional{
   display: none;
@@ -585,30 +604,10 @@ line-height: 30px;
 text-align: center;
 }
 
-
-
-/*
-select {
-width: 220px;
-background-color: #ffffff;
-border: 1px solid #cccccc;
-}*/
-
-/*
-select, input[type="file"] {
-height: 30px;
-line-height: 30px;
+.vat {
+  vertical-align: top;
 }
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-display: inline-block;
-height: 20px;
-padding: 4px 6px;
-margin-bottom: 10px;
-font-size: 14px;
-line-height: 20px;
-color: #555555;
-vertical-align: middle;
--webkit-border-radius: 4px;
--moz-border-radius: 4px;
-border-radius: 4px;
-}*/
+
+.vab {
+  vertical-align: bottom;
+}
