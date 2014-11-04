@@ -13,237 +13,207 @@
 </head>
 
 <body>
-  <nav>
-    <a href="/"><img src="img/thoth-logo-combo.png"></a>
-    <ul id="menu">
-      <li><a href="?p=servers"><i class="entypo popup"></i>Servers</a>
-      <li><a href="?p=pools"><i class="entypo database"></i>Pools</a>
-      <li><a href="?p=exceptions"><i class="entypo warning"></i>Exceptions</a>
-      <li><a href="?p=slowqueries"><i class="entypo air"></i>Slow Queries</a>
-      <li><a href="?p=realtime"><i class="entypo back-in-time"></i>Realtime</a>
-    </ul>
-    <a href="https://github.com/dbraga/thoth-dashboard"><img src="img/thoth-fork.png" class="thoth-fork"></a>
-    <a href="https://www.trulia.com"><img src="img/powered-trulia.png" class="powered-trulia"></a>
-  </nav>
-  <div class="content">
+<nav>
+  <a href="/"><img src="img/thoth-logo-combo.png"></a>
+  <ul id="menu">
+    <li><a href="?p=servers"><i class="entypo popup"></i>Servers</a>
+    <li><a href="?p=pools"><i class="entypo database"></i>Pools</a>
+    <li><a href="?p=exceptions"><i class="entypo warning"></i>Exceptions</a>
+    <li><a href="?p=slowqueries"><i class="entypo air"></i>Slow Queries</a>
+    <li><a href="?p=realtime"><i class="entypo back-in-time"></i>Realtime</a>
+  </ul>
+  <a href="https://github.com/dbraga/thoth-dashboard"><img src="img/thoth-fork.png" class="thoth-fork"></a>
+  <a href="https://www.trulia.com"><img src="img/powered-trulia.png" class="powered-trulia"></a>
+</nav>
+<div class="content">
 
-<header>
-  <form id="params" >
-    <label for="from_date" class="optional"> From </label>
-    <input type="text" class="optional" id="from_date" name="from_date" data-type="from-date" size="20">
+  <header>
+    <form id="params" >
+      <div class="row">
+        <label for="from_date" class="optional" data-role="from_date_label"> From </label>
+        <input type="text" class="optional formInput" id="from_date" name="from_date" data-role="from_date_input" size="20">
 
-    <label for="to_date" class="optional"> To </label>
-    <input type="text" class="optional" id="to_date" name="to_date" data-type="to-date" size="20">
+        <label for="to_date" class="optional" data-role="to_date_label"> To </label>
+        <input type="text" class="optional formInput" id="to_date" name="to_date" data-role="to_date_input" size="20">
 
-    <label for="server-values" class="optional"> Server </label>
-    <select id="server-values" class="optional" data-role="server-values-select"></select>
-    <label for="pool-values" class="optional"> Pool </label>
-    <select id="pool-values" class="optional" data-role="pool-values-select"></select>
+        <label for="server-values" class="optional" data-role="server_values_label"> Server </label>
+        <select id="server-values" class="optional formInput" data-role="server_values_select"></select>
 
-    <label for="port-values" class="optional"> Port </label>
-    <select id="port-values" class="optional" data-role="port-values-select"></select>
+        <label for="pool-values" class="optional" data-role="pool_values_label"> Pool </label>
+        <select id="pool-values" class="optional formInput" data-role="pool_values_select"></select>
 
-    <label for="core-values" class="optional"> Core </label>
-    <select id="core-values" class="optional" data-role="core-values-select"></select>
+        <label for="port-values" class="optional" data-role="port_values_label"> Port </label>
+        <select id="port-values" class="optional formInput" data-role="port_values_select"></select>
 
-    <button data-role="submit-settings" class="btn light-blue optional"><i class="entypo ccw"></i></button>
-    <button data-role="share-url" class="btn light-blue optional"><i class="entypo share"></i></button>
+        <label for="core-values" class="optional" data-role="core_values_label"> Core </label>
+        <select id="core-values" class="optional formInput" data-role="core_values_select"></select>
 
-  </form>
-</header>
-    <article id="main" class="container">
-      <section id="servers" class="row">
-
-        <div id="query_count" class="graph col-md-5">
-          <div class="title">Avg number of queries</div> 
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="query_integral" class="graph col-md-5">
-          <div class="title">&#8747; Query count</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div id="exception_count" class="graph col-md-5">
-          <div class="title">Exception count</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="exception_integral" class="graph col-md-5">
-          <div class="title">&#8747; Exception count</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div id="zeroHits_count" class="graph col-md-5">
-          <div class="title">Zero Hits count</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div id="zeroHits_integral" class="graph col-md-5">
-          <div class="title">&#8747; Zero Hits count</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div id="query_time" class="graph col-md-5">
-          <div class="title">Avg query time &mdash; sec</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>          
-        <div id="distribution_qtime" class="graph col-md-5">
-          <div class="title">Distribution of query times (sec)</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-          <svg id="query_distribution"></svg>
-        </div>
-        <br>
-        <div id="query_on_deck" class="graph col-md-5">
-          <div class="title">Avg number of queries "on deck"</div>
-          <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div> 
-  </section>
-
-  <section id="pools" class="row">
-
-    <div id="pool_query_count" class="graph col-md-5">
-      <div class="title">Avg number of queries</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="pool_query_integral" class="graph col-md-5">
-      <div class="title">&#8747; Query count</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>    
-
-
-    <div id="pool_exception_count" class="graph col-md-5">
-      <div class="title">Exception count</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="pool_exception_integral" class="graph col-md-5">
-      <div class="title">&#8747; Exception count</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-   <div id="pool_zeroHits_count" class="graph col-md-5">
-      <div class="title">Zero Hits count</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="pool_zeroHits_integral" class="graph col-md-5">
-      <div class="title">&#8747; Zero Hits count</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div id="pool_query_time" class="graph col-md-5">
-      <div class="title">Avg query time &mdash; sec</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div id="pool_query_on_deck" class="graph col-md-5">
-      <div class="title">Avg number of queries "on deck"</div>
-      <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-  </section>
-
-  <section id="realtime">
-    <div class="graph col-md-5">
-      <h2>Avg query time &mdash; sec</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div class="graph col-md-5">
-      <h2>Avg number of queries</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-    <div class="graph col-md-5">
-      <h2>&#8747; Query count</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <div class="graph col-md-5">
-      <h2>Avg number of queries "on deck"</h2>
-      <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-      <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-      <svg></svg>
-    </div>
-    <br>
-
-
-
-        <div class="graph col-md-5">
-          <h2>Exception count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div class="graph col-md-5">
-          <h2>&#8747; Exception count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div class="graph col-md-5">
-          <h2>Zero Hits count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <div class="graph col-md-5">
-          <h2>&#8747; Zero Hits count</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-        <br>
-        <div class="graph col-md-5">
-          <h2>Distribution of query times (sec)</h2>
-          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
-          <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
-          <svg></svg>
-        </div>
-      </section>
-     <section id="slowqueries" class="row">
-        <div id="page-content"></div>
-        <div id="pagination-wrapper" class="pagination center">
-        <ul id="pagination-demo" class="pagination-sm"></ul>   
+        <button class="btn light-blue optional formInput vab" data-role="submit_settings" ><i class="entypo ccw"></i></button>
+        <button class="btn light-blue optional formInput vab" data-role="share_url"><i class="entypo share"></i></button>
       </div>
-          
-      </section>
-    </article>
-  </div>
+    </form>
+  </header>
+  <article id="main" class="container">
+    <section id="servers" class="row">
+
+      <div id="query_count" class="graph col-md-5">
+        <div class="title">Avg number of queries</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="query_integral" class="graph col-md-5">
+        <div class="title">&#8747; Query count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+      <div id="exception_count" class="graph col-md-5">
+        <div class="title">Exception count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="exception_integral" class="graph col-md-5">
+        <div class="title">&#8747; Exception count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+      <div id="zeroHits_count" class="graph col-md-5">
+        <div class="title">Zero Hits count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="zeroHits_integral" class="graph col-md-5">
+        <div class="title">&#8747; Zero Hits count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+      <div id="query_time" class="graph col-md-5">
+        <div class="title">Avg query time &mdash; sec</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="distribution_qtime" class="graph col-md-5">
+        <div class="title">Distribution of query times (sec)</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label></label><h3 class="value"></h3> <label></label><h3 class="timestamp"></h3>
+        <svg id="query_distribution"></svg>
+      </div>
+      <br>
+      <div id="query_on_deck" class="graph col-md-5">
+        <div class="title">Avg number of queries "on deck"</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+    </section>
+
+    <section id="pools" class="row">
+
+      <div id="pool_query_count" class="graph col-md-5">
+        <div class="title">Avg number of queries</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="pool_query_integral" class="graph col-md-5">
+        <div class="title">&#8747; Query count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+
+
+      <div id="pool_exception_count" class="graph col-md-5">
+        <div class="title">Exception count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="pool_exception_integral" class="graph col-md-5">
+        <div class="title">&#8747; Exception count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+      <div id="pool_zeroHits_count" class="graph col-md-5">
+        <div class="title">Zero Hits count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="pool_zeroHits_integral" class="graph col-md-5">
+        <div class="title">&#8747; Zero Hits count</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+      <div id="pool_query_time" class="graph col-md-5">
+        <div class="title">Avg query time &mdash; sec</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <div id="pool_query_on_deck" class="graph col-md-5">
+        <div class="title">Avg number of queries "on deck"</div>
+        <a><i class="entypo eye" onClick="showLightBox(this);"></i></a>
+        <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+        <svg></svg>
+      </div>
+      <br>
+    </section>
+
+    <section id="realtime">
+      <div class="row">
+        <div class="rt_avg_query_time graph col-md-5">
+          <div class="title">Avg query time &mdash; sec</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="rt_avg_query_number graph col-md-5">
+          <div class="title">Avg number of queries</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rt_exceptions_count graph col-md-5">
+          <div class="title">Exceptions Count</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+        <div class="rt_zero_hits_count graph col-md-5">
+          <div class="title">Zero Hits Count</div>
+          <!-- <a><i class="entypo eye" onClick="showLightBox(this);"></i></a> -->
+          <br><label>Value:</label><h3 class="value"></h3> <label>Time:</label><h3 class="timestamp"></h3>
+          <svg></svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="slowqueries" class="row">
+      <div id="page-content"></div>
+      <div id="pagination-wrapper" class="pagination center">
+        <ul id="pagination-demo" class="pagination-sm"></ul>
+      </div>
+
+    </section>
+  </article>
+</div>
 
 
 <div id="lightbox">
@@ -258,42 +228,41 @@
 
 
 
-    <div id="listLightbox">
-    <div class="box">
-        <div id="lightboxChart" class="lightboxGraph">
-          <button class="circle"><i class="entypo cross close-button" ></i></button>
-          <label></label>
-          <p class="timestamp"></p>
-          <br>
-          <label class="qtime" style="display:none;" >QTime: </label>
-          <p class="qtime" style="display:none;"></p>
-          <br>
+<div id="listLightbox">
+  <div class="box">
+    <div id="lightboxChart" class="lightboxGraph">
+      <button class="circle"><i class="entypo cross close-button" ></i></button>
+      <label></label>
+      <p class="timestamp"></p>
+      <br>
+      <label class="qtime" style="display:none;" >QTime: </label>
+      <p class="qtime" style="display:none;"></p>
+      <br>
 
-          <label class="exception-stackTrace" style="display:none;">StackTrace</label>
-          <textarea class="exception-stackTrace" style="display:none;"></textarea>
-          <label class="exception-query" style="display:none;" >Query</label>
-          <textarea class="exception-query" style="display:none;"></textarea>
+      <label class="exception-stackTrace" style="display:none;">StackTrace</label>
+      <textarea class="exception-stackTrace" style="display:none;"></textarea>
+      <label class="exception-query" style="display:none;" >Query</label>
+      <textarea class="exception-query" style="display:none;"></textarea>
 
-          <label class="query-text" style="display:none;">Query</label>
-          <textarea class="query-text" style="display:none;"></textarea>
+      <label class="query-text" style="display:none;">Query</label>
+      <textarea class="query-text" style="display:none;"></textarea>
 
-        </div>
     </div>
   </div>
+</div>
 
-  <script src="js/d3.v3.js"></script>
-  <script src="js/nvd3/nv.d3.js"></script>
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
-  <script src="js/charts_data.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/graph_builder.js"></script>
-  <script src="js/realtime.js"></script>
-  <script src="js/form_options.js"></script>
-  <script src="js/thoth.js"></script>
-  <script src="js/jquery.twbsPagination.min.js"></script>
-
+<script src="js/d3.v3.js"></script>
+<script src="js/nvd3/nv.d3.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datetimepicker/jquery.datetimepicker.js"></script>
+<script src="js/charts_data.js"></script>
+<script src="js/api.js"></script>
+<script src="js/graph_builder.js"></script>
+<script src="js/realtime.js"></script>
+<script src="js/form_options.js"></script>
+<script src="js/thoth.js"></script>
+<script src="js/jquery.twbsPagination.min.js"></script>
 
 </body>
 
