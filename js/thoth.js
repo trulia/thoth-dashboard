@@ -5,8 +5,9 @@
 var formParams = [];
 
 function setRecapValue(id, value, unit, round, fontColor) {
-  $("#" + id + " .recap").text(value.toFixed(round) + " " + unit);
-  $("#" + id + " .recap").css("color", fontColor);
+  var recapElements = $("#" + id + " .recap");
+  recapElements.text(value.toFixed(round) + " " + unit);
+  recapElements.css("color", fontColor);
 }
 
 /**
@@ -35,12 +36,12 @@ function showFormAndData(objectId){
  * in: qtime in ms
  */
 function formatQtime(qtime){
-  if (qtime > 1000){
+  if (qtime > 1000) {
     // more than 1 sec, return secs
-    return (qtime/1000)+' s';
-  } else{
+    return (qtime / 1000) + ' s';
+  } else {
     // less than 1 sec, return ms
-    return qtime+' ms';
+    return qtime + ' ms';
   }
 }
 
@@ -57,7 +58,7 @@ function setDefaultFromAndToDates(){
   // Add date values if they are not already filled in the form
   if (getParamValue('from') == null)  $('[data-role=from_date_input]').val(yesterdayStr);
   else $('[data-role=from_date_input]').val(getParamValue('from'));
-  
+
   if (getParamValue('to') == null)  $('[data-role=to_date_input]').val(todayStr);
   else  $('[data-role=to_date_input]').val(getParamValue('to'));
 }
@@ -104,14 +105,13 @@ var thoth = {
     });
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'distribution', endpoint: 'qtime'})), function (data) {
-      // $.getJSON('json/distribution_qtime.json', function (data) {
       self._stackedLineGraph(chartsData.query_distribution.options, data);
     });
 
   },
+
   pools: function () {
     showFormAndData('pools');
-
     var self = this;
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'pool', attribute: 'avg', endpoint: 'qtime'})), function (data) {
@@ -150,12 +150,19 @@ var thoth = {
   slowqueries: function (npage) {
     showFormAndData('slowqueries');
     var self = this;
-    if (npage == undefined ) npage =1;
+    var $paginationDemo = $('#pagination-demo'),
+      $paginationWrapper = $('#pagination-wrapper');
+
+    if(npage == undefined) {
+      npage = 1;
+    }
+
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'slowqueries', page: npage})), function (data) {
       var pages = Math.round(data.numFound / 12) - 1;
-      $('#pagination-demo').remove();
-      $('#pagination-wrapper').append('<ul id="pagination-demo" class="pagination-sm"></ul>');
-      $('#pagination-demo').twbsPagination({
+
+      $paginationDemo.remove();
+      $paginationWrapper.append('<ul id="pagination-demo" class="pagination-sm"></ul>');
+      $paginationDemo.twbsPagination({
         totalPages: pages,
         visiblePages: 7,
         onPageClick: function (event, page) {
@@ -170,12 +177,19 @@ var thoth = {
   exceptions: function (npage) {
     showFormAndData('exceptions');
     var self = this;
-    if (npage == undefined ) npage =1;
+    var $paginationDemo = $('#pagination-demo'),
+      $paginationWrapper = $('#pagination-wrapper');
+
+    if(npage == undefined) {
+      npage = 1;
+    }
+
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'exception', page: npage})), function (data) {
       var pages = Math.round(data.numFound / 12) - 1;
-      $('#pagination-demo').remove();
-      $('#pagination-wrapper').append('<ul id="pagination-demo" class="pagination-sm"></ul>');
-      $('#pagination-demo').twbsPagination({
+
+      $paginationDemo.remove();
+      $paginationWrapper.append('<ul id="pagination-demo" class="pagination-sm"></ul>');
+      $paginationDemo.twbsPagination({
         totalPages: pages,
         visiblePages: 7,
         onPageClick: function (event, page) {
@@ -192,17 +206,20 @@ var thoth = {
   },
 
   _fill_slowQuery: function(page, data){
+    var $content = $('#content'),
+      $pageContent = $('#page-content');
     // Remove previous slow query boxes
-    $('#content').remove();
+    $content.remove();
     // Create the container for the new boxes
-    $('#page-content').append('<div id="content"></div>');
+    $pageContent.append('<div id="content"></div>');
 
     for (var i=0; i<data.values.length;i++){
       var el = data.values[i];
       var plainDate = new Date(el.timestamp);
       // Month/Day/Year Time/am-pm
       var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
-      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp slowquery">'
+
+      $content.append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp slowquery">'
         + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="qtime">'
         + formatQtime(el.qtime) + '</div><div class="query"> <label>Query</label><p class="query-text">'
         + el.query + '</p></div></div>');
@@ -210,10 +227,13 @@ var thoth = {
   },
 
   _fill_exceptions: function(page, data){
+
+    var $content = $('#content'),
+      $pageContent = $('#page-content');
     // Remove previous slow query boxes
-    $('#content').remove();
+    $content.remove();
     // Create the container for the new boxes
-    $('#page-content').append('<div id="content"></div>');
+    $pageContent.append('<div id="content"></div>');
 
     for (var i=0; i<data.values.length;i++){
       var el = data.values[i];
@@ -221,11 +241,11 @@ var thoth = {
       // Month/Day/Year Time/am-pm
       var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
       var exceptionName = el.exception.substr(0,el.exception.indexOf(' '));
-      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">' 
-        + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName">'+exceptionName+'</div><div class="query-exception"><label>StackTrace</label><p class="query-text">' 
-        + el.exception + '</div><div class="query"> <label>Query</label><p class="query-text">' 
+      $content.append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">'
+        + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName">'+exceptionName+'</div><div class="query-exception"><label>StackTrace</label><p class="query-text">'
+        + el.exception + '</div><div class="query"> <label>Query</label><p class="query-text">'
         + el.query + '</p></div></div>');
-    } 
+    }
   },
 
   _getParams: function (options) {
@@ -314,13 +334,13 @@ $(document).mousedown(function (e) {
   if (clicked.is('#lightbox') || clicked.is('.close-button')) {
     $('#lightbox').hide(); //or .fadeOut();
   }
-    if (clicked.is('#listLightbox')) {
+  if (clicked.is('#listLightbox')) {
     $('#listLightbox').hide(); //or .fadeOut();
   }
 });
 
 /**
- * Retrieve the params from query string  
+ * Retrieve the params from query string
  * @return array of params, empty array if landing page
  */
 function getParamsFromQueryString(){
@@ -334,14 +354,14 @@ function getParamsFromQueryString(){
       var val = decodeURIComponent(e.split("=")[1]).replace(/"/g,'');
       if (val[val.length-1] == '/') val = val.substr(0, val.length-2); // Remove the '/' from the last param value
       formParams.push({ name: e.split("=")[0], value: val}); // Store param and value in formParams array
-    });    
+    });
   }
   return formParams;
 }
 
 /**
  * Return value from param stored in the formParams array
- * @param  parameter name
+ * @param  paramName name
  * @return value or null if param does not exist
  */
 function getParamValue(paramName){
@@ -365,7 +385,7 @@ function initializeDatetimePickers(){
 
 /**
  * Retrieve selected option from dropdown select
- * @param select id
+ * @param paramId id
  * @return value
  */
 function getSelectedParamValue(paramId){
@@ -377,31 +397,42 @@ function getSelectedParamValue(paramId){
  * @return query string
  */
 function updateQueryStringFromForm(){
-    var $formParams = $('form select');
-    var serverParam = $formParams[0];
-    var isServerPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")!='slowqueries' && getParamValue("p")!='exceptions');
-    var isPoolPage = $formParams[1].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0;
-    var isSlowqueriesPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")=='slowqueries');
-    var isExceptionsPage = ($formParams[0].style.cssText.replace(/\s/g, '').indexOf("display:none") < 0 && getParamValue("p")=='exceptions');
-  
-    var queryString = '?';
-    if (isServerPage) queryString += 'p=servers&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
-    if (isPoolPage) queryString += 'p=pools&pool=' + '"' + getSelectedParamValue($formParams[1].id) + '"';
-    if (isSlowqueriesPage) queryString += 'p=slowqueries&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
-    if (isExceptionsPage) queryString += 'p=exceptions&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
 
-    queryString += '&port=' + '"' + getSelectedParamValue($formParams[2].id) + '"';
-    queryString += '&core=' + '"' + getSelectedParamValue($formParams[3].id) + '"' ;
-    queryString += '&from=' + '"' + $('[data-role=from_date_input]').val().replace(/ /g,'%20') + '"';
-    queryString += '&to=' + '"' + $('[data-role=to_date_input]').val().replace(/ /g,'%20') + '"';
-    return queryString; 
+  var $formParams           = $('form select');
+  var serverParamIsVisible = $($formParams[0]).is(':visible');
+  var poolParamIsVisible   = $($formParams[1]).is(':visible');
+
+  var isServerPage      = getParamValue('p') === 'server';
+  var isSlowqueriesPage = getParamValue('p') === 'slowqueries';
+  var isExceptionsPage  = getParamValue('p') === 'exceptions';
+  var isRealTime        = getParamValue('p') === 'realtime';
+
+
+  var queryString = '?';
+  if (isServerPage) queryString += 'p=servers&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
+  if (poolParamIsVisible) queryString += 'p=pools&pool=' + '"' + getSelectedParamValue($formParams[1].id) + '"';
+  if (isSlowqueriesPage) queryString += 'p=slowqueries&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
+  if (isExceptionsPage) queryString += 'p=exceptions&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
+  if (isRealTime) queryString += 'p=realtime&server=' + '"' + getSelectedParamValue($formParams[0].id) + '"';
+  queryString += '&port=' + '"' + getSelectedParamValue($formParams[2].id) + '"';
+  queryString += '&core=' + '"' + getSelectedParamValue($formParams[3].id) + '"' ;
+  queryString += '&from=' + '"' + $('[data-role=from_date_input]').val().replace(/ /g,'%20') + '"';
+  queryString += '&to=' + '"' + $('[data-role=to_date_input]').val().replace(/ /g,'%20') + '"';
+  return queryString;
 }
 
 
-function handleRequiredForms(action){
+function hideFormFields(){
   var elements = [$('[data-role=to_date_input]'), $('[data-role=from_date_input]'), $('[for=from_date]'), $('[for=to_date]'), $('[data-role=share_url]'), $('[data-role=submit_settings]')];
   elements.forEach(function(el){
-    el[action]();
+    $(el).hide();
+  });
+}
+
+function showFormFields(){
+  var elements = [$('[data-role=to_date_input]'), $('[data-role=from_date_input]'), $('[for=from_date]'), $('[for=to_date]'), $('[data-role=share_url]'), $('[data-role=submit_settings]')];
+  elements.forEach(function(el){
+    $(el).show();
   });
 }
 
@@ -412,7 +443,7 @@ function activateMenuLink(){
 
   var $li = $('#menu li');
   $li.removeClass('active');
-   if (getParamValue('p') != null) {
+  if (getParamValue('p') != null) {
     // populateForm(getParamValue('p'));
     var index;
     if ('servers' === getParamValue('p')) index = 0;
@@ -421,35 +452,9 @@ function activateMenuLink(){
     if ('slowqueries' === getParamValue('p')) index = 3;
     if ('realtime' === getParamValue('p')) index = 4;
 
-    $($li[index]).addClass('active'); 
+    $($li[index]).addClass('active');
   }
 }
-
-$('document').ready(function () {
-
-  // Bind events to the button
-  $('[data-role=submit_settings]').on('click', function (event) {
-    event.preventDefault();
-    document.location =  updateQueryStringFromForm();
-  });
-
-  $('[data-role=share_url]').on('click', function (event) {
-    event.preventDefault();
-    alert("Share this URL: \n\n" + document.location.href);
-  });
-
-  formParams = getParamsFromQueryString();
-  initializeDatetimePickers();
-  if (getParamValue('p') == null){
-    handleRequiredForms('hide');
-  } else {
-    handleRequiredForms('show');
-    populateForm(getParamValue('p'))
-  }
-  showFormAndData(getParamValue('p'));
-  activateMenuLink();
-});
-
 
 function showLightBox(elem) {
   var data = chartsData[elem.parentNode.parentNode.id].values;
@@ -486,22 +491,52 @@ function showLightBox(elem) {
 }
 
 function showListLightBox(elem) {
-    $('#listLightbox').show(); 
-    $('#lightboxChart .timestamp').html( $('#'+elem.parentNode.parentNode.id +' .timestamp')[0].innerText);
-    var qtime = $('#'+elem.parentNode.parentNode.id +' .qtime')[0];
-    if (qtime != undefined){
-      qtime = qtime.innerText;
-      $('#lightboxChart p.qtime').html(qtime);
-      $('#lightboxChart .qtime').show();
-      $('#lightboxChart .query-text').show();  
-      $('#lightboxChart textarea.query-text').html($('#'+elem.parentNode.parentNode.id +' .query-text')[0].innerText.replace(/\&/g,"\n\n"));
+  $('#listLightbox').show();
+  $('#lightboxChart .timestamp').html( $('#'+elem.parentNode.parentNode.id +' .timestamp')[0].innerText);
+  var qtime = $('#'+elem.parentNode.parentNode.id +' .qtime')[0];
+  if (qtime != undefined){
+    qtime = qtime.innerText;
+    $('#lightboxChart p.qtime').html(qtime);
+    $('#lightboxChart .qtime').show();
+    $('#lightboxChart .query-text').show();
+    $('#lightboxChart textarea.query-text').html($('#'+elem.parentNode.parentNode.id +' .query-text')[0].innerText.replace(/\&/g,"\n\n"));
 
-    } else {
-      $('#lightboxChart .exception-stackTrace').show();  
-      $('#lightboxChart .exception-query').show();  
-      $('#lightboxChart textarea.exception-query').html($('#'+elem.parentNode.parentNode.id +' .query .query-text')[0].innerText.replace(/\&/g,"\n\n"));
-      $('#lightboxChart textarea.exception-stackTrace').html($('#'+elem.parentNode.parentNode.id +' .query-exception .query-text')[0].innerText);
+  } else {
+    $('#lightboxChart .exception-stackTrace').show();
+    $('#lightboxChart .exception-query').show();
+    $('#lightboxChart textarea.exception-query').html($('#'+elem.parentNode.parentNode.id +' .query .query-text')[0].innerText.replace(/\&/g,"\n\n"));
+    $('#lightboxChart textarea.exception-stackTrace').html($('#'+elem.parentNode.parentNode.id +' .query-exception .query-text')[0].innerText);
 
-    }
-
+  }
 }
+
+// APPLICATION START
+$('document').ready(function () {
+
+  // Bind events to the button
+  $('[data-role=submit_settings]').on('click', function (event) {
+    event.preventDefault();
+    document.location =  updateQueryStringFromForm();
+  });
+
+  $('[data-role=share_url]').on('click', function (event) {
+    event.preventDefault();
+    alert("Share this URL: \n\n" + document.location.href);
+  });
+
+  formParams = getParamsFromQueryString();
+  initializeDatetimePickers();
+  if (getParamValue('p') === null){
+    hideFormFields();
+  } else {
+    if (getParamValue('p') === 'realtime') {
+      if (realtime.socket) {
+        realtime._sendNewData();
+      }
+    }
+    showFormFields();
+    populateForm(getParamValue('p'));
+  }
+  showFormAndData(getParamValue('p'));
+  activateMenuLink();
+});

@@ -2,43 +2,41 @@
  * Params we want to have in the header form
  */
 var form_options = {
-    'servers'      : [
-      'server',
-      'port',
-      'core'
-    ],
-    'pools'        : [
-      'pool',
-      'port',
-      'core'
-    ],
-    'exceptions'   : [
-      'server',
-      'port',
-      'core'
-    ],
-    'slow queries' : [
-      'server',
-      'port',
-      'core'
-    ],
-    'realtime'     : [
-      'server',
-      'port',
-      'core'
-    ]
+  'servers'      : [
+    'server',
+    'port',
+    'core'
+  ],
+  'pools'        : [
+    'pool',
+    'port',
+    'core'
+  ],
+  'exceptions'   : [
+    'server',
+    'port',
+    'core'
+  ],
+  'slow queries' : [
+    'server',
+    'port',
+    'core'
+  ],
+  'realtime'     : [
+    'server',
+    'port',
+    'core'
+  ]
 };
-
-
 
 /**
  * Populate the decided select gathering data from the API
- * @param  partial name of the select to populate
+ * @param param name of the select to populate
  * @return callback
  */
 function populateSelect(param){
   return $.getJSON(thothApi.getParamsListUri(param + 's'), function (data) {
-    list = data.list.sort();
+    var list = data.list.sort();
     //Find the correct select element and show it, with its label
     var $select = $('[data-role=' + param + '_values_select]');
     //Show selected select only
@@ -55,7 +53,7 @@ function populateSelect(param){
       }
     }
     return null;
-});
+  });
 }
 
 
