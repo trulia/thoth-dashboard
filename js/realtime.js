@@ -9,43 +9,25 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
     {data: [], attribute: 'count', endpoint: 'zeroHits',  settings: chartsData.zeroHits_count.options },
   ];
 
-  var params = {
-    'objectId': 'server'
-  };
-  var initialize = true;
+  var maxPointsDisplayed =  20;
 
   return {
 
-    init: function (params) {
+    init: function () {
       var self = this;
       var $svg = $('#realtime svg');
+
       $.each(graphs, function (idx, graph) {
-
-        params.attribute = graph.attribute;
-        params.endpoint = graph.endpoint;
-
-        $.getJSON(thothApi.getUri(params), function (data) {
-          graph.chart = graphBuilder.lineGraph(graph.settings);
-          graph.data = [];
-          graph.el = $svg.get(idx);
-
-          data.values.forEach(function (val) {
-            graph.data.push({x: Date.parse(val.timestamp), y: val.value});
-          });
-          self._updateGraph(graph);
-        });
+        graph.chart = graphBuilder.lineGraph(graph.settings);
+        graph.data = [];
+        graph.el = $svg.get(idx);
+        self._updateGraph(graph);
       });
     },
 
     show: function () {
       showFormAndData('realtime');
-
-      var serverParams = thoth._getParams(params);
-      if (initialize) {
-        this.init(serverParams);
-        initialize = false;
-      }
-
+      this.init();
       this._update();
     },
 
@@ -57,31 +39,47 @@ var realtime = (function (graphBuilder, thothApi, chartsData, d3) {
     _update: function () {
       var self = this;
 
-      $.getScript('https://cdn.socket.io/socket.io-1.0.0.js', function(){
-        var socket = io.connect('localhost:3001');
-        socket.on('new realtime data', function(data){
-          $.each(graphs, function (idx, graph) {
-            if (data.hasOwnProperty(graph.endpoint)) {
-              // discard points after we have more then 20
-              if (graph.data.length > 20)
-              {
-                graph.data.shift();
-              }
-              graph.data.push({
-                x: data[graph.endpoint][0].timestamp,
-                y: data[graph.endpoint][0].value
-              });
-              self._updateGraph(graph);
-            }
-          });
+      if (typeof self.socket == 'undefined') {
+        $.getScript('https://cdn.socket.io/socket.io-1.2.0.js', function(){
+          self.socket = io.connect('localhost:3001');
+          self._sendNewData();
         });
-      });
+      }
     },
 
     _updateGraph: function (graph) {
       d3.select(graph.el)
         .datum([{key: graph.settings.yLabel, values: graph.data}])
         .call(graph.chart);
+    },
+
+    _getCurrentQueryParams: function () {
+      return {
+        server: $('[data-role=server_values_select]').val(),
+        core: $('[data-role=core_values_select]').val(),
+        port: $('[data-role=port_values_select]').val()
+      };
+    },
+
+    _sendNewData: function () {
+      var self = this;
+      self.socket.emit('queryParams', self._getCurrentQueryParams());
+      self.socket.on('new realtime data', function(data){
+        $.each(graphs, function (idx, graph) {
+          if (data.hasOwnProperty(graph.endpoint)) {
+            // discard points after we have more then 20
+            if (graph.data.length > maxPointsDisplayed)
+            {
+              graph.data.shift();
+            }
+            graph.data.push({
+              x: data[graph.endpoint][0].timestamp,
+              y: data[graph.endpoint][0].value
+            });
+            self._updateGraph(graph);
+          }
+        });
+      });
     }
   };
 } (graphBuilder, thothApi, chartsData, d3));
