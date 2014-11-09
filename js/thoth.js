@@ -396,7 +396,7 @@ function updateQueryStringFromForm(){
   var serverParamIsVisible = $($formParams[0]).is(':visible');
   var poolParamIsVisible   = $($formParams[1]).is(':visible');
 
-  var isServerPage      = getParamValue('p') === 'server';
+  var isServerPage      = getParamValue('p') === 'servers';
   var isSlowqueriesPage = getParamValue('p') === 'slowqueries';
   var isExceptionsPage  = getParamValue('p') === 'exceptions';
   var isRealTime        = getParamValue('p') === 'realtime';
