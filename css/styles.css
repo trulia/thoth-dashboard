@@ -611,3 +611,15 @@ text-align: center;
 .vab {
   vertical-align: bottom;
 }
+
+.truncate {
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.formInput {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
