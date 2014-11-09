@@ -40,16 +40,16 @@ nav img {
   height: 50px;
 }
 .powered-trulia{
-  margin-top:25px;
+  margin-top: 25px;
 }
 
 .thoth-fork{
-  margin-top:150px;
+  margin-top: 150px;
 }
 
 nav ul {
   list-style: none;
-  padding: 0px
+  padding: 0;
 }
 
 nav li {
@@ -131,7 +131,7 @@ header {
   font-size: 16px;
   border-radius: 5px;
   /*box-shadow: #e8942d 0px 4px 0px;*/
-  border: 0px;
+  border: 0;
   /*background-color: #F6AB3B;*/
   color: white;
   cursor: pointer;
@@ -238,11 +238,11 @@ i.ccw, i.clipboard, i.share {
 }
 
 .slowquery-box.col-md-3{
-  padding:0px;
+  padding:0;
 }
 
 .col-md-5{
-  padding: 0px;
+  padding: 0;
 }
 
 .title{
@@ -610,4 +610,16 @@ text-align: center;
 
 .vab {
   vertical-align: bottom;
+}
+
+.truncate {
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.formInput {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

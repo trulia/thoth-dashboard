@@ -206,20 +206,17 @@ var thoth = {
   },
 
   _fill_slowQuery: function(page, data){
-    var $content = $('#content'),
-      $pageContent = $('#page-content');
     // Remove previous slow query boxes
-    $content.remove();
+    $('#content').remove();
     // Create the container for the new boxes
-    $pageContent.append('<div id="content"></div>');
+    $('#page-content').append('<div id="content"></div>');
 
     for (var i=0; i<data.values.length;i++){
       var el = data.values[i];
       var plainDate = new Date(el.timestamp);
       // Month/Day/Year Time/am-pm
       var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
-
-      $content.append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp slowquery">'
+      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp slowquery">'
         + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="qtime">'
         + formatQtime(el.qtime) + '</div><div class="query"> <label>Query</label><p class="query-text">'
         + el.query + '</p></div></div>');
@@ -227,13 +224,10 @@ var thoth = {
   },
 
   _fill_exceptions: function(page, data){
-
-    var $content = $('#content'),
-      $pageContent = $('#page-content');
     // Remove previous slow query boxes
-    $content.remove();
+    $('#content').remove();
     // Create the container for the new boxes
-    $pageContent.append('<div id="content"></div>');
+    $('#page-content').append('<div id="content"></div>');
 
     for (var i=0; i<data.values.length;i++){
       var el = data.values[i];
@@ -241,11 +235,11 @@ var thoth = {
       // Month/Day/Year Time/am-pm
       var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
       var exceptionName = el.exception.substr(0,el.exception.indexOf(' '));
-      $content.append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">'
-        + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName">'+exceptionName+'</div><div class="query-exception"><label>StackTrace</label><p class="query-text">'
-        + el.exception + '</div><div class="query"> <label>Query</label><p class="query-text">'
+      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">' 
+        + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName truncate">'+exceptionName+'</div><div class="query-exception"><label>StackTrace</label><p class="query-text">'
+        + el.exception + '</div><div class="query"> <label>Query</label><p class="query-text">' 
         + el.query + '</p></div></div>');
-    }
+    } 
   },
 
   _getParams: function (options) {
@@ -402,7 +396,7 @@ function updateQueryStringFromForm(){
   var serverParamIsVisible = $($formParams[0]).is(':visible');
   var poolParamIsVisible   = $($formParams[1]).is(':visible');
 
-  var isServerPage      = getParamValue('p') === 'server';
+  var isServerPage      = getParamValue('p') === 'servers';
   var isSlowqueriesPage = getParamValue('p') === 'slowqueries';
   var isExceptionsPage  = getParamValue('p') === 'exceptions';
   var isRealTime        = getParamValue('p') === 'realtime';
