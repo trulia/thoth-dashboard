@@ -14,19 +14,11 @@ function setRecapValue(id, value, unit, round, fontColor) {
  * Show right form and data box while hiding the other forms/data boxes
  */
 function showFormAndData(objectId){
-  $('#' + objectId).show();
-  ['servers','pools','realtime','slowqueries','exceptions'].forEach(function(data){
-    if (objectId == data) {
+  ['servers', 'pools', 'realtime', 'slowqueries', 'exceptions'].forEach(function(data){
+    if (objectId === data) {
       $('#' + data).show();
-      $('#params_' + data).show();
-
-      if (data == 'exceptions') {
-        $('#slowqueries').show();
-        $('#params_slowqueries').show();
-      }
     } else {
       $('#' + data).hide();
-      $('#params_' + data).hide();
     }
   });
 }
@@ -150,18 +142,19 @@ var thoth = {
   slowqueries: function (npage) {
     showFormAndData('slowqueries');
     var self = this;
-    var $paginationDemo = $('#pagination-demo'),
-      $paginationWrapper = $('#pagination-wrapper');
+    var $paginationDemo = $('[data-role=slowqueries_pagination_demo]'),
+      $paginationWrapper = $('[data-role=slowqueries_pagination_wrapper]');
 
     if(npage == undefined) {
       npage = 1;
     }
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'slowqueries', page: npage})), function (data) {
+      //TODO handle negative case
       var pages = Math.round(data.numFound / 12) - 1;
 
       $paginationDemo.remove();
-      $paginationWrapper.append('<ul id="pagination-demo" class="pagination-sm"></ul>');
+      $paginationWrapper.append('<ul data-role="slowqueries_pagination_demo" class="pagination-sm pagination-demo"></ul>');
       $paginationDemo.twbsPagination({
         totalPages: pages,
         visiblePages: 7,
@@ -177,18 +170,19 @@ var thoth = {
   exceptions: function (npage) {
     showFormAndData('exceptions');
     var self = this;
-    var $paginationDemo = $('#pagination-demo'),
-      $paginationWrapper = $('#pagination-wrapper');
+    var $paginationDemo = $('[data-role=exceptions_pagination_demo]'),
+      $paginationWrapper = $('[data-role=exceptions_pagination_wrapper]');
 
     if(npage == undefined) {
       npage = 1;
     }
 
     $.getJSON(thothApi.getUri(self._getParams({objectId: 'server', attribute: 'list', endpoint: 'exception', page: npage})), function (data) {
+      //TODO handle negative case
       var pages = Math.round(data.numFound / 12) - 1;
 
       $paginationDemo.remove();
-      $paginationWrapper.append('<ul id="pagination-demo" class="pagination-sm"></ul>');
+      $paginationWrapper.append('<ul data-role="exceptions_pagination_demo" class="pagination-sm pagination-demo"></ul>');
       $paginationDemo.twbsPagination({
         totalPages: pages,
         visiblePages: 7,
@@ -206,17 +200,21 @@ var thoth = {
   },
 
   _fill_slowQuery: function(page, data){
-    // Remove previous slow query boxes
-    $('#content').remove();
-    // Create the container for the new boxes
-    $('#page-content').append('<div id="content"></div>');
 
-    for (var i=0; i<data.values.length;i++){
+    var $content = $('[data-role=slowqueries_content]'),
+      $pageContent = $('[data-role=slowqueries_page_content]');
+
+    // Remove previous slow query boxes
+    $content.remove();
+    // Create the container for the new boxes
+    $pageContent.append('<div data-role="slowqueries_content"></div>');
+
+    for (var i=0; i < data.values.length; i++){
       var el = data.values[i];
       var plainDate = new Date(el.timestamp);
       // Month/Day/Year Time/am-pm
-      var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
-      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp slowquery">'
+      var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() + " " + plainDate.getHours() + ":" + plainDate.getMinutes() + ":" + plainDate.getSeconds();
+      $('[data-role=slowqueries_content]').append('<div id="slowquery-box-' + i + '" class="slowquery-box col-md-3"><div class="timestamp slowquery">'
         + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="qtime">'
         + formatQtime(el.qtime) + '</div><div class="query"> <label>Query</label><p class="query-text">'
         + el.query + '</p></div></div>');
@@ -224,19 +222,22 @@ var thoth = {
   },
 
   _fill_exceptions: function(page, data){
-    // Remove previous slow query boxes
-    $('#content').remove();
-    // Create the container for the new boxes
-    $('#page-content').append('<div id="content"></div>');
 
-    for (var i=0; i<data.values.length;i++){
+    var $content = $('[data-role=exceptions_content]'),
+      $pageContent = $('[data-role=exceptions_page_content]');
+    // Remove previous slow query boxes
+    $content.remove();
+    // Create the container for the new boxes
+    $pageContent.append('<div data-role="exceptions_content"></div>');
+
+    for (var i=0; i < data.values.length; i++){
       var el = data.values[i];
       var plainDate = new Date(el.timestamp);
       // Month/Day/Year Time/am-pm
-      var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() +" " + plainDate.getHours() + ":" + plainDate.getMinutes() +":"+ plainDate.getSeconds();
-      var exceptionName = el.exception.substr(0,el.exception.indexOf(' '));
-      $('#content').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">' 
-        + formattedDate +'</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName truncate">'+exceptionName+'</div><div class="query-exception"><label>StackTrace</label><p class="query-text">'
+      var formattedDate = plainDate.getMonth() + "/" + plainDate.getDate() + "/" + plainDate.getFullYear() + " " + plainDate.getHours() + ":" + plainDate.getMinutes() + ":" + plainDate.getSeconds();
+      var exceptionName = el.exception.substr(0, el.exception.indexOf(' '));
+      $('[data-role=exceptions_content]').append('<div id="slowquery-box-'+i+'" class="slowquery-box col-md-3"><div class="timestamp exception">'
+        + formattedDate + '</div><a><i class="entypo eye" onClick="showListLightBox(this);"></i></a><div class="exceptionName truncate">' + exceptionName + '</div><div class="query-exception"><label>StackTrace</label><p class="query-text">'
         + el.exception + '</div><div class="query"> <label>Query</label><p class="query-text">' 
         + el.query + '</p></div></div>');
     } 
@@ -520,7 +521,7 @@ $('document').ready(function () {
 
   formParams = getParamsFromQueryString();
   initializeDatetimePickers();
-  if (getParamValue('p') === null){
+  if (getParamValue('p') === null) {
     hideFormFields();
   } else {
     if (getParamValue('p') === 'realtime') {
