@@ -1,14 +1,7 @@
 /* globals nv, d3, thothApi, chartsData, realtime, graphBuilder */
-/* exported thoth, showLightBox */
-/* exported thoth, setRecapValue, showLightBox */
+/* exported thoth */
 
 var formParams = [];
-
-function setRecapValue(id, value, unit, round, fontColor) {
-  var recapElements = $("#" + id + " .recap");
-  recapElements.text(value.toFixed(round) + " " + unit);
-  recapElements.css("color", fontColor);
-}
 
 /**
  * Show right form and data box while hiding the other forms/data boxes
@@ -394,7 +387,6 @@ function getSelectedParamValue(paramId){
 function updateQueryStringFromForm(){
 
   var $formParams           = $('form select');
-  var serverParamIsVisible = $($formParams[0]).is(':visible');
   var poolParamIsVisible   = $($formParams[1]).is(':visible');
 
   var isServerPage      = getParamValue('p') === 'servers';
