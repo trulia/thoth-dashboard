@@ -1,5 +1,16 @@
 /* Lightbox functions */
 
+// Listen for document click to close non-modal dialog
+$(document).mousedown(function (e) {
+  var clicked = $(e.target); // get the element clicked
+  if (clicked.is('#lightbox') || clicked.is('.close-button')) {
+    $('#lightbox').hide(); //or .fadeOut();
+  }
+  if (clicked.is('#listLightbox')) {
+    $('#listLightbox').hide(); //or .fadeOut();
+  }
+});
+
 /**
  * showLightBox
  * @param elem
