@@ -1,7 +1,15 @@
 /* globals d3, nv, chartsData */
 /* exported graphBuilder */
 var graphBuilder = (function (d3, nv) {
+
   return {
+
+    /**
+     * lineGraph
+     * @param params
+     * @param data
+     * @returns {*}
+     */
     lineGraph: function (params, data) {
       var chart = nv.models.lineChart().color([params.color])
         .tooltipContent(function (key, y, e) {
@@ -35,6 +43,12 @@ var graphBuilder = (function (d3, nv) {
       return chart;
     },
 
+    /**
+     * stackedAreaChart
+     * @param params
+     * @param data
+     * @returns {*}
+     */
     stackedAreaChart: function (params, data) {
       var chart = nv.models.stackedAreaChart();
 
@@ -72,6 +86,56 @@ var graphBuilder = (function (d3, nv) {
         .attr("transform", "translate(-60,-90)");
 
       return chart;
+    },
+
+    /**
+     * cumulativeLineGraph
+     * @param params
+     * @param data
+     */
+    cumulativeLineGraph: function(params, data) {
+      nv.addGraph(function() {
+        var chart = nv.models.cumulativeLineChart()
+            .x(function(d) { return Date.parse(d[0]) })
+            .y(function(d) { return d[1] }) //adjusting, 100% is 1.00, not 100 as it is in the data
+            .color(d3.scale.category10().range())
+            .useInteractiveGuideline(true)
+          ;
+        //chartsData[params.chartId].options.color = d3.scale.category10().range();
+        chart.xAxis
+          .tickValues([1078030800000,1122782400000,1167541200000,1251691200000])
+          .tickFormat(function(d) {
+            return d3.time.format('%x')(new Date(d))
+          });
+
+        // Formatting values to be represented with 3 figures and a symbol
+        chart.yAxis
+          .tickFormat(function(d) {
+            return d + d3.formatPrefix(d).symbol();
+          })
+          .tickFormat(d3.format('.3s'));
+
+        // Populate values for lightbox display
+        data.forEach(function(obj) {
+          var v = [];
+          obj.values.forEach(function (val) {
+            v.push({
+              // set x to date, y to value
+              x: Date.parse(val[0]), y: val[1]
+            });
+          });
+          chartsData[params.chartId].values.push({key: obj.key, values: v});
+        });
+
+        d3.select('#' + params.chartId + ' svg')
+          .datum(data)
+          .call(chart);
+
+        //TODO: Figure out a good way to do this automatically
+        nv.utils.windowResize(chart.update);
+
+        return chart;
+      });
     }
   };
 })(d3, nv, chartsData);
