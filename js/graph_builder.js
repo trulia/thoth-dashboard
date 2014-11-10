@@ -1,7 +1,15 @@
 /* globals d3, nv, chartsData */
 /* exported graphBuilder */
 var graphBuilder = (function (d3, nv) {
+
   return {
+
+    /**
+     * lineGraph
+     * @param params
+     * @param data
+     * @returns {*}
+     */
     lineGraph: function (params, data) {
       var chart = nv.models.lineChart().color([params.color])
         .tooltipContent(function (key, y, e) {
@@ -35,6 +43,12 @@ var graphBuilder = (function (d3, nv) {
       return chart;
     },
 
+    /**
+     * stackedAreaChart
+     * @param params
+     * @param data
+     * @returns {*}
+     */
     stackedAreaChart: function (params, data) {
       var chart = nv.models.stackedAreaChart();
 
@@ -74,6 +88,11 @@ var graphBuilder = (function (d3, nv) {
       return chart;
     },
 
+    /**
+     * cumulativeLineGraph
+     * @param params
+     * @param data
+     */
     cumulativeLineGraph: function(params, data) {
       nv.addGraph(function() {
         var chart = nv.models.cumulativeLineChart()

@@ -3,7 +3,6 @@
 
 var formParams = [];
 
-
 /**
  * Show right form and data box while hiding the other forms/data boxes
  */
@@ -53,7 +52,6 @@ function setDefaultFromAndToDates(){
   else  $('[data-role=to_date_input]').val(getParamValue('to'));
 }
 
-
 /**
  * getParamsFromQueryString
  * Retrieve the params from query string
@@ -87,8 +85,6 @@ function getParamValue(paramName){
   }
   return null;
 }
-
-
 
 /**
  * initializeDatetimePickers
