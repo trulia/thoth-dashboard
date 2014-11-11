@@ -33,4 +33,4 @@ Copyright (c) 2014 Trulia, Inc. See the LICENSE file for license rights and limi
 
 Powered by
 =============
-<img align="left" src="img/powered-trulia.png?raw=true">
+<img align="left" src="img/powered-trulia-black.png?raw=true">
