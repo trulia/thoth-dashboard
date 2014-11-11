@@ -26,6 +26,7 @@ Thoth Monitor - Contributors
 - [Damiano Braga](https://github.com/dbraga)
 - [Giulio Grillanda](https://github.com/ingiulio)
 - [JD Cantrell](https://github.com/jdcantrell)
+- [Ying Wang](https://dribbble.com/YingSunnyWang)
 
 License
 =============
