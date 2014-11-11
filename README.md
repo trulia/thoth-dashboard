@@ -4,12 +4,12 @@
 
 What is Thoth ?
 =====================
-**Thoth** is a real-time solr monitor and search analysis engine. It's a set of tools that can help you collect, visualize and leaverage data coming from your solr search infrastucture.
+**Thoth** is a real-time solr monitor and search analysis engine. It's a set of tools that can help you collect, visualize and leverage data coming from your solr search infrastucture.
 Want to learn more? [See the Wiki](https://github.com/trulia/thoth/wiki)
 
 Thoth Dashboard
 ======================
-**Thoth Dashboard** is the module that is responsable of visualizing data contained in Thoth. It provides server and pool specific graphs, list of slow queries and exceptions etc. It also provides access to historical dashboards as well as near-real time data. 
+**Thoth Dashboard** is the module that is responsible of visualizing data contained in Thoth. It provides server and pool specific graphs, list of slow queries and exceptions etc. It also provides access to historical dashboards as well as near-real time data. 
 <img src="img/thoth-dashboard-schema.png?raw=true"> <br>
 For instructions on how to use this module, or a list of the other modules [See the Wiki](https://github.com/trulia/thoth-dashboard/wiki)
 
